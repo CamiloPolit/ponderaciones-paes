@@ -3,18 +3,27 @@ import React, { useState, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 import universities from "../app/universities.json";
 
+type University = {
+  name?: string;
+  abbreviation?: string;
+  locations?: string[];
+}[];
+
 export default function Page() {
-  const suggestions = universities.Universities;
+  const suggestions: University = universities.Universities;
   const [inputValue, setInputValue] = useState<string>("");
   const [highlightedText, setHighlightedText] = useState<string>("");
+  const [imageSrc, setImageSrc] = useState<string>("");
   const [matchedText, setMatchedText] = useState<string>("");
   const [selectedUniversity, setSelectedUniversity] = useState<boolean>(false);
 
   const handleChange = (e) => {
     const value: string = e.target.value;
-    const match: string = suggestions.find((suggestion) =>
+    let match = suggestions.find((suggestion) =>
       suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
     );
+    setImageSrc(match ? match.abbreviation : "");
+    match = match.name;
 
     setMatchedText(match);
     setSelectedUniversity(false);
@@ -22,9 +31,7 @@ export default function Page() {
 
     // Modify the suggested text in case the case of the input is different
     if (match && value) {
-      const matchModified = value
-        .slice(0)
-        .concat(match.name.slice(value.length));
+      const matchModified = value.slice(0).concat(match.slice(value.length));
       setHighlightedText(matchModified);
     } else {
       setHighlightedText("");
@@ -34,7 +41,7 @@ export default function Page() {
   const handleKeyDown = (e) => {
     if (e.key === "Tab" && highlightedText) {
       e.preventDefault();
-      setInputValue(matchedText.name);
+      setInputValue(matchedText);
       setHighlightedText("");
       setSelectedUniversity(true);
     }

@@ -1,0 +1,244 @@
+{
+  "Universities": [
+    {
+      "name": "Universidad Católica de Chile",
+      "abbreviation": "PUC",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Chile",
+      "abbreviation": "UCH",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Santiago de Chile",
+      "abbreviation": "USACH",
+      "locations": []
+    },
+    {
+      "name": "Universidad Adolfo Ibáñez",
+      "abbreviation": "UAI",
+      "locations": []
+    },
+    {
+      "name": "Universidad Técnica Federico Santa María",
+      "abbreviation": "UTFSM",
+      "locations": []
+    },
+    {
+      "name": "Universidad Diego Portales",
+      "abbreviation": "UDP",
+      "locations": []
+    },
+    {
+      "name": "Universidad Academia de Humanismo Cristiano",
+      "abbreviation": "UAHC",
+      "locations": []
+    },
+    {
+      "name": "Universidad Adventista de Chile",
+      "abbreviation": "UNACH",
+      "locations": []
+    },
+    {
+      "name": "Universidad Alberto Hurtado",
+      "abbreviation": "UAH",
+      "locations": []
+    },
+    {
+      "name": "Universidad Andrés Bello",
+      "abbreviation": "UNAB",
+      "locations": []
+    },
+    {
+      "name": "Universidad Arturo Prat",
+      "abbreviation": "UNAP",
+      "locations": []
+    },
+    {
+      "name": "Universidad Austral de Chile",
+      "abbreviation": "UACH",
+      "locations": []
+    },
+    {
+      "name": "Universidad Autónoma de Chile",
+      "abbreviation": "UA",
+      "locations": []
+    },
+    {
+      "name": "Universidad Bernardo O'Higgins",
+      "abbreviation": "UBO",
+      "locations": []
+    },
+    {
+      "name": "Universidad Católica de la Santísima Concepción",
+      "abbreviation": "UCSC",
+      "locations": []
+    },
+    {
+      "name": "Universidad Católica de Temuco",
+      "abbreviation": "UCT",
+      "locations": []
+    },
+    {
+      "name": "Universidad Católica de Valparaíso",
+      "abbreviation": "PUCV",
+      "locations": []
+    },
+    {
+      "name": "Universidad Católica del Maule",
+      "abbreviation": "UCM",
+      "locations": []
+    },
+    {
+      "name": "Universidad Católica del Norte",
+      "abbreviation": "UCN",
+      "locations": []
+    },
+    {
+      "name": "Universidad Católica Silva Henríquez",
+      "abbreviation": "UCSH",
+      "locations": []
+    },
+    {
+      "name": "Universidad Central de Chile",
+      "abbreviation": "UCEN",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Aconcagua",
+      "abbreviation": "UAC",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Antofagasta",
+      "abbreviation": "UA",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Atacama",
+      "abbreviation": "UDA",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Concepción",
+      "abbreviation": "UDEC",
+      "locations": []
+    },
+    {
+      "name": "Universidad de La Frontera",
+      "abbreviation": "UFRO",
+      "locations": []
+    },
+    {
+      "name": "Universidad de La Serena",
+      "abbreviation": "ULS",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Las Américas",
+      "abbreviation": "UDLA",
+      "locations": []
+    },
+    {
+      "name": "Universidad de los Andes",
+      "abbreviation": "UANDES",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Los Lagos",
+      "abbreviation": "ULAGOS",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Magallanes",
+      "abbreviation": "UMAG",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Playa Ancha",
+      "abbreviation": "UPLA",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Talca",
+      "abbreviation": "UTAL",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Tarapacá de Arica",
+      "abbreviation": "UTA",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Valparaíso",
+      "abbreviation": "UV",
+      "locations": []
+    },
+    {
+      "name": "Universidad de Viña del Mar",
+      "abbreviation": "UVM",
+      "locations": []
+    },
+    {
+      "name": "Universidad del Alba",
+      "abbreviation": "UDALBA",
+      "locations": []
+    },
+    {
+      "name": "Universidad del Bío Bío",
+      "abbreviation": "UBB",
+      "locations": []
+    },
+    {
+      "name": "Universidad del Desarrollo",
+      "abbreviation": "UDD",
+      "locations": []
+    },
+    {
+      "name": "Universidad Finis Terrae",
+      "abbreviation": "UFT",
+      "locations": []
+    },
+    {
+      "name": "Universidad Gabriela Mistral",
+      "abbreviation": "UGM",
+      "locations": []
+    },
+    {
+      "name": "Universidad Mayor",
+      "abbreviation": "UM",
+      "locations": []
+    },
+    {
+      "name": "Universidad Metropolitana de Ciencias de la Educación",
+      "abbreviation": "UMCE",
+      "locations": []
+    },
+    {
+      "name": "Universidad Miguel de Cervantes",
+      "abbreviation": "UMC",
+      "locations": []
+    },
+    {
+      "name": "Universidad San Sebastián",
+      "abbreviation": "USS",
+      "locations": []
+    },
+    {
+      "name": "Universidad Santo Tomás",
+      "abbreviation": "UST",
+      "locations": []
+    },
+    {
+      "name": "Universidad Tecnológica Metropolitana",
+      "abbreviation": "UTEM",
+      "locations": []
+    },
+    {
+      "name": "Universidad UNIACC",
+      "abbreviation": "UNIACC",
+      "locations": []
+    }
+  ]
+}

@@ -8,8 +8,10 @@ export default function Page() {
   const [inputValue, setInputValue] = useState("");
   const [highlightedText, setHighlightedText] = useState("");
   const [matchedText, setMatchedText] = useState("");
+  const [selectedUniversity, setSelectedUniversity] = useState(false);
 
   const handleChange = (e) => {
+    setSelectedUniversity(false);
     const value = e.target.value;
     setInputValue(value);
     const match = suggestions.find((suggestion) =>
@@ -32,6 +34,7 @@ export default function Page() {
       e.preventDefault();
       setInputValue(matchedText.name);
       setHighlightedText("");
+      setSelectedUniversity(true);
     }
   };
 
@@ -39,8 +42,16 @@ export default function Page() {
 
   return (
     <div className="flex">
-      <img className="h-min" src="/favicons/favicon-32x32.png" alt="Logo UCh" />
-      {/* <MdBlock size="32px" className="text-gray-500" /> */}
+      {(highlightedText || selectedUniversity) && (
+        <img
+          className="h-min"
+          src="/favicons/favicon-32x32.png"
+          alt="Logo UCh"
+        />
+      )}
+      {!highlightedText && !selectedUniversity && (
+        <MdBlock size="32px" className="text-gray-500" />
+      )}
       <div className="h-full" style={{ position: "relative" }}>
         <input
           type="text"
@@ -49,7 +60,7 @@ export default function Page() {
           onKeyDown={handleKeyDown}
           placeholder="Ejemplo: Universidad de Chile"
         />
-        {highlightedText && inputValue && (
+        {inputValue && (
           <input
             type="text"
             value={highlightedText}

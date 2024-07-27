@@ -49,6 +49,12 @@ export default function Page({
     } else {
       setHighlightedText("");
     }
+
+    if (highlightedText == value) {
+      setHighlightedText("");
+      setSelectedUniversity(true);
+      setIsDisabled(false);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -79,7 +85,7 @@ export default function Page({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Ejemplo: Universidad de Chile"
-          className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/50 ${isDisabled ? "hover:border-black" : ""}`}
+          className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
         />
         {inputValue && (
           <input

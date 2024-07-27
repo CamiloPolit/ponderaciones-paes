@@ -16,11 +16,30 @@ export default function CarreerSearch({
       number: "C101",
       name: "Ingeniería Civil en Biotecnología",
     },
+    { prefix: "ENG", number: "C001", name: "Ingeniería Civil en Computación" },
+    { prefix: "ENG", number: "C002", name: "Ingeniería Civil Industrial" },
+    { prefix: "ENG", number: "C004", name: "Ingeniería Civil Química" },
+    { prefix: "ENG", number: "C003", name: "Ingeniería Civil Eléctrica" },
+    {
+      prefix: "ENG",
+      number: "C101",
+      name: "Ingeniería Civil en Biotecnología",
+    },
   ];
+
+  // Acá hay que añadir lógica para cuando hagamos el fetch, filtrar por área
+  const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
+  const [selectedColor, setSelectedColor] = useState("");
 
   useEffect(() => {
     careerComponentRef.current.focus();
   }, [isDisabled]);
+
+  const handleClick = (type) => {
+    setActiveCareerType(type);
+  };
+
+  const types = ["Todo", "Ingeniería", "Ciencias", "Humanista", "Salud"];
 
   return (
     <div className="my-5 flex items-center justify-center">
@@ -36,22 +55,43 @@ export default function CarreerSearch({
           disabled={isDisabled}
           className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/85 ${isDisabled ? "disabled:cursor-not-allowed disabled:bg-slate-100" : "hover:cursor-pointer hover:border-black"}`}
         />
-        <div className="absolute w-full">
-          {selectedUniversity &&
-            careerExamples.map((career) => (
-              <div
-                key={career.number}
-                className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
-              >
-                <div className="max-h-8 max-w-8">
-                  <img
-                    src={`/careerIcons/${career.prefix.toLowerCase()}.png`}
-                    alt={`Foto ${career.prefix}`}
-                  />
+        <div className="absolute max-h-48 w-full overflow-auto">
+          {selectedUniversity && (
+            <div>
+              <div className="flex justify-between bg-gray-100 px-1 text-xs">
+                <div>Tipo de carrera:</div>
+                <div className="flex">
+                  {types.map((type) => (
+                    <p
+                      key={type}
+                      className={`cursor-pointer px-1 ${
+                        activeCareerType === type
+                          ? "text-blue-600"
+                          : "text-black"
+                      }`}
+                      onClick={() => handleClick(type)}
+                    >
+                      {type}
+                    </p>
+                  ))}
                 </div>
-                <div className="w-10/12 p-2">{career.name}</div>
               </div>
-            ))}
+              {careerExamples.map((career) => (
+                <div
+                  key={career.number}
+                  className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
+                >
+                  <div className="max-h-8 max-w-8">
+                    <img
+                      src={`/careerIcons/${career.prefix.toLowerCase()}.png`}
+                      alt={`Foto ${career.prefix}`}
+                    />
+                  </div>
+                  <div className="w-10/12 p-2">{career.name}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

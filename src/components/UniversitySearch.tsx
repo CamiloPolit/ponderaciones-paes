@@ -14,6 +14,7 @@ export default function Page({
   setSelectedUniversity,
   matchedText,
   setMatchedText,
+  setIsDisabled,
 }) {
   const suggestions: University = universities.Universities;
   const [inputValue, setInputValue] = useState<string>("");
@@ -37,6 +38,7 @@ export default function Page({
     setMatchedText(match);
     setSelectedUniversity(false);
     setInputValue(value);
+    setIsDisabled(true);
 
     // Modify the suggested text in case the case of the input is different
     if (match && value) {
@@ -53,6 +55,7 @@ export default function Page({
       setInputValue(matchedText);
       setHighlightedText("");
       setSelectedUniversity(true);
+      setIsDisabled(false);
     }
   };
 
@@ -67,7 +70,7 @@ export default function Page({
         )}
       </div>
 
-      <div className="h-full" style={{ position: "relative" }}>
+      <div style={{ position: "relative" }}>
         <input
           type="text"
           value={inputValue}

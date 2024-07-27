@@ -14,6 +14,7 @@ export default function Page({
   setSelectedUniversity,
   matchedText,
   setMatchedText,
+  isDisabled,
   setIsDisabled,
 }) {
   const suggestions: University = universities.Universities;
@@ -78,7 +79,7 @@ export default function Page({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Ejemplo: Universidad de Chile"
-          className="text-black/ ml-1 w-96 rounded-3xl border-2 p-2 text-xl hover:border-black"
+          className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/50 ${isDisabled ? "hover:border-black" : ""}`}
         />
         {inputValue && (
           <input

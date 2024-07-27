@@ -17,6 +17,7 @@ export default function Home() {
           setSelectedUniversity={setSelectedUniversity}
           matchedText={matchedText}
           setMatchedText={setMatchedText}
+          isDisabled={isDisabled}
           setIsDisabled={setIsDisabled}
           careerComponentRef={careerComponentRef}
         />

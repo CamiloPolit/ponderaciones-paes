@@ -9,13 +9,16 @@ type University = {
   locations?: string[];
 }[];
 
-export default function Page() {
+export default function Page({
+  selectedUniversity,
+  setSelectedUniversity,
+  matchedText,
+  setMatchedText,
+}) {
   const suggestions: University = universities.Universities;
   const [inputValue, setInputValue] = useState<string>("");
   const [highlightedText, setHighlightedText] = useState<string>("");
   const [imageSrc, setImageSrc] = useState<string>("");
-  const [matchedText, setMatchedText] = useState<string>("");
-  const [selectedUniversity, setSelectedUniversity] = useState<boolean>(false);
 
   const handleChange = (e) => {
     const value: string = e.target.value;
@@ -55,12 +58,15 @@ export default function Page() {
 
   return (
     <div className="flex">
-      {(highlightedText || selectedUniversity) && (
-        <img className="h-min" src={imageSrc} alt="Logo UCh" />
-      )}
-      {!highlightedText && !selectedUniversity && (
-        <MdBlock size="40px" className="text-gray-500" />
-      )}
+      <div className="flex h-11 w-11 content-center justify-center">
+        {(highlightedText || selectedUniversity) && (
+          <img className="h-min" src={imageSrc} alt="Logo UCh" />
+        )}
+        {!highlightedText && !selectedUniversity && (
+          <MdBlock size="40px" className="text-gray-500" />
+        )}
+      </div>
+
       <div className="h-full" style={{ position: "relative" }}>
         <input
           type="text"
@@ -68,13 +74,14 @@ export default function Page() {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Ejemplo: Universidad de Chile"
+          className="text-black/ ml-1 w-96 rounded-3xl border-2 p-2 text-xl hover:border-black"
         />
         {inputValue && (
           <input
             type="text"
             value={highlightedText}
             readOnly
-            className="pointer-events-none absolute left-0 top-0 border-transparent bg-transparent text-black/50"
+            className="pointer-events-none absolute left-0 top-0 ml-1 w-96 rounded-3xl border-2 border-transparent bg-transparent p-2 text-xl text-black/50 hover:border-black"
           />
         )}
       </div>

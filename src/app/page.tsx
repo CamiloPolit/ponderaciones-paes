@@ -10,7 +10,8 @@ export default function Home() {
   const careerComponentRef = useRef(null);
 
   return (
-    <main className="flex h-screen w-screen items-center justify-center">
+    <main className="flex h-screen w-screen flex-col items-center justify-center">
+      <h1>Pondera Aquí:</h1>
       <div className="w-11/12 rounded-3xl bg-white py-5">
         <UniversitySearch
           selectedUniversity={selectedUniversity}
@@ -25,6 +26,7 @@ export default function Home() {
         <CarreerSearch
           careerComponentRef={careerComponentRef}
           isDisabled={isDisabled}
+          selectedUniversity={selectedUniversity}
         />
       </div>
     </main>

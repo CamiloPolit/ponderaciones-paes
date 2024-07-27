@@ -24,7 +24,7 @@ export default function Page() {
     );
     setImageSrc(
       match
-        ? "/favicons/".concat(
+        ? "/logos/".concat(
             match.abbreviation?.toLocaleLowerCase().concat(".png"),
           )
         : "",

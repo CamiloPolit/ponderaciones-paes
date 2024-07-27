@@ -22,8 +22,14 @@ export default function Page() {
     let match = suggestions.find((suggestion) =>
       suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
     );
-    setImageSrc(match ? match.abbreviation : "");
-    match = match.name;
+    setImageSrc(
+      match
+        ? "/favicons/".concat(
+            match.abbreviation?.toLocaleLowerCase().concat(".png"),
+          )
+        : "",
+    );
+    match = match?.name;
 
     setMatchedText(match);
     setSelectedUniversity(false);
@@ -50,14 +56,10 @@ export default function Page() {
   return (
     <div className="flex">
       {(highlightedText || selectedUniversity) && (
-        <img
-          className="h-min"
-          src="/favicons/favicon-32x32.png"
-          alt="Logo UCh"
-        />
+        <img className="h-min" src={imageSrc} alt="Logo UCh" />
       )}
       {!highlightedText && !selectedUniversity && (
-        <MdBlock size="32px" className="text-gray-500" />
+        <MdBlock size="40px" className="text-gray-500" />
       )}
       <div className="h-full" style={{ position: "relative" }}>
         <input

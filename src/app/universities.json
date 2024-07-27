@@ -1,13 +1,13 @@
 {
   "Universities": [
     {
-      "name": "Universidad Católica de Chile",
-      "abbreviation": "PUC",
+      "name": "Universidad de Chile",
+      "abbreviation": "UCH",
       "locations": []
     },
     {
-      "name": "Universidad de Chile",
-      "abbreviation": "UCH",
+      "name": "Universidad Católica de Chile",
+      "abbreviation": "PUC",
       "locations": []
     },
     {
@@ -62,7 +62,7 @@
     },
     {
       "name": "Universidad Autónoma de Chile",
-      "abbreviation": "UA",
+      "abbreviation": "UAUTONOMA",
       "locations": []
     },
     {

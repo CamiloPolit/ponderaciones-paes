@@ -60,8 +60,8 @@ export default function Page({
   };
 
   return (
-    <div className="flex">
-      <div className="flex h-11 w-11 content-center justify-center">
+    <div className="my-5 flex items-center justify-center">
+      <div className="flex h-11 w-11 items-center justify-center">
         {(highlightedText || selectedUniversity) && (
           <img className="h-min" src={imageSrc} alt="Logo UCh" />
         )}
@@ -70,7 +70,7 @@ export default function Page({
         )}
       </div>
 
-      <div style={{ position: "relative" }}>
+      <div className="relative">
         <input
           type="text"
           value={inputValue}

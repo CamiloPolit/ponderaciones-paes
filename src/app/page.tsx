@@ -8,16 +8,18 @@ export default function Home() {
   const [matchedText, setMatchedText] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
   return (
-    <>
-      <UniversitySearch
-        selectedUniversity={selectedUniversity}
-        setSelectedUniversity={setSelectedUniversity}
-        matchedText={matchedText}
-        setMatchedText={setMatchedText}
-        setIsDisabled={setIsDisabled}
-      />
+    <main className="flex h-screen w-screen items-center justify-center">
+      <div className="w-11/12 rounded-3xl bg-white py-5">
+        <UniversitySearch
+          selectedUniversity={selectedUniversity}
+          setSelectedUniversity={setSelectedUniversity}
+          matchedText={matchedText}
+          setMatchedText={setMatchedText}
+          setIsDisabled={setIsDisabled}
+        />
 
-      <CarreerSearch isDisabled={isDisabled} />
-    </>
+        <CarreerSearch isDisabled={isDisabled} />
+      </div>
+    </main>
   );
 }

@@ -26,6 +26,7 @@ export default function Page({
     let match = suggestions.find((suggestion) =>
       suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
     );
+
     setImageSrc(
       match
         ? "/logos/".concat(
@@ -50,7 +51,7 @@ export default function Page({
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Tab" && highlightedText) {
+    if ((e.key === "Tab" || e.key === "Enter") && highlightedText) {
       e.preventDefault();
       setInputValue(matchedText);
       setHighlightedText("");

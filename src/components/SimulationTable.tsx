@@ -8,7 +8,9 @@ export default function SimulationTable({ labels }) {
             className="flex flex-col items-center justify-center p-2"
           >
             <p className="cursor-default opacity-0">This have opacity 0</p>
-            <div className="h-12 w-20 cursor-pointer rounded-3xl border-2 bg-slate-600"></div>
+            <div className="flex h-12 w-20 cursor-pointer items-center justify-center rounded-3xl border-2 bg-slate-600 text-slate-200 hover:bg-slate-700">
+              <p>Calcular</p>
+            </div>
           </div>
         ) : (
           <div

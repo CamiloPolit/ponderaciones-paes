@@ -75,7 +75,7 @@ export default function CarreerSearch({
           }}
           className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/85 ${isDisabled ? "disabled:cursor-not-allowed disabled:bg-slate-100" : "hover:cursor-pointer hover:border-black"}`}
         />
-        <div className="absolute max-h-48 w-full overflow-auto">
+        <div className="scrollable-container absolute max-h-48 w-full overflow-auto">
           {isInputActive && (
             <div>
               <div className="flex justify-between bg-gray-100 px-1 text-xs">

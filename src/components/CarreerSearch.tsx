@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 
 export default function CarreerSearch({
@@ -29,7 +29,9 @@ export default function CarreerSearch({
 
   // Acá hay que añadir lógica para cuando hagamos el fetch, filtrar por área
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
-  const [selectedColor, setSelectedColor] = useState("");
+  const [isInputActive, setIsInputActive] = useState<boolean>(false);
+  const [selectedCareer, setSelectedCareer] = useState<string>("");
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     careerComponentRef.current.focus();
@@ -37,6 +39,10 @@ export default function CarreerSearch({
 
   const handleClick = (type) => {
     setActiveCareerType(type);
+  };
+
+  const handleBlur = () => {
+    setIsInputActive(false);
   };
 
   const types = ["Todo", "Ingeniería", "Ciencias", "Humanista", "Salud"];
@@ -50,13 +56,17 @@ export default function CarreerSearch({
       <div className="relative">
         <input
           ref={careerComponentRef}
+          value={selectedCareer}
           type="text"
           placeholder="Nombre de la carrera"
           disabled={isDisabled}
+          onFocus={(e) => setIsInputActive(true)}
+          onBlur={handleBlur}
+          onChange={(e) => setSelectedCareer(e.target.value)}
           className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/85 ${isDisabled ? "disabled:cursor-not-allowed disabled:bg-slate-100" : "hover:cursor-pointer hover:border-black"}`}
         />
         <div className="absolute max-h-48 w-full overflow-auto">
-          {selectedUniversity && (
+          {isInputActive && (
             <div>
               <div className="flex justify-between bg-gray-100 px-1 text-xs">
                 <div>Tipo de carrera:</div>
@@ -80,6 +90,9 @@ export default function CarreerSearch({
                 <div
                   key={career.number}
                   className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
+                  onMouseDown={() => {
+                    setSelectedCareer(career.name);
+                  }}
                 >
                   <div className="max-h-8 max-w-8">
                     <img

@@ -55,7 +55,7 @@ export default function CarreerSearch({
       <div className="relative">
         <input
           ref={careerComponentRef}
-          value={selectedCareer}
+          value={!isDisabled ? selectedCareer : ""}
           type="text"
           placeholder="Nombre de la carrera"
           disabled={isDisabled}

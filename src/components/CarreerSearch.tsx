@@ -16,10 +16,10 @@ export default function CarreerSearch({
       number: "C101",
       name: "Ingeniería Civil en Biotecnología",
     },
-    { prefix: "ENG", number: "C001", name: "Ingeniería Civil en Computación" },
-    { prefix: "ENG", number: "C002", name: "Ingeniería Civil Industrial" },
-    { prefix: "ENG", number: "C004", name: "Ingeniería Civil Química" },
-    { prefix: "ENG", number: "C003", name: "Ingeniería Civil Eléctrica" },
+    { prefix: "ENG", number: "C004", name: "Ingeniería Civil en Computación" },
+    { prefix: "ENG", number: "C005", name: "Ingeniería Civil Industrial" },
+    { prefix: "ENG", number: "C006", name: "Ingeniería Civil Química" },
+    { prefix: "ENG", number: "C007", name: "Ingeniería Civil Eléctrica" },
     {
       prefix: "ENG",
       number: "C101",
@@ -31,6 +31,7 @@ export default function CarreerSearch({
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
   const [isInputActive, setIsInputActive] = useState<boolean>(false);
   const [selectedCareer, setSelectedCareer] = useState<string>("");
+  const [selectedPrefix, setSelectedPrefix] = useState<string>("");
 
   useEffect(() => {
     careerComponentRef.current.focus();
@@ -49,7 +50,15 @@ export default function CarreerSearch({
   return (
     <div className="my-5 flex items-center justify-center">
       <div className="flex h-11 w-11 items-center justify-center">
-        <MdBlock size="40px" className="text-gray-500" />
+        {!selectedPrefix ? (
+          <MdBlock size="40px" className="text-gray-500" />
+        ) : (
+          <img
+            className="max-h-10 max-w-10"
+            src={`careerIcons/${selectedPrefix.toLowerCase()}.png`}
+            alt="Logo Carrera"
+          />
+        )}
       </div>
 
       <div className="relative">
@@ -61,7 +70,9 @@ export default function CarreerSearch({
           disabled={isDisabled}
           onFocus={(e) => setIsInputActive(true)}
           onBlur={handleBlur}
-          onChange={(e) => setSelectedCareer(e.target.value)}
+          onChange={(e) => {
+            setSelectedCareer(e.target.value);
+          }}
           className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/85 ${isDisabled ? "disabled:cursor-not-allowed disabled:bg-slate-100" : "hover:cursor-pointer hover:border-black"}`}
         />
         <div className="absolute max-h-48 w-full overflow-auto">
@@ -91,6 +102,7 @@ export default function CarreerSearch({
                   className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
                   onMouseDown={() => {
                     setSelectedCareer(career.name);
+                    setSelectedPrefix(career.prefix);
                   }}
                 >
                   <div className="max-h-8 max-w-8">

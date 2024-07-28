@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 
-export default function CarreerSearch({
+export default function CareerSearch({
   isDisabled,
   careerComponentRef,
   selectedUniversity,
@@ -27,25 +27,37 @@ export default function CarreerSearch({
     },
   ];
 
-  // Acá hay que añadir lógica para cuando hagamos el fetch, filtrar por área
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
   const [isInputActive, setIsInputActive] = useState<boolean>(false);
   const [selectedCareer, setSelectedCareer] = useState<string>("");
   const [selectedPrefix, setSelectedPrefix] = useState<string>("");
 
+  const containerRef = useRef(null);
+
   useEffect(() => {
     careerComponentRef.current.focus();
   }, [isDisabled]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setIsInputActive(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleClick = (type) => {
     setActiveCareerType(type);
+    setIsInputActive(true);
   };
-
-  const handleBlur = () => {
-    setIsInputActive(false);
-  };
-
-  const types = ["Todo", "Ingeniería", "Ciencias", "Humanista", "Salud"];
 
   return (
     <div className="my-5 flex items-center justify-center">
@@ -61,7 +73,7 @@ export default function CarreerSearch({
         )}
       </div>
 
-      <div className="relative">
+      <div className="relative" ref={containerRef}>
         <input
           ref={careerComponentRef}
           value={!isDisabled ? selectedCareer : ""}
@@ -69,11 +81,14 @@ export default function CarreerSearch({
           placeholder="Nombre de la carrera"
           disabled={isDisabled}
           onFocus={(e) => setIsInputActive(true)}
-          onBlur={handleBlur}
           onChange={(e) => {
             setSelectedCareer(e.target.value);
           }}
-          className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/85 ${isDisabled ? "disabled:cursor-not-allowed disabled:bg-slate-100" : "hover:cursor-pointer hover:border-black"}`}
+          className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/85 ${
+            isDisabled
+              ? "disabled:cursor-not-allowed disabled:bg-slate-100"
+              : "hover:cursor-pointer hover:border-black"
+          }`}
         />
         <div className="scrollable-container absolute max-h-48 w-full overflow-auto">
           {isInputActive && (
@@ -81,19 +96,21 @@ export default function CarreerSearch({
               <div className="flex justify-between bg-gray-100 px-1 text-xs">
                 <div>Tipo de carrera:</div>
                 <div className="flex">
-                  {types.map((type) => (
-                    <p
-                      key={type}
-                      className={`cursor-pointer px-1 ${
-                        activeCareerType === type
-                          ? "text-blue-600"
-                          : "text-black"
-                      }`}
-                      onClick={() => handleClick(type)}
-                    >
-                      {type}
-                    </p>
-                  ))}
+                  {["Todo", "Ingeniería", "Ciencias", "Humanista", "Salud"].map(
+                    (type) => (
+                      <p
+                        key={type}
+                        className={`cursor-pointer px-1 ${
+                          activeCareerType === type
+                            ? "text-blue-600"
+                            : "text-black"
+                        }`}
+                        onClick={() => handleClick(type)}
+                      >
+                        {type}
+                      </p>
+                    ),
+                  )}
                 </div>
               </div>
               {careerExamples.map((career) => (
@@ -103,6 +120,7 @@ export default function CarreerSearch({
                   onMouseDown={() => {
                     setSelectedCareer(career.name);
                     setSelectedPrefix(career.prefix);
+                    setIsInputActive(false); // Cierra el dropdown al seleccionar una carrera
                   }}
                 >
                   <div className="max-h-8 max-w-8">

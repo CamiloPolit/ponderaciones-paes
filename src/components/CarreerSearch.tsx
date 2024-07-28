@@ -31,7 +31,6 @@ export default function CarreerSearch({
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
   const [isInputActive, setIsInputActive] = useState<boolean>(false);
   const [selectedCareer, setSelectedCareer] = useState<string>("");
-  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     careerComponentRef.current.focus();

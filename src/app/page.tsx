@@ -25,7 +25,11 @@ export default function Home() {
 
   return (
     <>
-      <Countdown supressHydratationWarning />
+      <div className="relative flex h-screen flex-col items-center justify-center bg-stone-950">
+        <h1 className="py-3 text-7xl text-white">CUENTA REGRESIVA</h1>
+        <h2 className="py-4 text-6xl text-white">PAES 2024</h2>
+        <Countdown supressHydratationWarning />
+      </div>
 
       <main className="h-screen">
         <div className="flex w-2/3 items-center justify-center rounded-3xl bg-white py-5">

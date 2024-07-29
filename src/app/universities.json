@@ -3,7 +3,18 @@
     {
       "name": "Universidad de Chile",
       "abbreviation": "UCH",
-      "locations": []
+      "locations": [],
+      "carreers": [
+        "ICI",
+        "IC",
+        "ICE",
+        "ICMA",
+        "ICME",
+        "ICQ",
+        "ICMI",
+        "ICB",
+        "ICC"
+      ]
     },
     {
       "name": "Universidad Católica de Chile",

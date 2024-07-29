@@ -5,6 +5,8 @@ import UniversitySearch from "../components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
 import SimulationTable from "@/components/SimulationTable";
 import Countdown from "@/components/CountDown";
+import { motion } from "framer-motion";
+import { LayoutGroup } from "framer-motion";
 
 export default function Home() {
   const [selectedUniversity, setSelectedUniversity] = useState(false);
@@ -26,7 +28,12 @@ export default function Home() {
   return (
     <>
       <div className="relative flex h-screen flex-col items-center justify-center bg-stone-950">
-        <nav className="absolute top-0">
+        <motion.nav
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="absolute top-0"
+        >
           <ul className="flex text-xl text-white">
             <li className="cursor-pointer px-7 py-4 hover:text-gray-300">
               Inicio
@@ -41,15 +48,36 @@ export default function Home() {
               Contacto
             </li>
           </ul>
-        </nav>
-        <h1 className="py-3 text-7xl text-white">CUENTA REGRESIVA</h1>
-        <h2 className="py-4 text-6xl text-white">PAES 2024</h2>
+        </motion.nav>
+
+        <motion.h1
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="block py-4 text-6xl text-white"
+        >
+          CUENTA REGRESIVA
+        </motion.h1>
+        <motion.h2
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.4 }}
+          className="block py-4 text-6xl text-white"
+        >
+          PAES 2024
+        </motion.h2>
         <Countdown supressHydratationWarning />
       </div>
 
       <main className="flex h-screen flex-col items-center justify-center bg-gray-100">
         {/* <h1 className="pb-10 text-5xl text-slate-900">Pondera Aquí:</h1> */}
-        <div className="flex w-2/3 items-center justify-center rounded-3xl bg-gray-50 py-5">
+        <motion.div
+          initial={{ opacity: 0, y: 300 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
+          className="flex w-2/3 items-center justify-center rounded-3xl bg-gray-50 py-5"
+        >
           <div className="flex flex-col items-center justify-center">
             <div className="px-7">
               <UniversitySearch
@@ -71,7 +99,7 @@ export default function Home() {
           </div>
 
           <SimulationTable labels={labels} />
-        </div>
+        </motion.div>
       </main>
     </>
   );

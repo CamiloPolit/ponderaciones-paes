@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Countdown = () => {
   const targetDate = new Date("2024-12-03T00:00:00").getTime();
@@ -45,7 +46,12 @@ const Countdown = () => {
   }
 
   return (
-    <div className="flex">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6 }}
+      className="flex"
+    >
       <div>
         <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-stone-800 text-5xl text-white">
           {timeLeft.days}
@@ -87,7 +93,7 @@ const Countdown = () => {
           Seg
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

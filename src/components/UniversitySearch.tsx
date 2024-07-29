@@ -84,7 +84,7 @@ export default function Page({
           value={inputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder="Ejemplo: Universidad de Chile"
+          placeholder="Nombre de la universidad"
           className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
         />
         {inputValue && (

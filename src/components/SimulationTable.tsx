@@ -1,6 +1,6 @@
 export default function SimulationTable({ labels }) {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 px-7">
       {labels.map((label, index) =>
         label === "Send" ? (
           <div

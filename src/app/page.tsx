@@ -31,11 +31,11 @@ export default function Home() {
         <Countdown supressHydratationWarning />
       </div>
 
-      <main className="h-screen">
+      <main className="flex h-screen flex-col items-center justify-center">
+        <h1 className="pb-10 text-5xl text-slate-800">Pondera Aquí:</h1>
         <div className="flex w-2/3 items-center justify-center rounded-3xl bg-white py-5">
           <div className="flex flex-col items-center justify-center">
-            <h1>Pondera Aquí:</h1>
-            <div className="">
+            <div className="px-5">
               <UniversitySearch
                 selectedUniversity={selectedUniversity}
                 setSelectedUniversity={setSelectedUniversity}

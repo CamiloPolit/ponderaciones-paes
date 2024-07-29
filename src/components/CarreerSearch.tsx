@@ -2,11 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 import CareersMenu from "./CareersMenu";
 
-export default function CareerSearch({
-  isDisabled,
-  careerComponentRef,
-  selectedUniversity,
-}) {
+export default function CareerSearch({ isDisabled, careerComponentRef }) {
   const careerExamples = [
     { prefix: "ENG", number: "C001", name: "Ingeniería Civil en Computación" },
     { prefix: "ENG", number: "C002", name: "Ingeniería Civil Industrial" },

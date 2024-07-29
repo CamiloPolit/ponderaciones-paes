@@ -26,16 +26,32 @@ export default function Home() {
   return (
     <>
       <div className="relative flex h-screen flex-col items-center justify-center bg-stone-950">
+        <nav className="absolute top-0">
+          <ul className="flex text-xl text-white">
+            <li className="cursor-pointer px-7 py-4 hover:text-gray-300">
+              Inicio
+            </li>
+            <li className="cursor-pointer px-7 py-4 hover:text-gray-300">
+              Blog
+            </li>
+            <li className="cursor-pointer px-7 py-4 hover:text-gray-300">
+              Estadísticas
+            </li>
+            <li className="cursor-pointer px-7 py-4 hover:text-gray-300">
+              Contacto
+            </li>
+          </ul>
+        </nav>
         <h1 className="py-3 text-7xl text-white">CUENTA REGRESIVA</h1>
         <h2 className="py-4 text-6xl text-white">PAES 2024</h2>
         <Countdown supressHydratationWarning />
       </div>
 
-      <main className="flex h-screen flex-col items-center justify-center">
-        <h1 className="pb-10 text-5xl text-slate-800">Pondera Aquí:</h1>
-        <div className="flex w-2/3 items-center justify-center rounded-3xl bg-white py-5">
+      <main className="flex h-screen flex-col items-center justify-center bg-gray-100">
+        {/* <h1 className="pb-10 text-5xl text-slate-900">Pondera Aquí:</h1> */}
+        <div className="flex w-2/3 items-center justify-center rounded-3xl bg-gray-50 py-5">
           <div className="flex flex-col items-center justify-center">
-            <div className="px-5">
+            <div className="px-7">
               <UniversitySearch
                 selectedUniversity={selectedUniversity}
                 setSelectedUniversity={setSelectedUniversity}

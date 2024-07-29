@@ -33,5 +33,6 @@ body {
 }
 
 main {
-  background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+  /* background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%); */
+  /* background-color: black; */
 }

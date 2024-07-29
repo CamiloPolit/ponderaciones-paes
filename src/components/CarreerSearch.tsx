@@ -28,6 +28,10 @@ export default function CareerSearch({ isDisabled, careerComponentRef }) {
 
   useEffect(() => {
     careerComponentRef.current.focus();
+
+    if (isDisabled) {
+      setSelectedPrefix("");
+    }
   }, [isDisabled]);
 
   useEffect(() => {

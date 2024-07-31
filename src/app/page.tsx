@@ -6,7 +6,6 @@ import CarreerSearch from "@/components/CarreerSearch";
 import SimulationTable from "@/components/SimulationTable";
 import Countdown from "@/components/CountDown";
 import { motion } from "framer-motion";
-import { LayoutGroup } from "framer-motion";
 
 export default function Home() {
   const [selectedUniversity, setSelectedUniversity] = useState(false);
@@ -66,7 +65,7 @@ export default function Home() {
         >
           PAES 2024
         </motion.h2>
-        <Countdown suppressHydrationWarning />
+        <Countdown />
       </div>
 
       <main className="flex h-screen flex-col items-center justify-center bg-gray-100">

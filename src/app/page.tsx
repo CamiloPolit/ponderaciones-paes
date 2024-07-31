@@ -66,7 +66,7 @@ export default function Home() {
         >
           PAES 2024
         </motion.h2>
-        <Countdown supressHydratationWarning />
+        <Countdown suppressHydrationWarning />
       </div>
 
       <main className="flex h-screen flex-col items-center justify-center bg-gray-100">

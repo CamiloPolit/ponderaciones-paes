@@ -86,13 +86,11 @@ export default function Home() {
                 setMatchedText={setMatchedText}
                 isDisabled={isDisabled}
                 setIsDisabled={setIsDisabled}
-                careerComponentRef={careerComponentRef}
               />
 
               <CarreerSearch
                 careerComponentRef={careerComponentRef}
                 isDisabled={isDisabled}
-                selectedUniversity={selectedUniversity}
               />
             </div>
           </div>

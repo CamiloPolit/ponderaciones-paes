@@ -6,6 +6,9 @@ import CarreerSearch from "@/components/CarreerSearch";
 import SimulationTable from "@/components/SimulationTable";
 import Countdown from "@/components/CountDown";
 import { motion } from "framer-motion";
+// import { Chivo } from "next/font/google";
+
+// const chivo = Chivo({ weight: "400", subsets: ["latin"] });
 
 export default function Home() {
   const [selectedUniversity, setSelectedUniversity] = useState(false);
@@ -53,7 +56,7 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.4 }}
-          className="block py-4 text-6xl text-white"
+          className={`py-4 text-center text-7xl text-white md:text-6xl`}
         >
           CUENTA REGRESIVA
         </motion.h1>
@@ -61,21 +64,21 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.4 }}
-          className="block py-4 text-6xl text-white"
+          className={`mt-6 block py-4 text-5xl text-white md:text-6xl`}
         >
           PAES 2024
         </motion.h2>
         <Countdown />
       </div>
 
-      <main className="flex h-screen flex-col items-center justify-center bg-gray-100">
+      <main className="flex h-screen items-center justify-center bg-gray-100">
         {/* <h1 className="pb-10 text-5xl text-slate-900">Pondera Aquí:</h1> */}
         <motion.div
           initial={{ opacity: 0, y: 300 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           viewport={{ once: true }}
-          className="flex w-2/3 items-center justify-center rounded-3xl bg-gray-50 py-5"
+          className="w-11/12 rounded-3xl bg-gray-50 py-5 md:flex md:items-center md:justify-center"
         >
           <div className="flex flex-col items-center justify-center">
             <div className="px-7">

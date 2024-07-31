@@ -53,40 +53,40 @@ const Countdown = () => {
       className="flex"
     >
       <div>
-        <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-stone-800 text-5xl text-white">
+        <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.days}
         </div>
         <p className="flex items-center justify-center text-2xl text-white">
           Días
         </p>
       </div>
-      <div className="mt-[-38px] flex items-center justify-center px-5 text-5xl text-white">
+      <div className="mt-[-38px] flex items-center justify-center px-5 text-4xl text-white md:text-5xl">
         :
       </div>
       <div>
-        <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-stone-800 text-5xl text-white">
+        <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.hours}
         </div>
         <p className="flex items-center justify-center text-2xl text-white">
           Hr
         </p>
       </div>
-      <div className="mt-[-38px] flex items-center justify-center px-5 text-5xl text-white">
+      <div className="mt-[-38px] flex items-center justify-center px-5 text-4xl text-white md:text-5xl">
         :
       </div>
       <div>
-        <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-stone-800 text-5xl text-white">
+        <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.minutes}
         </div>
         <p className="flex items-center justify-center text-2xl text-white">
           Min
         </p>
       </div>
-      <div className="mt-[-38px] flex items-center justify-center px-5 text-5xl text-white">
+      <div className="mt-[-38px] flex items-center justify-center px-5 text-4xl text-white md:text-5xl">
         :
       </div>
       <div className="flex flex-col items-center justify-center">
-        <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-stone-800 text-5xl text-white">
+        <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.seconds}
         </div>
         <p className="flex items-center justify-center text-2xl text-white">

@@ -85,14 +85,14 @@ export default function Page({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder="Nombre de la universidad"
-          className={`ml-1 w-96 rounded-3xl border-2 p-2 text-xl text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
+          className={`xs:w-96 xs:text-xl ml-1 w-64 rounded-3xl border-2 p-2 text-[1rem] text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
         />
         {inputValue && (
           <input
             type="text"
             value={highlightedText}
             readOnly
-            className="pointer-events-none absolute left-0 top-0 ml-1 w-96 rounded-3xl border-2 border-transparent bg-transparent p-2 text-xl text-black/50 hover:border-black"
+            className="xs:w-96 xs:text-xl pointer-events-none absolute left-0 top-0 ml-1 w-64 rounded-3xl border-2 border-transparent bg-transparent p-2 text-[1rem] text-black/50 hover:border-black"
           />
         )}
       </div>

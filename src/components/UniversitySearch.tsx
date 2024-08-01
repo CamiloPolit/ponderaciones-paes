@@ -75,6 +75,7 @@ export default function Page({
       setHighlightedText("");
       setSelectedUniversity(true);
       setIsDisabled(false);
+      setIsInputActive(false);
     }
   };
 
@@ -124,6 +125,7 @@ export default function Page({
           setImageSrc={setImageSrc}
           isInputActive={isInputActive}
           setIsInputActive={setIsInputActive}
+          setIsDisabled={setIsDisabled}
         />
       </div>
     </div>

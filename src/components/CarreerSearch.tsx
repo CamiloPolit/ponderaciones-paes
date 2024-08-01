@@ -28,6 +28,7 @@ export default function CareerSearch({ isDisabled, careerComponentRef }) {
 
   useEffect(() => {
     careerComponentRef.current.focus();
+    setSelectedCareer("");
 
     if (isDisabled) {
       setSelectedPrefix("");

@@ -17,7 +17,7 @@ export default function CareersMenu({
       {isInputActive && (
         <div>
           <div className="flex justify-between bg-gray-100 px-1 text-xs">
-            <div>Tipo de carrera:</div>
+            <div>Tipo:</div>
             <div className="flex">
               {["Todo", "Ingeniería", "Ciencias", "Humanista", "Salud"].map(
                 (type) => (

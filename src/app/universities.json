@@ -37,6 +37,11 @@
       "locations": []
     },
     {
+      "name": "Universidad de Concepción",
+      "abbreviation": "UDEC",
+      "locations": []
+    },
+    {
       "name": "Universidad Diego Portales",
       "abbreviation": "UDP",
       "locations": []
@@ -131,11 +136,7 @@
       "abbreviation": "UDA",
       "locations": []
     },
-    {
-      "name": "Universidad de Concepción",
-      "abbreviation": "UDEC",
-      "locations": []
-    },
+
     {
       "name": "Universidad de La Frontera",
       "abbreviation": "UFRO",

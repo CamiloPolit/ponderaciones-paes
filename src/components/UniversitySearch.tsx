@@ -1,13 +1,10 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 import universities from "../app/universities.json";
+import UniversitiesMenu from "./UniversitiesMenu";
 
-type University = {
-  name?: string;
-  abbreviation?: string;
-  locations?: string[];
-}[];
+const suggestions = universities.Universities;
 
 export default function Page({
   selectedUniversity,
@@ -17,15 +14,39 @@ export default function Page({
   isDisabled,
   setIsDisabled,
 }) {
-  const suggestions: University = universities.Universities;
-  const [inputValue, setInputValue] = useState<string>("");
-  const [highlightedText, setHighlightedText] = useState<string>("");
-  const [imageSrc, setImageSrc] = useState<string>("");
+  const [inputValue, setInputValue] = useState("");
+  const [highlightedText, setHighlightedText] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [isInputActive, setIsInputActive] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setIsInputActive(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleChange = (e) => {
-    const value: string = e.target.value;
+    const value = e.target.value;
+
     let match = suggestions.find((suggestion) =>
       suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
+    );
+    setFilteredSuggestions(
+      suggestions.filter((suggestion) =>
+        suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
+      ),
     );
 
     setImageSrc(
@@ -78,12 +99,13 @@ export default function Page({
         )}
       </div>
 
-      <div className="relative">
+      <div ref={containerRef} className="relative">
         <input
           type="text"
           value={inputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onFocus={(e) => setIsInputActive(true)}
           placeholder="Nombre de la universidad"
           className={`xs:w-96 xs:text-xl ml-1 w-64 rounded-3xl border-2 p-2 text-[1rem] text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
         />
@@ -95,6 +117,14 @@ export default function Page({
             className="xs:w-96 xs:text-xl pointer-events-none absolute left-0 top-0 ml-1 w-64 rounded-3xl border-2 border-transparent bg-transparent p-2 text-[1rem] text-black/50 hover:border-black"
           />
         )}
+        <UniversitiesMenu
+          filteredSuggestions={filteredSuggestions}
+          setInputValue={setInputValue}
+          setHighlightedText={setHighlightedText}
+          setImageSrc={setImageSrc}
+          isInputActive={isInputActive}
+          setIsInputActive={setIsInputActive}
+        />
       </div>
     </div>
   );

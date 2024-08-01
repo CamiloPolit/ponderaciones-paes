@@ -78,7 +78,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           viewport={{ once: true }}
-          className="w-11/12 rounded-3xl bg-gray-50 py-5 md:flex md:items-center md:justify-center"
+          className="w-11/12 rounded-3xl border-2 border-gray-300 bg-gray-50 py-5 md:flex md:w-2/3 md:items-center md:justify-center"
         >
           <div className="flex flex-col items-center justify-center">
             <div className="xs:px-7">

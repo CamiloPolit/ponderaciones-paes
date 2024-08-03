@@ -14,3 +14,6 @@ ptjes = ptjes[ptjes["VIA_INGRESO"] == 11]
 ptjes = ptjes.groupby('CODIGO_CARRERA').agg(
     PUNTAJE_CORTE=('PUNTAJE_PONDERADO', 'min'),
 ).reset_index()
+
+# Save the file, with columns ["CODIGO_CARRERA", "PUNTAJE_CORTE"]
+ptjes.to_csv('bbdd/ESTADISTICAS_PUNTAJES_MUJERES.csv', index=False)

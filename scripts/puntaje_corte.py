@@ -22,5 +22,5 @@ ptjes = ptjes.groupby('CODIGO_CARRERA').agg(
 
 ptjes["PUNTAJE_PROMEDIO"] = ptjes["PUNTAJE_PROMEDIO"].round(2)
 
-# Save the file, with columns ["CODIGO_CARRERA", "PUNTAJE_CORTE"]
+# Save the file, with columns ["CODIGO_CARRERA", "PUNTAJE_CORTE", "PUNTAJE_MEDIANA", "PUNTAJE_MAXIMO", "PUNTAJE_PROMEDIO"]
 ptjes.to_csv('bbdd/ESTADISTICAS_PUNTAJES_CARRERAS.csv', index=False)

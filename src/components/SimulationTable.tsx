@@ -1,7 +1,7 @@
 export default function SimulationTable({ labels }) {
   return (
     <div suppressHydrationWarning className="grid grid-cols-2 px-7">
-      {labels.map((label, index) =>
+      {labels.map((label) =>
         label === "Send" ? (
           <div
             key={label}

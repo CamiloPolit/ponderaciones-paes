@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Importamos y seleccionamos sólo las columnas necesarias para calcular las estadísticas en puntajes
 ptjes = pd.read_csv("bbdd/MATRICULA_PAES_2024.csv", sep=';', usecols=["CODIGO_CARRERA", "PUNTAJE_PONDERADO", "VIA_INGRESO"])
@@ -12,6 +13,8 @@ ptjes = ptjes[ptjes["VIA_INGRESO"] == 11]
 ptjes = ptjes.groupby('CODIGO_CARRERA').agg(
     PUNTAJE_CORTE=('PUNTAJE_PONDERADO', 'min'),
 ).reset_index()
+
+ptjes = np.ceil(ptjes)
 
 # Guardamos el archivo csv con las columnas ["CODIGO_CARRERA", "PUNTAJE_CORTE"]
 ptjes.to_csv('bbdd/ESTADISTICAS_PUNTAJES_MUJERES.csv', index=False)

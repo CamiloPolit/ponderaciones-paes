@@ -29,20 +29,20 @@ university_students_info = cudf.read_csv("/content/drive/MyDrive/MATRICULA_PAES_
 merged_university_students_info = students_info.merge(university_students_info, on="MRUN")
 
 # Extraemos todos los pares de columnas que contienen _REG_ y _INV_
-pares_columnas = [
+column_pairs = [
     (col, col.replace("_REG_", "_INV_"))
     for col in merged_university_students_info.columns if "_REG_" in col
 ]
 
-# Creamos un DataFrame de resultados vacío
-resultado = cudf.DataFrame()
+# Creamos un DataFrame de resultads vacío
+result = cudf.DataFrame()
 
 # Aplicamos la función para cada par de columnas
-for reg, inv in pares_columnas:
+for reg, inv in column_pairs:
     max_col_name = f"MAX_{reg.split('_REG_')[1]}"
-    resultado[max_col_name] = merged_university_students_info[[reg, inv]].max(axis=1)
+    result[max_col_name] = merged_university_students_info[[reg, inv]].max(axis=1)
 
 # Añadir la columna MRUN al resultado
-resultado["MRUN"] = merged_university_students_info["MRUN"]
+result["MRUN"] = merged_university_students_info["MRUN"]
 
-resultado.to_csv("PREGUNTAS_CORRECTAS_ALUMNOS", index=False)
+result.to_csv("PREGUNTAS_CORRECTAS_ALUMNOS", index=False)

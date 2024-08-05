@@ -1,6 +1,6 @@
 import pandas as pd
 
-# Asignamos las columnas que queremos que estén presente en csv
+# Asignamos las columnas que queremos que estén presente en csv limpiado
 columns = [
     "codigo_demre",
     "area_conocimiento",
@@ -15,6 +15,8 @@ university_info2 = pd.read_csv("/content/drive/MyDrive/Matricula-Ed-Superior-202
 university_info2 = university_info2[(university_info2["anio_ing_carr_act"] == 2024) & (~university_info2["codigo_demre"].isna())]
 university_info['CODIGO_CARRERA'] = university_info['CODIGO_CARRERA'].astype(int)
 university_info2['codigo_demre'] = university_info2['codigo_demre'].astype(int)
+
+university_info2.drop(columns=["anio_ing_carr_act"], inplace=True)
 
 
 grouped_info1 = university_info.groupby('CODIGO_CARRERA', as_index=False).first()

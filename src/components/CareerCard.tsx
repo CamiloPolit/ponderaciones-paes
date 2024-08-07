@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export default function CareerCard({
   university,
@@ -19,6 +20,8 @@ export default function CareerCard({
   m2,
   ciencias,
   women_enrolled = undefined,
+  grade,
+  ranking,
 }) {
   return (
     <Card className="my-5">
@@ -51,6 +54,19 @@ export default function CareerCard({
               </div>
             </div>
           </Card>
+
+          <div className="my-2 flex">
+            <p className="px-3">
+              <span className="font-bold">Nota Promedio: </span>
+              {grade}
+            </p>
+            <p>
+              <span className="font-bold">Ranking Promedio: </span>
+              {`${ranking} ptos`}
+            </p>
+          </div>
+
+          <Separator className="mt-3" />
         </div>
 
         <div className="mt-6">

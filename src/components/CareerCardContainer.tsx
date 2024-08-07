@@ -11,6 +11,8 @@ export default function CareerCardContainer({
   m2,
   ciencias,
   women_enrolled = undefined,
+  grades,
+  rankings,
 }) {
   return (
     <div className="flex flex-col items-center justify-center">
@@ -29,6 +31,8 @@ export default function CareerCardContainer({
           m2={m2[0]}
           ciencias={ciencias[0]}
           women_enrolled={women_enrolled && women_enrolled[0]}
+          grade={grades[0]}
+          ranking={rankings[0]}
         />
         <CareerCard
           university={university[1]}
@@ -40,6 +44,8 @@ export default function CareerCardContainer({
           m2={m2[1]}
           ciencias={ciencias[1]}
           women_enrolled={women_enrolled && women_enrolled[1]}
+          grade={grades[1]}
+          ranking={rankings[1]}
         />
       </div>
     </div>

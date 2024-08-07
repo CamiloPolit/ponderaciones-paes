@@ -83,46 +83,6 @@ const events = [
 export default function Home() {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      {/* <header className="flex h-14 items-center px-4 lg:px-6">
-        <Link
-          href="/"
-          className="flex items-center justify-center"
-          prefetch={false}
-        >
-          <span className="sr-only">Simulador</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            href="/"
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            prefetch={false}
-          >
-            Inicio
-          </Link>
-          <Link
-            href="/simulador"
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            prefetch={false}
-          >
-            Simulador
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            prefetch={false}
-          >
-            Cuenta Regresiva
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            prefetch={false}
-          >
-            Fechas Importantes
-          </Link>
-        </nav>
-      </header> */}
-
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
@@ -215,6 +175,8 @@ export default function Home() {
                 m1={[59, 60]}
                 m2={[41, 38]}
                 ciencias={[73, 70]}
+                grades={[6.92, 6.86]}
+                rankings={[991, 974]}
               />
 
               <CareerCardContainer
@@ -230,6 +192,8 @@ export default function Home() {
                 m2={[41, 36]}
                 ciencias={[66, 60]}
                 women_enrolled={["31.21%", "31.82%"]}
+                grades={[6.82, 6.7]}
+                rankings={[967, 939]}
               />
             </div>
           </div>

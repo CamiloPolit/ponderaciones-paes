@@ -83,7 +83,7 @@ const events = [
 export default function Home() {
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <header className="flex h-14 items-center px-4 lg:px-6">
+      {/* <header className="flex h-14 items-center px-4 lg:px-6">
         <Link
           href="/"
           className="flex items-center justify-center"
@@ -100,7 +100,7 @@ export default function Home() {
             Inicio
           </Link>
           <Link
-            href="/"
+            href="/simulador"
             className="text-sm font-medium underline-offset-4 hover:underline"
             prefetch={false}
           >
@@ -118,17 +118,10 @@ export default function Home() {
             className="text-sm font-medium underline-offset-4 hover:underline"
             prefetch={false}
           >
-            Estadísticas
-          </Link>
-          <Link
-            href="/"
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            prefetch={false}
-          >
             Fechas Importantes
           </Link>
         </nav>
-      </header>
+      </header> */}
 
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
@@ -261,19 +254,45 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="bg-black py-12">
+      <footer className="bg-black px-7 py-12">
         <div className="m-auto flex flex-col items-center justify-center">
           <p className="leading-7 text-white">Desarrollado por @kmilo0o0</p>
-          <p className="text-center text-xs leading-7 text-stone-400">
+          <p className="mb-5 leading-7 text-white">
+            Puedes contactarme a través de mi{" "}
+            <a
+              href="https://www.linkedin.com/in/camilopolit/"
+              className="text-center leading-7 text-blue-500"
+            >
+              Linkedin
+            </a>
+          </p>
+
+          <p className="mb-3 text-center text-xs leading-7 text-stone-400">
             Absolutamente todos los datos de la página corresponden a bases de
             datos oficiales tanto del DEMRE como del Mineduc.
           </p>
         </div>
 
         <p className="text-center text-xs leading-7 text-stone-400">
-          Quiero agradecer a Benjamín y Francisco por el constante apoyo en la
-          creación de esta página
+          Quiero agradecer a Benjamín Henríquez y Francisco Cea por el constante
+          apoyo y feedbacks en la creación de esta página, sin ellos nada de
+          esto hubiese sido posible.
         </p>
+
+        <div className="flex justify-center">
+          <a
+            href="https://www.linkedin.com/in/benjamin-henriquez-soto/"
+            className="px-5 text-center text-xs leading-7 text-blue-500"
+          >
+            Linkedin de Benjamón
+          </a>
+          <a
+            href="https://www.linkedin.com/in/fcocea/"
+            className="text-center text-xs leading-7 text-blue-500"
+          >
+            Linkedin de Francisco
+          </a>
+        </div>
       </footer>
     </div>
   );

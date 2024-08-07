@@ -45,6 +45,7 @@ export default function CareersMenu({
                 <img
                   src={`/careerIcons/${career.prefix.toLowerCase()}.png`}
                   alt={`Foto ${career.prefix}`}
+                  className="object-cover"
                 />
               </div>
               <div className="w-10/12 p-2">{career.name}</div>

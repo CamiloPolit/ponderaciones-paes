@@ -76,7 +76,7 @@ export default function CareerSearch({ isDisabled, careerComponentRef }) {
           onChange={(e) => {
             setSelectedCareer(e.target.value);
           }}
-          className={`xs:w-96 xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/85 ${
+          className={`xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/85 sm:w-96 ${
             isDisabled
               ? "disabled:cursor-not-allowed disabled:bg-slate-100"
               : "hover:cursor-pointer hover:border-black"

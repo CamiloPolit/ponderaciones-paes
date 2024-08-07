@@ -44,9 +44,12 @@ merged_info = pd.merge(
 
 fetch_careers = merged_info.loc[: ,["CODIGO_CARRERA", "NOMBRE_CARRERA", "area_conocimiento","nomb_inst","nomb_sede"]]
 fetch_careers = fetch_careers.drop_duplicates().reset_index(drop=True)
+fetch_careers.columns = fetch_careers.columns.str.upper()
+
 
 university_campus = merged_info.loc[:, ["nomb_inst", "nomb_sede"]]
 university_campus = university_campus.drop_duplicates().reset_index(drop=True)
+university_campus.columns = university_campus.columns.str.upper()
 
 
 career_table = merged_info.loc[:, ["CODIGO_CARRERA", "formato_valores", "valor_matricula", "valor_arancel", "dur_total_carr"]]
@@ -58,7 +61,7 @@ university_table = university_table.drop_duplicates().reset_index(drop=True)
 university_table.columns = university_table.columns.str.upper()
 
 # Guardamos los csv
-university_campus.to_csv("TABLA_FETCH_CARRERAS.csv", index=False)
+fetch_careers.to_csv("TABLA_FETCH_CARRERAS.csv", index=False)
 university_campus.to_csv("TABLA_SEDES_UNIVERSIDADES.csv", index=False)
 career_table.to_csv("TABLA_VALORES_DURACION_CARRERAS.csv", index=False)
 university_table.to_csv("TABLA_ACREDITACIÓN_UNIVERSIDADES.csv", index=False)

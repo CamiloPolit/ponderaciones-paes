@@ -29,6 +29,10 @@ def custom_aggregate(group):
     non_zero_m2_rows = group[group['MAX_M2'] != 0]
     average_m2 = non_zero_m2_rows['MAX_M2'].mean() if not non_zero_m2_rows.empty else 0
 
+    # Promedio de lectura
+    non_zero_cl_rows = group[group['MAX_CL'] != 0]
+    average_cl = non_zero_cl_rows['MAX_CL'].mean() if not non_zero_cl_rows.empty else 0
+
     # Calcular el promedio de MAX_HCS donde MAX_HCS no es cero
     non_zero_hcs_rows = group[group['MAX_HCS'] != 0]
     average_hcs = non_zero_hcs_rows['MAX_HCS'].mean() if not non_zero_hcs_rows.empty else 0
@@ -37,7 +41,8 @@ def custom_aggregate(group):
         'AVERAGE_CIEN': average_science,
         'AVERAGE_M1': average_m1,
         'AVERAGE_M2': average_m2,
-        'AVERAGE_HCS': average_hcs
+        'AVERAGE_HCS': average_hcs,
+        'AVERAGE_CL': average_cl
     })
 
 # Agrupar por 'CODIGO_CARRERA' y aplicar la función de agregación

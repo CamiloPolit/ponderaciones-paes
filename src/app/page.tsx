@@ -218,7 +218,7 @@ export default function Home() {
                 ]}
                 last_enrolled={[949.3, 936.85]}
                 slots_available={[82, 70]}
-                lectura={[100, 100]}
+                lectura={[56, 56]}
                 m1={[59, 60]}
                 m2={[41, 38]}
                 ciencias={[73, 70]}
@@ -232,7 +232,7 @@ export default function Home() {
                 ]}
                 last_enrolled={[894.2, 828.1]}
                 slots_available={[650, 730]}
-                lectura={[100, 100]}
+                lectura={[53, 51]}
                 m1={[59, 58]}
                 m2={[41, 36]}
                 ciencias={[66, 60]}

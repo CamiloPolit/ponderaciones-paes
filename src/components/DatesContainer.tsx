@@ -26,7 +26,7 @@ export default function DatesContainer({ events }) {
           <Calendar month={event.month} day={event.day} />
           <Card className="flex h-20 w-full items-center">
             <CardContent className="flex">
-              <p className="mb-[-18px] text-xs font-semibold leading-7 sm:text-xl sm:font-normal [&:not(:first-child)]:mt-6">
+              <p className="mb-[-17px] text-xs font-semibold leading-tight sm:text-xl sm:font-normal [&:not(:first-child)]:mt-6">
                 {event.description}
               </p>
             </CardContent>

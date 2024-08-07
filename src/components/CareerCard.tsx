@@ -55,7 +55,7 @@ export default function CareerCard({
             </div>
           </Card>
 
-          <div className="my-2 flex">
+          <div className="my-2 flex w-full justify-between">
             <div className="mx-5 flex flex-col sm:flex-row">
               <p className="pr-1 font-bold">Nota Promedio: </p>
               <p className="mr-3">{grade}</p>

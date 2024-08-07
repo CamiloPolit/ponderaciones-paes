@@ -248,13 +248,13 @@ export default function Home() {
             href="https://www.linkedin.com/in/benjamin-henriquez-soto/"
             className="px-5 text-center text-xs leading-7 text-blue-500"
           >
-            Linkedin de Benjamón
+            Linkedin de Benjamín
           </a>
           <a
-            href="https://www.linkedin.com/in/fcocea/"
-            className="text-center text-xs leading-7 text-blue-500"
+            href="https://github.com/fcocea"
+            className="text-center text-xs leading-7 text-slate-400"
           >
-            Linkedin de Francisco
+            Github de Francisco
           </a>
         </div>
       </footer>

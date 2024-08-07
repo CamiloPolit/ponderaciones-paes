@@ -56,14 +56,14 @@ export default function CareerCard({
           </Card>
 
           <div className="my-2 flex">
-            <p className="px-3">
-              <span className="font-bold">Nota Promedio: </span>
-              {grade}
-            </p>
-            <p>
-              <span className="font-bold">Ranking Promedio: </span>
-              {`${ranking} ptos`}
-            </p>
+            <div className="mx-5 flex flex-col sm:flex-row">
+              <p className="pr-1 font-bold">Nota Promedio: </p>
+              <p className="mr-3">{grade}</p>
+            </div>
+            <div className="mx-5 flex flex-col sm:flex-row">
+              <p className="pr-1 font-bold">Ranking Promedio: </p>
+              <p>{`${ranking} ptos`}</p>
+            </div>
           </div>
 
           <Separator className="mt-3" />

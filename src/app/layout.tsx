@@ -29,42 +29,28 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <header className="absolute right-0 flex h-14 items-center px-4 lg:px-6">
-          <Link
-            href="/"
-            className="flex items-center justify-center"
-            prefetch={false}
-          >
-            <span className="sr-only">Simulador</span>
-          </Link>
-          <nav className="ml-auto flex gap-4 sm:gap-6">
+        <header>
+          <nav className="flex items-center justify-center gap-8 pb-3 pt-5 sm:gap-12">
             <Link
               href="/"
-              className="text-sm font-medium underline-offset-4 hover:underline"
+              className="text-[1.1rem] font-medium underline-offset-4 hover:underline"
               prefetch={false}
             >
               Inicio
             </Link>
             <Link
               href="/simulador"
-              className="text-sm font-medium underline-offset-4 hover:underline"
+              className="text-[1.1rem] font-medium underline-offset-4 hover:underline"
               prefetch={false}
             >
               Simulador
             </Link>
             <Link
-              href="/"
-              className="text-sm font-medium underline-offset-4 hover:underline"
+              href="/mallas"
+              className="text-[1.1rem] font-medium underline-offset-4 hover:underline"
               prefetch={false}
             >
-              Cuenta Regresiva
-            </Link>
-            <Link
-              href="/"
-              className="text-sm font-medium underline-offset-4 hover:underline"
-              prefetch={false}
-            >
-              Fechas Importantes
+              Mallas
             </Link>
           </nav>
         </header>

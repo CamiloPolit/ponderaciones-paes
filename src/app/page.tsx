@@ -209,7 +209,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-evenly py-12">
+            <div className="flex flex-col items-center justify-evenly py-12 sm:flex-row">
               <CareerCardContainer
                 career="Medicina"
                 university={[

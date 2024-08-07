@@ -1,38 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* Estilos personalizados para la barra de desplazamiento */
-::-webkit-scrollbar {
-  width: 12px; /* Ancho de la barra de desplazamiento */
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color de fondo de la pista de desplazamiento */
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888; /* Color del pulgar de desplazamiento */
-  border-radius: 6px; /* Bordes redondeados del pulgar de desplazamiento */
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color del pulgar de desplazamiento cuando se pasa el ratón por encima */
-}
-
-/* Estilos personalizados para Firefox */
-body {
-  scrollbar-width: thin; /* Ancho de la barra de desplazamiento */
-  scrollbar-color: #888 #f1f1f1; /* Color del pulgar y de la pista de desplazamiento */
-}
-
-main {
-  /* background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%); */
-  /* background-color: black; */
-}

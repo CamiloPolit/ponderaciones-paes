@@ -108,7 +108,7 @@ export default function Page({
           onKeyDown={handleKeyDown}
           onFocus={(e) => setIsInputActive(true)}
           placeholder="Nombre de la universidad"
-          className={`xs:w-96 xs:text-xl ml-1 w-64 rounded-3xl border-2 p-2 text-[1rem] text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
+          className={`xs:w-96 xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/80 ${isDisabled ? "hover:border-black" : ""}`}
         />
         {inputValue && (
           <input

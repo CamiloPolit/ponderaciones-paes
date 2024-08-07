@@ -17,21 +17,18 @@ export default function CareersMenu({
       {isInputActive && (
         <div>
           <div className="flex justify-between bg-gray-100 px-1 text-xs">
-            <div>Tipo:</div>
-            <div className="flex">
-              {["Todo", "Ingeniería", "Ciencias", "Humanista", "Salud"].map(
-                (type) => (
-                  <p
-                    key={type}
-                    className={`cursor-pointer px-1 ${
-                      activeCareerType === type ? "text-blue-600" : "text-black"
-                    }`}
-                    onClick={() => handleClick(type)}
-                  >
-                    {type}
-                  </p>
-                ),
-              )}
+            <div className="flex justify-around">
+              {["Ing.", "Ciencias", "Humanista", "Salud"].map((type) => (
+                <p
+                  key={type}
+                  className={`cursor-pointer px-1 ${
+                    activeCareerType === type ? "text-blue-600" : "text-black"
+                  }`}
+                  onClick={() => handleClick(type)}
+                >
+                  {type}
+                </p>
+              ))}
             </div>
           </div>
           {careerExamples.map((career) => (

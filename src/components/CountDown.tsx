@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -56,45 +57,41 @@ const Countdown = () => {
         <div className="xs:h-20 xs:w-20 flex h-16 w-16 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.days}
         </div>
-        <p className="xs:text-2xl flex items-center justify-center text-xl text-white">
+        <h3 className="text-2xl font-bold tracking-tighter sm:text-4xl">
           Días
-        </p>
+        </h3>
       </div>
-      <div className="xs:px-5 mt-[-38px] flex items-center justify-center px-3 text-4xl text-white md:text-5xl">
+      <div className="xs:px-5 mt-[-38px] flex items-center justify-center px-3 text-4xl md:text-5xl">
         :
       </div>
       <div>
         <div className="xs:h-20 xs:w-20 flex h-16 w-16 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.hours}
         </div>
-        <p className="xs:text-2xl flex items-center justify-center text-xl text-white">
-          Hr
-        </p>
+        <h3 className="text-2xl font-bold tracking-tighter sm:text-4xl">Hr</h3>
       </div>
-      <div className="xs:px-5 mt-[-38px] flex items-center justify-center px-3 text-4xl text-white md:text-5xl">
+      <div className="xs:px-5 mt-[-38px] flex items-center justify-center px-3 text-4xl md:text-5xl">
         :
       </div>
       <div>
         <div className="xs:h-20 xs:w-20 flex h-16 w-16 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.minutes}
         </div>
-        <p className="xs:text-2xl flex items-center justify-center text-xl text-white">
-          Min
-        </p>
+        <h3 className="text-2xl font-bold tracking-tighter sm:text-4xl">Min</h3>
       </div>
-      <div className="xs:px-5 mt-[-38px] flex items-center justify-center px-3 text-4xl text-white md:text-5xl">
+      <div className="xs:px-5 mt-[-38px] flex items-center justify-center px-3 text-4xl md:text-5xl">
         :
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="xs:h-20 xs:w-20 flex h-16 w-16 items-center justify-center rounded-xl bg-stone-800 text-3xl text-white md:h-24 md:w-24 md:text-5xl">
           {timeLeft.seconds}
         </div>
-        <p className="xs:text-2xl flex items-center justify-center text-xl text-white">
-          Seg
-        </p>
+        <h3 className="text-2xl font-bold tracking-tighter sm:text-4xl">Seg</h3>
       </div>
     </motion.div>
   );
 };
+
+<h3 className="text-2xl font-bold tracking-tighter sm:text-4xl"></h3>;
 
 export default Countdown;

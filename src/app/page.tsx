@@ -99,15 +99,9 @@ export default function Home() {
                     adaptan a tus metas y aspiraciones.
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Button
-                    href="/"
-                    className="focus-visible:ring-ring inline-flex h-10 items-center justify-center rounded-md px-8 text-sm font-medium shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Prueba el Simulador
-                  </Button>
-                </div>
+                <Link href="/simulador" prefetch={false}>
+                  <Button>Prueba el Simulador</Button>
+                </Link>
               </div>
               <div className="flex flex-col items-start space-y-4">
                 <Card className="w-full">

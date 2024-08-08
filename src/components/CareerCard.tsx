@@ -7,8 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { IoInformationCircle } from "react-icons/io5";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function CareerCard({
   university,
@@ -81,7 +87,23 @@ export default function CareerCard({
           {women_enrolled ? (
             <p className="text-muted-foreground">
               <span className="font-bold">
-                Porcentaje Mujeres Matriculadas:{" "}
+                Porcentaje Mujeres Matriculadas
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <IoInformationCircle />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="max-w-72 font-semibold">
+                        Tener conocimiento de la proporción de género, sobretodo
+                        en carreras STEM, es un aspecto muy relevante al momento
+                        de postular para poder asegurar un ambiente diverso y
+                        que se adapte a tus pretensiones personales.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                :{" "}
               </span>
               {women_enrolled}
             </p>

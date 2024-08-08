@@ -4,11 +4,14 @@ import React, { useState, useRef } from "react";
 import UniversitySearch from "@/components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
 import SimulationTable from "@/components/SimulationTable";
+
 export default function Simulador() {
   const [selectedUniversity, setSelectedUniversity] = useState(false);
   const [matchedText, setMatchedText] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const careerComponentRef = useRef(null);
+  const [selectedCareer, setSelectedCareer] = useState<string>("");
+  const [isCareerSelected, setIsCareerSelected] = useState(false);
 
   const labels = [
     "Nem",
@@ -44,6 +47,9 @@ export default function Simulador() {
             <CarreerSearch
               careerComponentRef={careerComponentRef}
               isDisabled={isDisabled}
+              selectedCareer={selectedCareer}
+              setSelectedCareer={setSelectedCareer}
+              setIsCareerSelected={setIsCareerSelected}
             />
           </div>
         </div>

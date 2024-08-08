@@ -126,6 +126,7 @@ export default function Page({
           isInputActive={isInputActive}
           setIsInputActive={setIsInputActive}
           setIsDisabled={setIsDisabled}
+          setSelectedUniversity={setSelectedUniversity}
         />
       </div>
     </div>

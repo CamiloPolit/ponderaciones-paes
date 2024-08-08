@@ -8,6 +8,7 @@ export default function UniversitiesMenu({
   isInputActive,
   setIsInputActive,
   setIsDisabled,
+  setSelectedUniversity,
 }) {
   return (
     isInputActive && (
@@ -22,6 +23,7 @@ export default function UniversitiesMenu({
               setImageSrc(`logos/${university.abbreviation.toLowerCase()}.png`);
               setIsInputActive(false);
               setIsDisabled(false);
+              setSelectedUniversity(true);
             }}
           >
             <div className="flex h-12 w-12 items-center justify-center py-2">

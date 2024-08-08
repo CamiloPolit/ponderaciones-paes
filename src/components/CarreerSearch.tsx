@@ -2,7 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 import CareersMenu from "./CareersMenu";
 
-export default function CareerSearch({ isDisabled, careerComponentRef }) {
+export default function CareerSearch({
+  isDisabled,
+  careerComponentRef,
+  selectedCareer,
+  setSelectedCareer,
+  setIsCareerSelected,
+}) {
   const careerExamples = [
     { prefix: "ENG", number: "C001", name: "Ingeniería Civil en Computación" },
     { prefix: "ENG", number: "C002", name: "Ingeniería Civil Industrial" },
@@ -21,9 +27,7 @@ export default function CareerSearch({ isDisabled, careerComponentRef }) {
 
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
   const [isInputActive, setIsInputActive] = useState<boolean>(false);
-  const [selectedCareer, setSelectedCareer] = useState<string>("");
   const [selectedPrefix, setSelectedPrefix] = useState<string>("");
-
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -91,6 +95,7 @@ export default function CareerSearch({ isDisabled, careerComponentRef }) {
           setSelectedPrefix={setSelectedPrefix}
           setActiveCareerType={setActiveCareerType}
           setIsInputActive={setIsInputActive}
+          setIsCareerSelected={setIsCareerSelected}
         />
       </div>
     </div>

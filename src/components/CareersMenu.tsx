@@ -6,6 +6,7 @@ export default function CareersMenu({
   setSelectedPrefix,
   setActiveCareerType,
   setIsInputActive,
+  setIsCareerSelected,
 }) {
   const handleClick = (type) => {
     setActiveCareerType(type);
@@ -38,7 +39,8 @@ export default function CareersMenu({
               onMouseDown={() => {
                 setSelectedCareer(career.name);
                 setSelectedPrefix(career.prefix);
-                setIsInputActive(false); // Cierra el dropdown al seleccionar una carrera
+                setIsCareerSelected(true);
+                setIsInputActive(false); // Closes dropdown when selecting a career
               }}
             >
               <div className="max-h-8 max-w-8">

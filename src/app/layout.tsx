@@ -29,11 +29,11 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <header className="flex justify-around">
+        <header className="flex w-11/12 justify-between">
           <img
             src="mainlogo.webp"
             alt="Logo"
-            className="w-32 py-3 sm:w-52"
+            className="ml-[5%] block w-32 py-3 sm:w-52"
             draggable="false"
           />
           <nav className="flex items-center justify-center gap-8 sm:gap-12">

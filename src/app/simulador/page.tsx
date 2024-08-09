@@ -25,13 +25,13 @@ export default function Simulador() {
   ];
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-[87vh] items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: 300 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         viewport={{ once: true }}
-        className="w-11/12 rounded-2xl border-2 border-gray-300 bg-gray-50 py-5 md:flex md:w-2/3 md:items-center md:justify-center"
+        className="w-11/12 rounded-xl border-[1px] border-gray-300 py-5 md:flex md:w-2/3 md:items-center md:justify-center"
       >
         <div className="flex flex-col items-center justify-center">
           <div className="xs:px-7">

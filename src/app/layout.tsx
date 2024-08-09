@@ -29,8 +29,14 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <header>
-          <nav className="flex items-center justify-center gap-8 pb-3 pt-5 sm:gap-12">
+        <header className="flex justify-around">
+          <img
+            src="mainlogo.webp"
+            alt="Logo"
+            className="w-32 py-3 sm:w-52"
+            draggable="false"
+          />
+          <nav className="flex items-center justify-center gap-8 sm:gap-12">
             <Link
               href="/"
               className="text-[1.1rem] font-medium underline-offset-4 hover:underline"

@@ -88,7 +88,7 @@ export default function CareerCard({
             <p className="text-muted-foreground">
               <span className="font-bold">
                 Porcentaje Mujeres Matriculadas
-                <TooltipProvider>
+                <TooltipProvider delayDuration={200}>
                   <Tooltip>
                     <TooltipTrigger>
                       <IoInformationCircle />

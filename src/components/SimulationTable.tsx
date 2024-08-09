@@ -17,7 +17,7 @@ export default function SimulationTable({ labels }) {
             key={label}
             className="flex flex-col items-center justify-center p-2 px-6"
           >
-            <p className="text-center">{label}</p>
+            <p className="text-center font-semibold">{label}</p>
             <input
               type="text"
               className="w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black sm:w-24"

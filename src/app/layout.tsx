@@ -33,10 +33,10 @@ export default function RootLayout({
           <img
             src="mainlogo.webp"
             alt="Logo"
-            className="ml-[5%] block w-32 py-3 sm:w-52"
+            className="ml-[5%] block w-[6.5rem] py-3 sm:w-52"
             draggable="false"
           />
-          <nav className="flex items-center justify-center gap-8 sm:gap-12">
+          <nav className="flex items-center justify-center gap-3 sm:gap-12">
             <Link
               href="/"
               className="text-[1.1rem] font-medium underline-offset-4 hover:underline"

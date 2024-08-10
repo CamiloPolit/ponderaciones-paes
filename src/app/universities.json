@@ -101,18 +101,13 @@
       "locations": []
     },
     {
-      "name": "Universidad Católica Silva Henríquez",
+      "name": "Universidad Católica Cardenal Raúl Silva Henríquez",
       "abbreviation": "UCSH",
       "locations": []
     },
     {
       "name": "Universidad Central de Chile",
       "abbreviation": "UCEN",
-      "locations": []
-    },
-    {
-      "name": "Universidad de Aconcagua",
-      "abbreviation": "UAC",
       "locations": []
     },
     {
@@ -157,7 +152,7 @@
       "locations": []
     },
     {
-      "name": "Universidad de Playa Ancha",
+      "name": "Universidad de Playa Ancha de Ciencias de la Educación",
       "abbreviation": "UPLA",
       "locations": []
     },
@@ -167,7 +162,7 @@
       "locations": []
     },
     {
-      "name": "Universidad de Tarapacá de Arica",
+      "name": "Universidad de Tarapacá",
       "abbreviation": "UTA",
       "locations": []
     },
@@ -182,12 +177,7 @@
       "locations": []
     },
     {
-      "name": "Universidad del Alba",
-      "abbreviation": "UDALBA",
-      "locations": []
-    },
-    {
-      "name": "Universidad del Bío Bío",
+      "name": "Universidad del Bío-Bío",
       "abbreviation": "UBB",
       "locations": []
     },

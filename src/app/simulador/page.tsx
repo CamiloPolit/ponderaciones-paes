@@ -107,21 +107,25 @@ export default function Simulador() {
                 htmlFor="NEM-switch"
                 className="scroll-m-20 text-sm font-semibold tracking-tight"
               >
-                Ingresar NEM como nota (Escala de 1 al 7)
+                Ingresar NEM como nota (Escala de 1 al 7, <br /> con dos
+                decimales separados por coma)
               </label>
             </div>
             <Separator className="my-4 w-full" />
 
             {!isLocationUnique && (
-              <div className="flex items-center justify-center">
-                <p className="px-2 text-[1.15rem] font-semibold">Sede:</p>
-                <LocationMenu
-                  locations={locations}
-                  selectedCareer={selectedCareer}
-                  position={position}
-                  setPosition={setPosition}
-                />
-              </div>
+              <>
+                <div className="flex items-center justify-center">
+                  <p className="px-2 text-[1.15rem] font-semibold">Sede:</p>
+                  <LocationMenu
+                    locations={locations}
+                    selectedCareer={selectedCareer}
+                    position={position}
+                    setPosition={setPosition}
+                  />
+                </div>
+                <Separator className="my-4 w-full" />
+              </>
             )}
           </div>
         </div>

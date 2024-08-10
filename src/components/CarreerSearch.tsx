@@ -8,7 +8,7 @@ export default function CareerSearch({
   selectedCareer,
   setSelectedCareer,
   setIsCareerSelected,
-  careerData,
+  universityData,
 }) {
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
   const [isInputActive, setIsInputActive] = useState<boolean>(false);
@@ -76,7 +76,7 @@ export default function CareerSearch({
         <CareersMenu
           isInputActive={isInputActive}
           activeCareerType={activeCareerType}
-          careerExamples={careerData}
+          careerExamples={universityData}
           setSelectedCareer={setSelectedCareer}
           setSelectedPrefix={setSelectedPrefix}
           setActiveCareerType={setActiveCareerType}

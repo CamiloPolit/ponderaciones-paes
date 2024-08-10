@@ -72,7 +72,7 @@ export default function Page({
       setHighlightedText("");
     }
 
-    if (highlightedText == value) {
+    if (highlightedText == value && value) {
       setHighlightedText("");
       setSelectedUniversity(true);
       setIsDisabled(false);

@@ -4,18 +4,24 @@ import React, { useState, useRef, useEffect } from "react";
 import UniversitySearch from "@/components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
 import SimulationTable from "@/components/SimulationTable";
+import LocationMenu from "@/components/LocationMenu";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 
 export default function Simulador() {
   const [selectedUniversity, setSelectedUniversity] = useState(false);
   const [matchedText, setMatchedText] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
   const careerComponentRef = useRef(null);
-  const [selectedCareer, setSelectedCareer] = useState<string>("");
+  const [selectedCareer, setSelectedCareer] = useState("");
   const [isCareerSelected, setIsCareerSelected] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isLocationUnique, setIsLocationUnique] = useState(true);
 
   const [universityData, setUniversityData] = useState([]);
   const [careerData, setCareerData] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [position, setPosition] = useState("Selecciona la sede");
 
   const fetchUniversityData = async () => {
     const response = await fetch(
@@ -27,27 +33,31 @@ export default function Simulador() {
 
   const fetchCareerData = async () => {
     const response = await fetch(
-      `/api/universidades/${inputValue}?carrera=${selectedCareer}`,
+      `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}?carrera=${selectedCareer}`,
     );
     const data = await response.json();
     return data;
   };
 
   useEffect(() => {
-    // Establecer isCareerSelected en falso cuando cambie la universidad
-    setIsCareerSelected(false);
+    setCareerData([]);
+    setPosition("Selecciona la sede");
 
     if (selectedUniversity && selectedCareer) {
       fetchCareerData().then((data) => {
         setCareerData(data);
+
+        const newLocations = data.map((item) => item.nomb_sede);
+        setLocations(newLocations);
+        setIsLocationUnique(newLocations.length === 1);
       });
     } else if (selectedUniversity && !selectedCareer) {
       fetchUniversityData().then((data) => {
         setUniversityData(data);
-        setCareerData(data); // Cargar todas las carreras cuando se seleccione solo la universidad
+        setCareerData(data);
       });
     }
-  }, [selectedUniversity]); // Solo depende de selectedUniversity para cambiar isCareerSelected
+  }, [selectedUniversity, selectedCareer]);
 
   const labels = [
     "Nem",
@@ -88,8 +98,31 @@ export default function Simulador() {
               selectedCareer={selectedCareer}
               setSelectedCareer={setSelectedCareer}
               setIsCareerSelected={setIsCareerSelected}
-              careerData={careerData}
+              universityData={universityData}
             />
+
+            <div className="flex items-center justify-center gap-2 font-semibold">
+              <Switch id="NEM-switch" />
+              <label
+                htmlFor="NEM-switch"
+                className="scroll-m-20 text-sm font-semibold tracking-tight"
+              >
+                Ingresar NEM como nota (Escala de 1 al 7)
+              </label>
+            </div>
+            <Separator className="my-4 w-full" />
+
+            {!isLocationUnique && (
+              <div className="flex items-center justify-center">
+                <p className="px-2 text-[1.15rem] font-semibold">Sede:</p>
+                <LocationMenu
+                  locations={locations}
+                  selectedCareer={selectedCareer}
+                  position={position}
+                  setPosition={setPosition}
+                />
+              </div>
+            )}
           </div>
         </div>
 

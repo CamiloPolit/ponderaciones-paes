@@ -14,7 +14,7 @@ export default function CareersMenu({
   };
 
   return (
-    <div className="scrollable-container absolute max-h-48 w-full overflow-auto">
+    <div className="scrollable-container absolute z-10 max-h-48 w-full overflow-auto">
       {isInputActive && (
         <div>
           <div className="flex justify-between bg-gray-100 px-1 text-xs">

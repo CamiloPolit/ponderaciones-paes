@@ -45,7 +45,7 @@ export default function CareersMenu({
             >
               <div className="max-h-8 max-w-8">
                 <img
-                  src={`/careerIcons/${career.area_conocimiento.toLowerCase()}.png`}
+                  src={`/careerIcons/${career.area_conocimiento}.png`}
                   alt={`Foto ${career.nombre_carrera}`}
                   className="object-cover"
                 />

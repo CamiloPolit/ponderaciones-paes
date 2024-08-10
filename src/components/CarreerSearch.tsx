@@ -48,7 +48,7 @@ export default function CareerSearch({
         ) : (
           <img
             className="max-h-10 max-w-10"
-            src={`careerIcons/${selectedPrefix.toLowerCase()}.png`}
+            src={`careerIcons/${selectedPrefix}.png`}
             alt="Logo Carrera"
             draggable="false"
           />

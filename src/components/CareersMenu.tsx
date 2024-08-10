@@ -34,23 +34,23 @@ export default function CareersMenu({
           </div>
           {careerExamples.map((career) => (
             <div
-              key={career.number}
+              key={career.codigo_carrera}
               className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
               onMouseDown={() => {
-                setSelectedCareer(career.name);
-                setSelectedPrefix(career.prefix);
+                setSelectedCareer(career.nombre_carrera);
+                setSelectedPrefix(career.area_conocimiento);
                 setIsCareerSelected(true);
-                setIsInputActive(false); // Closes dropdown when selecting a career
+                setIsInputActive(false);
               }}
             >
               <div className="max-h-8 max-w-8">
                 <img
-                  src={`/careerIcons/${career.prefix.toLowerCase()}.png`}
-                  alt={`Foto ${career.prefix}`}
+                  src={`/careerIcons/${career.area_conocimiento.toLowerCase()}.png`}
+                  alt={`Foto ${career.nombre_carrera}`}
                   className="object-cover"
                 />
               </div>
-              <div className="w-10/12 p-2">{career.name}</div>
+              <div className="w-10/12 p-2">{career.nombre_carrera}</div>
             </div>
           ))}
         </div>

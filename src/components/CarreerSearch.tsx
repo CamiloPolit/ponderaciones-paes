@@ -8,23 +8,8 @@ export default function CareerSearch({
   selectedCareer,
   setSelectedCareer,
   setIsCareerSelected,
+  careerData,
 }) {
-  const careerExamples = [
-    { prefix: "ENG", number: "C001", name: "Ingeniería Civil en Computación" },
-    { prefix: "ENG", number: "C002", name: "Ingeniería Civil Industrial" },
-    { prefix: "ENG", number: "C004", name: "Ingeniería Civil Química" },
-    { prefix: "ENG", number: "C003", name: "Ingeniería Civil Eléctrica" },
-    {
-      prefix: "ENG",
-      number: "C101",
-      name: "Ingeniería Civil en Biotecnología",
-    },
-    { prefix: "ENG", number: "C004", name: "Ingeniería Civil en Computación" },
-    { prefix: "ENG", number: "C005", name: "Ingeniería Civil Industrial" },
-    { prefix: "ENG", number: "C006", name: "Ingeniería Civil Química" },
-    { prefix: "ENG", number: "C007", name: "Ingeniería Civil Eléctrica" },
-  ];
-
   const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
   const [isInputActive, setIsInputActive] = useState<boolean>(false);
   const [selectedPrefix, setSelectedPrefix] = useState<string>("");
@@ -65,6 +50,7 @@ export default function CareerSearch({
             className="max-h-10 max-w-10"
             src={`careerIcons/${selectedPrefix.toLowerCase()}.png`}
             alt="Logo Carrera"
+            draggable="false"
           />
         )}
       </div>
@@ -74,7 +60,7 @@ export default function CareerSearch({
           ref={careerComponentRef}
           value={!isDisabled ? selectedCareer : ""}
           type="text"
-          placeholder="Nombre de la carrera"
+          readOnly
           disabled={isDisabled}
           onFocus={(e) => setIsInputActive(true)}
           onChange={(e) => {
@@ -90,7 +76,7 @@ export default function CareerSearch({
         <CareersMenu
           isInputActive={isInputActive}
           activeCareerType={activeCareerType}
-          careerExamples={careerExamples}
+          careerExamples={careerData}
           setSelectedCareer={setSelectedCareer}
           setSelectedPrefix={setSelectedPrefix}
           setActiveCareerType={setActiveCareerType}

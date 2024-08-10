@@ -9,6 +9,7 @@ export default function UniversitiesMenu({
   setIsInputActive,
   setIsDisabled,
   setSelectedUniversity,
+  setMatchedText,
 }) {
   return (
     isInputActive && (
@@ -24,12 +25,14 @@ export default function UniversitiesMenu({
               setIsInputActive(false);
               setIsDisabled(false);
               setSelectedUniversity(true);
+              setMatchedText(university.name);
             }}
           >
             <div className="flex h-12 w-12 items-center justify-center py-2">
               <img
                 src={`/logos/${university.abbreviation.toLowerCase()}.png`}
                 alt={`Foto ${university.abbreviation}`}
+                draggable="false"
               />
             </div>
             <div className="w-10/12 p-2">{university.name}</div>

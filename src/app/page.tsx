@@ -57,7 +57,9 @@ export default function Home() {
                     <PreviewSimulator />
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full">Simular Puntaje</Button>
+                    <Link href="/simulador" prefetch={false}>
+                      <Button className="w-full">Simular Puntaje</Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               </div>

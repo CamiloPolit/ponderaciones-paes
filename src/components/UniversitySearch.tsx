@@ -13,8 +13,9 @@ export default function Page({
   setMatchedText,
   isDisabled,
   setIsDisabled,
+  inputValue,
+  setInputValue,
 }) {
-  const [inputValue, setInputValue] = useState("");
   const [highlightedText, setHighlightedText] = useState("");
   const [imageSrc, setImageSrc] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -93,7 +94,12 @@ export default function Page({
     <div className="my-5 flex items-center justify-center">
       <div className="flex h-11 w-11 items-center justify-center">
         {(highlightedText || selectedUniversity) && (
-          <img className="h-min" src={imageSrc} alt="Logo UCh" />
+          <img
+            className="h-min"
+            src={imageSrc}
+            alt="Logo Universidad"
+            draggable="false"
+          />
         )}
         {!highlightedText && !selectedUniversity && (
           <MdBlock size="40px" className="text-gray-500" />
@@ -127,6 +133,7 @@ export default function Page({
           setIsInputActive={setIsInputActive}
           setIsDisabled={setIsDisabled}
           setSelectedUniversity={setSelectedUniversity}
+          setMatchedText={setMatchedText}
         />
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function Home() {
                   <p className="text-muted-foreground max-w-[600px] py-4 text-stone-600 md:text-xl">
                     Navega por el panorama académico con nuestro simulador de
                     puntajes. Descubre las carreras y universidades que mejor se
-                    adaptan a tus metas y aspiraciones.
+                    adaptan a tus objetivos.
                   </p>
                 </div>
                 <Link href="/simulador" prefetch={false}>

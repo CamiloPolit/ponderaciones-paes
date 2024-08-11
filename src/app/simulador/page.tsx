@@ -43,6 +43,7 @@ export default function Simulador() {
   useEffect(() => {
     setIsDataLoaded(false);
     setCareerData([]);
+
     setPosition("Selecciona la sede");
 
     if (selectedUniversity && selectedCareer) {
@@ -110,8 +111,8 @@ export default function Simulador() {
                 htmlFor="NEM-switch"
                 className="scroll-m-20 text-sm font-semibold tracking-tight"
               >
-                Ingresar NEM como nota (Escala de 1 al 7, <br /> con dos
-                decimales separados por coma)
+                Ingresar NEM como nota (Escala de 1 al 7, <br /> con dos cifras
+                decimales separadas por coma)
               </label>
             </div>
             <Separator className="my-4 w-full" />

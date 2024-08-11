@@ -30,13 +30,8 @@ export default function RootLayout({
         )}
       >
         <header className="flex w-11/12 justify-between">
-          <Link href={"/"}>
-            <img
-              src="mainlogo.webp"
-              alt="Logo"
-              className="ml-[5%] block w-[6.5rem] py-3 sm:w-52"
-              draggable="false"
-            />
+          <Link className="ml-[5%] block w-[6.5rem] py-3 sm:w-52" href={"/"}>
+            <img src="mainlogo.webp" alt="Logo" draggable="false" />
           </Link>
           <nav className="flex items-center justify-center gap-3 sm:gap-12">
             <Link

@@ -34,7 +34,7 @@ export async function GET(request, { params }) {
       `;
     } else {
       result = await sql`
-        SELECT * FROM FETCH_CARRERAS WHERE nomb_inst = ${university}
+        SELECT DISTINCT NOMBRE_CARRERA,AREA_CONOCIMIENTO,NOMB_INST FROM FETCH_CARRERAS WHERE nomb_inst = ${university} ORDER BY NOMBRE_CARRERA ASC;
       `;
     }
     return NextResponse.json(result.rows);

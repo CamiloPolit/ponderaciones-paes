@@ -50,8 +50,8 @@ export default function SimulationTable({
                 className={`cursor-default ${value ? "" : "opacity-0"} ${
                   areElectivesFilled &&
                   (label === "Ciencias" || label === "Historia")
-                    ? "bg-yellow-200"
-                    : "bg-lime-200"
+                    ? "bg-yellow-100"
+                    : "bg-lime-100"
                 } text-[0.85rem]`}
               >
                 {value ?? "30"}

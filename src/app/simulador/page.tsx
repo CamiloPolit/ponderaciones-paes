@@ -83,7 +83,7 @@ export default function Simulador() {
       initial={{ opacity: 0, y: 300 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="flex h-[120vh] flex-col items-center justify-center md:h-[87vh]"
+      className="flex h-[110vh] flex-col items-center md:h-[87vh] md:justify-center"
     >
       <div className="flex w-11/12 items-center justify-center">
         <div className="w-full gap-10 rounded-xl border-[1px] border-gray-300 py-5 md:flex md:w-2/3 md:items-center md:justify-center">
@@ -124,7 +124,6 @@ export default function Simulador() {
                     <p className="px-2 text-[1.15rem] font-semibold">Sede:</p>
                     <LocationMenu
                       locations={locations}
-                      selectedCareer={selectedCareer}
                       position={position}
                       setPosition={setPosition}
                     />
@@ -157,8 +156,9 @@ export default function Simulador() {
                     ></Badge>
                     <p>=</p>
                     <p className="text-sm font-medium leading-none text-stone-800">
-                      Puedes escoger cuál rendir, en caso de rendir ambas, se
-                      considerará el puntaje máximo.
+                      Puedes escoger cuál rendir, en caso <br /> de rendir
+                      ambas, se considerará <br />
+                      el puntaje máximo.
                     </p>
                   </div>
                 </div>

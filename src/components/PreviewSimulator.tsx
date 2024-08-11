@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import UniversitySearch from "@/components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
+import LocationMenu from "@/components/LocationMenu";
 
 export default function PreviewSimulator() {
   const [selectedUniversity, setSelectedUniversity] = useState(false);
@@ -11,9 +12,13 @@ export default function PreviewSimulator() {
   const [selectedCareer, setSelectedCareer] = useState("");
   const [isCareerSelected, setIsCareerSelected] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isLocationUnique, setIsLocationUnique] = useState(true);
 
   const [universityData, setUniversityData] = useState([]);
   const [careerData, setCareerData] = useState([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [locations, setLocations] = useState([]);
+  const [position, setPosition] = useState("Selecciona la sede");
 
   const fetchUniversityData = async () => {
     const response = await fetch(
@@ -25,27 +30,11 @@ export default function PreviewSimulator() {
 
   const fetchCareerData = async () => {
     const response = await fetch(
-      `/api/universidades/${inputValue}?carrera=${selectedCareer}`,
+      `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}?carrera=${selectedCareer}`,
     );
     const data = await response.json();
     return data;
   };
-
-  useEffect(() => {
-    // Establecer isCareerSelected en falso cuando cambie la universidad
-    setIsCareerSelected(false);
-
-    if (selectedUniversity && selectedCareer) {
-      fetchCareerData().then((data) => {
-        setCareerData(data);
-      });
-    } else if (selectedUniversity && !selectedCareer) {
-      fetchUniversityData().then((data) => {
-        setUniversityData(data);
-        setCareerData(data); // Cargar todas las carreras cuando se seleccione solo la universidad
-      });
-    }
-  }, [selectedUniversity]); // Solo depende de selectedUniversity para cambiar isCareerSelected
 
   useEffect(() => {
     if (selectedUniversity) {
@@ -63,6 +52,29 @@ export default function PreviewSimulator() {
     }
   }, [isCareerSelected]);
 
+  useEffect(() => {
+    setIsDataLoaded(false);
+    setCareerData([]);
+
+    setPosition("Selecciona la sede");
+
+    if (selectedUniversity && selectedCareer) {
+      fetchCareerData().then((data) => {
+        setCareerData(data);
+
+        const newLocations = data.map((item) => item.nomb_sede);
+        setLocations(newLocations);
+        setIsLocationUnique(newLocations.length === 1);
+        setIsDataLoaded(true);
+      });
+    } else if (selectedUniversity && !selectedCareer) {
+      fetchUniversityData().then((data) => {
+        setUniversityData(data);
+        setCareerData(data);
+      });
+    }
+  }, [selectedUniversity, selectedCareer]);
+
   return (
     <>
       <UniversitySearch
@@ -75,15 +87,27 @@ export default function PreviewSimulator() {
         inputValue={inputValue}
         setInputValue={setInputValue}
       />
-
       <CarreerSearch
         careerComponentRef={careerComponentRef}
         isDisabled={isDisabled}
         selectedCareer={selectedCareer}
         setSelectedCareer={setSelectedCareer}
         setIsCareerSelected={setIsCareerSelected}
-        careerData={careerData}
+        universityData={universityData}
       />
+
+      {!isLocationUnique && (
+        <>
+          <div className="flex items-center justify-center">
+            <p className="px-2 text-[1.15rem] font-semibold">Sede:</p>
+            <LocationMenu
+              locations={locations}
+              position={position}
+              setPosition={setPosition}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 }

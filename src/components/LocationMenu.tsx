@@ -10,12 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-export default function LocationMenu({
-  locations,
-  selectedCareer,
-  position,
-  setPosition,
-}) {
+export default function LocationMenu({ locations, position, setPosition }) {
   console.log(locations);
   return (
     <DropdownMenu>

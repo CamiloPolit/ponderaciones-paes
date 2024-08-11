@@ -7,7 +7,6 @@ export default function SimulationTable({
   setAreElectivesFilled,
   areElectivesFilled,
 }) {
-  // Mapeo de etiquetas a las claves de datos correspondientes
   const labelToDataKey = {
     Nem: "nem",
     Ranking: "ranking",
@@ -18,7 +17,6 @@ export default function SimulationTable({
     Historia: "hsco",
   };
 
-  // Verificar si "Ciencias" y "Historia" tienen valores no nulos
   const cienciasValue = isDataLoaded
     ? careerData[0]?.[labelToDataKey["Ciencias"]]
     : null;

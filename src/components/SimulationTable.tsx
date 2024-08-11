@@ -39,10 +39,10 @@ export default function SimulationTable({ labels, careerData, isDataLoaded }) {
                 <Badge
                   variant="outline"
                   className={`cursor-default ${
-                    value || isDataLoaded ? "" : "opacity-0"
+                    value ? "" : "opacity-0"
                   } bg-stone-100 text-[0.85rem]`}
                 >
-                  {value ?? "N/A"}
+                  {value ?? "30"}
                 </Badge>
               }
             </div>

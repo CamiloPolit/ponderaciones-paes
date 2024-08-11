@@ -44,11 +44,6 @@ export default function Page({
     let match = suggestions.find((suggestion) =>
       suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
     );
-    setFilteredSuggestions(
-      suggestions.filter((suggestion) =>
-        suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
-      ),
-    );
 
     setImageSrc(
       match
@@ -89,6 +84,14 @@ export default function Page({
       setIsDisabled(false);
     }
   };
+
+  useEffect(() => {
+    setFilteredSuggestions(
+      suggestions.filter((suggestion) =>
+        suggestion.name.toLowerCase().startsWith(inputValue.toLowerCase()),
+      ),
+    );
+  }, [inputValue]);
 
   return (
     <div className="my-5 flex items-center justify-center">
@@ -134,6 +137,7 @@ export default function Page({
           setIsDisabled={setIsDisabled}
           setSelectedUniversity={setSelectedUniversity}
           setMatchedText={setMatchedText}
+          inputValue={inputValue}
         />
       </div>
     </div>

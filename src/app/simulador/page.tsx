@@ -20,6 +20,7 @@ export default function Simulador() {
 
   const [universityData, setUniversityData] = useState([]);
   const [careerData, setCareerData] = useState([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
   const [position, setPosition] = useState("Selecciona la sede");
 
@@ -40,6 +41,7 @@ export default function Simulador() {
   };
 
   useEffect(() => {
+    setIsDataLoaded(false);
     setCareerData([]);
     setPosition("Selecciona la sede");
 
@@ -50,6 +52,7 @@ export default function Simulador() {
         const newLocations = data.map((item) => item.nomb_sede);
         setLocations(newLocations);
         setIsLocationUnique(newLocations.length === 1);
+        setIsDataLoaded(true);
       });
     } else if (selectedUniversity && !selectedCareer) {
       fetchUniversityData().then((data) => {
@@ -77,7 +80,7 @@ export default function Simulador() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
         viewport={{ once: true }}
-        className="w-11/12 rounded-xl border-[1px] border-gray-300 py-5 md:flex md:w-2/3 md:items-center md:justify-center"
+        className="w-11/12 gap-10 rounded-xl border-[1px] border-gray-300 py-5 md:flex md:w-2/3 md:items-center md:justify-center"
       >
         <div className="flex flex-col items-center justify-center">
           <div className="xs:px-7">
@@ -130,7 +133,11 @@ export default function Simulador() {
           </div>
         </div>
 
-        <SimulationTable labels={labels} />
+        <SimulationTable
+          labels={labels}
+          careerData={careerData}
+          isDataLoaded={isDataLoaded}
+        />
       </motion.div>
     </div>
   );

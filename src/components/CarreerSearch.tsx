@@ -68,7 +68,7 @@ export default function CareerSearch({
           }}
           className={`xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/85 sm:w-96 ${
             isDisabled
-              ? "disabled:cursor-not-allowed disabled:bg-slate-100"
+              ? "disabled:cursor-not-allowed disabled:bg-stone-200"
               : "hover:cursor-pointer hover:border-black"
           }`}
         />

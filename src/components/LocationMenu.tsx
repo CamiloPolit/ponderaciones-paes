@@ -20,12 +20,12 @@ export default function LocationMenu({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="font-normal">
+        <Button variant="outline" className="font-medium">
           {position}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-80">
-        <DropdownMenuLabel>
+        <DropdownMenuLabel className="font-medium">
           Sedes donde se imparte la carrera:
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

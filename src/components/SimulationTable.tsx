@@ -1,6 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 
-export default function SimulationTable({ labels, careerData, isDataLoaded }) {
+export default function SimulationTable({
+  labels,
+  careerData,
+  isDataLoaded,
+  setAreElectivesFilled,
+  areElectivesFilled,
+}) {
   // Mapeo de etiquetas a las claves de datos correspondientes
   const labelToDataKey = {
     Nem: "nem",
@@ -12,18 +18,22 @@ export default function SimulationTable({ labels, careerData, isDataLoaded }) {
     Historia: "hsco",
   };
 
+  // Verificar si "Ciencias" y "Historia" tienen valores no nulos
+  const cienciasValue = isDataLoaded
+    ? careerData[0]?.[labelToDataKey["Ciencias"]]
+    : null;
+  const historiaValue = isDataLoaded
+    ? careerData[0]?.[labelToDataKey["Historia"]]
+    : null;
+  setAreElectivesFilled(cienciasValue !== null && historiaValue !== null);
+
   return (
     <div suppressHydrationWarning className="grid grid-cols-2 gap-x-7 px-7">
       {labels.map((label) => {
         const dataKey = labelToDataKey[label];
         const value = isDataLoaded ? careerData[0]?.[dataKey] : undefined;
 
-        return label === "Send" ? (
-          <div
-            key={label}
-            className="flex flex-col items-center justify-center p-2"
-          ></div>
-        ) : (
+        return (
           <div key={label} className="flex items-center">
             <div className="flex flex-col items-center justify-center py-2">
               <p className="text-center font-semibold">{label}</p>
@@ -35,16 +45,17 @@ export default function SimulationTable({ labels, careerData, isDataLoaded }) {
               />
             </div>
             <div className="relative mb-[-22px]">
-              {
-                <Badge
-                  variant="outline"
-                  className={`cursor-default ${
-                    value ? "" : "opacity-0"
-                  } bg-stone-100 text-[0.85rem]`}
-                >
-                  {value ?? "30"}
-                </Badge>
-              }
+              <Badge
+                variant="outline"
+                className={`cursor-default ${value ? "" : "opacity-0"} ${
+                  areElectivesFilled &&
+                  (label === "Ciencias" || label === "Historia")
+                    ? "bg-yellow-200"
+                    : "bg-lime-200"
+                } text-[0.85rem]`}
+              >
+                {value ?? "30"}
+              </Badge>
             </div>
           </div>
         );

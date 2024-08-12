@@ -45,7 +45,7 @@ export default function Simulador() {
 
   const [areElectivesFilled, setAreElectivesFilled] = useState(false);
 
-  const [inputValues, setInputValues] = useState({});
+  const [weightingInputValues, setWeightingInputValues] = useState({});
 
   // Doesn't matter the value of toastTrigger, every time it changes, the toast'll apappear
   const [toastTrigger, setToastTrigger] = useState(0);
@@ -64,6 +64,27 @@ export default function Simulador() {
     );
     const data = await response.json();
     return data;
+  };
+
+  const handleSimulation = () => {
+    let isValid = true;
+    console.log(weightingInputValues);
+
+    labels.forEach((label) => {
+      let value = weightingInputValues?.[label];
+      if (value === undefined) {
+        return;
+      }
+
+      if (!value) {
+        isValid = false;
+      }
+    });
+
+    if (!isValid) {
+      setToastTrigger((prev) => prev + 1);
+    } else {
+    }
   };
 
   useEffect(() => {
@@ -200,10 +221,15 @@ export default function Simulador() {
               areElectivesFilled={areElectivesFilled}
               toastTrigger={toastTrigger}
               setToastTrigger={setToastTrigger}
+              weightingInputValues={weightingInputValues}
+              setWeightingInputValues={setWeightingInputValues}
             />
           </div>
         </div>
-        <button className="my-2 w-1/3 rounded-md bg-stone-950 p-3 text-sm font-medium leading-none text-white hover:bg-stone-900">
+        <button
+          onClick={handleSimulation}
+          className="my-2 w-1/3 rounded-md bg-stone-950 p-3 text-sm font-medium leading-none text-white hover:bg-stone-900"
+        >
           Hacer Simulación
         </button>
       </motion.div>

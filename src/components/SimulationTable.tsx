@@ -9,6 +9,8 @@ export default function SimulationTable({
   areElectivesFilled,
   toastTrigger,
   setToastTrigger,
+  weightingInputValues,
+  setWeightingInputValues,
 }) {
   const labelToDataKey = {
     Nem: "nem",
@@ -19,8 +21,6 @@ export default function SimulationTable({
     Ciencias: "cien",
     Historia: "hsco",
   };
-
-  const [inputValues, setInputValues] = useState({});
 
   useEffect(() => {
     const cienciasValue = isDataLoaded
@@ -35,15 +35,22 @@ export default function SimulationTable({
 
   const handleInputChange = (label, value) => {
     const numValue = Number(value);
+    const isWeightedLabel = careerData[0]?.[labelToDataKey[label]];
+    console.log(label, isWeightedLabel);
 
     if (value === "") {
       return;
     }
 
-    if (!isNaN(numValue) && numValue >= 100 && numValue <= 1000) {
-      setInputValues((prev) => ({ ...prev, [label]: numValue }));
+    if (
+      !isNaN(numValue) &&
+      isWeightedLabel &&
+      numValue >= 100 &&
+      numValue <= 1000
+    ) {
+      setWeightingInputValues((prev) => ({ ...prev, [label]: numValue }));
     } else {
-      console.log("Invalid input");
+      setWeightingInputValues((prev) => ({ ...prev, [label]: null }));
       setToastTrigger((prev) => prev + 1);
     }
   };

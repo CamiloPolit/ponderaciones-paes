@@ -65,9 +65,14 @@ export default function CareerSearch({
           type="text"
           readOnly
           disabled={isDisabled}
-          onFocus={(e) => setIsInputActive(true)}
+          onFocus={(e) => {
+            setIsInputActive(true);
+            setActiveCareerType("Todo");
+            setFilteredCareers(universityData);
+          }}
           onChange={(e) => {
             setSelectedCareer(e.target.value);
+            setFilteredCareers(universityData);
           }}
           className={`xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/85 sm:w-96 ${
             isDisabled

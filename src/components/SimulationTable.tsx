@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
 
 export default function SimulationTable({
   labels,
@@ -6,6 +7,8 @@ export default function SimulationTable({
   isDataLoaded,
   setAreElectivesFilled,
   areElectivesFilled,
+  toastTrigger,
+  setToastTrigger,
 }) {
   const labelToDataKey = {
     Nem: "nem",
@@ -17,13 +20,33 @@ export default function SimulationTable({
     Historia: "hsco",
   };
 
-  const cienciasValue = isDataLoaded
-    ? careerData[0]?.[labelToDataKey["Ciencias"]]
-    : null;
-  const historiaValue = isDataLoaded
-    ? careerData[0]?.[labelToDataKey["Historia"]]
-    : null;
-  setAreElectivesFilled(cienciasValue !== null && historiaValue !== null);
+  const [inputValues, setInputValues] = useState({});
+
+  useEffect(() => {
+    const cienciasValue = isDataLoaded
+      ? careerData[0]?.[labelToDataKey["Ciencias"]]
+      : null;
+    const historiaValue = isDataLoaded
+      ? careerData[0]?.[labelToDataKey["Historia"]]
+      : null;
+
+    setAreElectivesFilled(cienciasValue !== null && historiaValue !== null);
+  }, [isDataLoaded, careerData]);
+
+  const handleInputChange = (label, value) => {
+    const numValue = Number(value);
+
+    if (value === "") {
+      return;
+    }
+
+    if (!isNaN(numValue) && numValue >= 100 && numValue <= 1000) {
+      setInputValues((prev) => ({ ...prev, [label]: numValue }));
+    } else {
+      console.log("Invalid input");
+      setToastTrigger((prev) => prev + 1);
+    }
+  };
 
   return (
     <div suppressHydrationWarning className="grid grid-cols-2 gap-x-7 px-7">
@@ -39,6 +62,7 @@ export default function SimulationTable({
                 type="text"
                 className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
                 maxLength="4"
+                onBlur={(e) => handleInputChange(label, e.target.value)}
                 disabled={!isDataLoaded || value === null}
               />
             </div>

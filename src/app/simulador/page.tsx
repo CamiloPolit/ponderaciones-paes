@@ -23,6 +23,8 @@ export default function Simulador() {
 
   const [universityData, setUniversityData] = useState([]);
   const [careerData, setCareerData] = useState([]);
+  const [filteredCareers, setFilteredCareers] = useState([]);
+
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
   const [position, setPosition] = useState("Selecciona la sede");
@@ -63,6 +65,7 @@ export default function Simulador() {
     } else if (selectedUniversity && !selectedCareer) {
       fetchUniversityData().then((data) => {
         setUniversityData(data);
+        setFilteredCareers(data);
         setCareerData(data);
       });
     }
@@ -83,7 +86,7 @@ export default function Simulador() {
       initial={{ opacity: 0, y: 300 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="flex h-[110vh] flex-col items-center md:h-[87vh] md:justify-center"
+      className="mt-6 flex h-[110vh] flex-col items-center md:mt-0 md:h-[87vh] md:justify-center"
     >
       <div className="flex w-11/12 items-center justify-center">
         <div className="w-full gap-10 rounded-xl border-[1px] border-gray-300 py-5 md:flex md:w-2/3 md:items-center md:justify-center">
@@ -106,6 +109,9 @@ export default function Simulador() {
                 setSelectedCareer={setSelectedCareer}
                 setIsCareerSelected={setIsCareerSelected}
                 universityData={universityData}
+                setUniversityData={setUniversityData}
+                filteredCareers={filteredCareers}
+                setFilteredCareers={setFilteredCareers}
               />
               <div className="flex items-center justify-center gap-2 font-semibold">
                 <Switch id="NEM-switch" />

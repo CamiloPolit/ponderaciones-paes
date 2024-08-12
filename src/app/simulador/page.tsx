@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 
 import UniversitySearch from "@/components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
@@ -97,10 +96,7 @@ export default function Simulador() {
         variant: "destructive",
         title: "¡Verifica los datos!",
         description:
-          "El último dato que pusiste no es válido, por favor, revisa que cumpla con la escala requerida y vuelve a intentarlo.",
-        action: (
-          <ToastAction altText="Try again">Intentar de nuevo</ToastAction>
-        ),
+          "Tienes datos que no son válidos, por favor, revisa que cumpla con la escala requerida.",
       });
   }, [toastTrigger]);
 

@@ -68,6 +68,7 @@ export default function Simulador() {
 
   const handleSimulation = () => {
     let isValid = true;
+    let electivesChecked = [];
 
     labels.forEach((label) => {
       if (weightedInputs.current[label].disabled) {
@@ -75,6 +76,20 @@ export default function Simulador() {
       }
 
       let value = Number(weightedInputs.current[label].value);
+
+      if (
+        areElectivesFilled &&
+        (label === "Ciencias" || label === "Historia")
+      ) {
+        if (!value) {
+          if (electivesChecked.length === 0) {
+            electivesChecked.push(label);
+          } else {
+            isValid = false;
+          }
+          return;
+        }
+      }
 
       if (isNaN(value) || value < 100 || value > 1000) {
         isValid = false;
@@ -84,7 +99,7 @@ export default function Simulador() {
     if (!isValid) {
       setToastTrigger((prev) => prev + 1);
     } else {
-      console.log("Todos los campos son validos");
+      console.log("Todos los campos son válidos");
     }
   };
 

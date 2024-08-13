@@ -21,6 +21,14 @@ export default function SimulationTable({
     Historia: "hsco",
   };
 
+  const cienciasValue = isDataLoaded
+    ? careerData[0]?.[labelToDataKey["Ciencias"]]
+    : null;
+  const historiaValue = isDataLoaded
+    ? careerData[0]?.[labelToDataKey["Historia"]]
+    : null;
+  setAreElectivesFilled(cienciasValue !== null && historiaValue !== null);
+
   const handleInputChange = (label, value) => {
     const numValue = Number(value);
 

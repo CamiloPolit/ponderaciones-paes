@@ -45,7 +45,7 @@ export default function Simulador() {
 
   const [areElectivesFilled, setAreElectivesFilled] = useState(false);
 
-  const [weightingInputValues, setWeightingInputValues] = useState({});
+  const weightedInputs = useRef({});
 
   // Doesn't matter the value of toastTrigger, every time it changes, the toast'll apappear
   const [toastTrigger, setToastTrigger] = useState(0);
@@ -68,15 +68,15 @@ export default function Simulador() {
 
   const handleSimulation = () => {
     let isValid = true;
-    console.log(weightingInputValues);
 
     labels.forEach((label) => {
-      let value = weightingInputValues?.[label];
-      if (value === undefined) {
+      if (weightedInputs.current[label].disabled) {
         return;
       }
 
-      if (!value) {
+      let value = Number(weightedInputs.current[label].value);
+
+      if (isNaN(value) || value < 100 || value > 1000) {
         isValid = false;
       }
     });
@@ -84,11 +84,11 @@ export default function Simulador() {
     if (!isValid) {
       setToastTrigger((prev) => prev + 1);
     } else {
+      console.log("Todos los campos son validos");
     }
   };
 
   useEffect(() => {
-    setIsDataLoaded(false);
     setCareerData([]);
 
     setPosition("Selecciona la sede");
@@ -221,8 +221,7 @@ export default function Simulador() {
               areElectivesFilled={areElectivesFilled}
               toastTrigger={toastTrigger}
               setToastTrigger={setToastTrigger}
-              weightingInputValues={weightingInputValues}
-              setWeightingInputValues={setWeightingInputValues}
+              weightedInputs={weightedInputs}
             />
           </div>
         </div>

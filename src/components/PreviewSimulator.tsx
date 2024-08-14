@@ -5,6 +5,7 @@ import CarreerSearch from "@/components/CarreerSearch";
 import LocationMenu from "@/components/LocationMenu";
 
 export default function PreviewSimulator() {
+  const [imageSrc, setImageSrc] = useState("");
   const [selectedUniversity, setSelectedUniversity] = useState(false);
   const [matchedText, setMatchedText] = useState("");
   const [isDisabled, setIsDisabled] = useState(true);
@@ -19,6 +20,9 @@ export default function PreviewSimulator() {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
   const [position, setPosition] = useState("Selecciona la sede");
+
+  const [filteredCareers, setFilteredCareers] = useState([]);
+  const [mainCareerLogo, setMainCareerLogo] = useState("");
 
   const fetchUniversityData = async () => {
     const response = await fetch(
@@ -86,6 +90,8 @@ export default function PreviewSimulator() {
         setIsDisabled={setIsDisabled}
         inputValue={inputValue}
         setInputValue={setInputValue}
+        imageSrc={imageSrc}
+        setImageSrc={setImageSrc}
       />
       <CarreerSearch
         careerComponentRef={careerComponentRef}
@@ -94,6 +100,11 @@ export default function PreviewSimulator() {
         setSelectedCareer={setSelectedCareer}
         setIsCareerSelected={setIsCareerSelected}
         universityData={universityData}
+        setUniversityData={setUniversityData}
+        filteredCareers={filteredCareers}
+        setFilteredCareers={setFilteredCareers}
+        mainCareerLogo={mainCareerLogo}
+        setMainCareerLogo={setMainCareerLogo}
       />
 
       {!isLocationUnique && (

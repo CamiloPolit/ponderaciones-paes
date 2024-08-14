@@ -15,9 +15,10 @@ export default function Page({
   setIsDisabled,
   inputValue,
   setInputValue,
+  imageSrc,
+  setImageSrc,
 }) {
   const [highlightedText, setHighlightedText] = useState("");
-  const [imageSrc, setImageSrc] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [isInputActive, setIsInputActive] = useState(false);
   const containerRef = useRef(null);

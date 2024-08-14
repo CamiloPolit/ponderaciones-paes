@@ -12,18 +12,19 @@ export default function CareerSearch({
   filteredCareers,
   setFilteredCareers,
   universityData,
+  mainCareerLogo,
+  setMainCareerLogo,
 }) {
-  const [activeCareerType, setActiveCareerType] = useState<string>("Todo");
-  const [isInputActive, setIsInputActive] = useState<boolean>(false);
-  const [selectedPrefix, setSelectedPrefix] = useState<string>("");
+  const [activeCareerType, setActiveCareerType] = useState("Todo");
+  const [isInputActive, setIsInputActive] = useState(false);
   const containerRef = useRef(null);
 
   useEffect(() => {
-    careerComponentRef.current.focus();
-    setSelectedCareer("");
-
     if (isDisabled) {
-      setSelectedPrefix("");
+      if (selectedCareer) {
+        setSelectedCareer("");
+      }
+      setMainCareerLogo("");
     }
   }, [isDisabled]);
 
@@ -46,12 +47,12 @@ export default function CareerSearch({
   return (
     <div className="my-5 flex items-center justify-center">
       <div className="flex h-11 w-11 items-center justify-center">
-        {!selectedPrefix ? (
+        {!mainCareerLogo ? (
           <MdBlock size="40px" className="text-gray-500" />
         ) : (
           <img
             className="max-h-10 max-w-10"
-            src={`careerIcons/${selectedPrefix}.png`}
+            src={`careerIcons/${mainCareerLogo}.png`}
             alt="Logo Carrera"
             draggable="false"
           />
@@ -87,7 +88,7 @@ export default function CareerSearch({
           universityData={universityData}
           setUniversityData={setUniversityData}
           setSelectedCareer={setSelectedCareer}
-          setSelectedPrefix={setSelectedPrefix}
+          setMainCareerLogo={setMainCareerLogo}
           setActiveCareerType={setActiveCareerType}
           setIsInputActive={setIsInputActive}
           setIsCareerSelected={setIsCareerSelected}

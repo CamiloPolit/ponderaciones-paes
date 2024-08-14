@@ -18,7 +18,7 @@ export default function CareersMenu({
   activeCareerType,
   universityData,
   setSelectedCareer,
-  setSelectedPrefix,
+  setMainCareerLogo,
   setActiveCareerType,
   setIsInputActive,
   setIsCareerSelected,
@@ -72,7 +72,7 @@ export default function CareersMenu({
               className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
               onMouseDown={() => {
                 setSelectedCareer(career.nombre_carrera);
-                setSelectedPrefix(career.area_conocimiento);
+                setMainCareerLogo(career.area_conocimiento);
                 setIsCareerSelected(true);
                 setIsInputActive(false);
               }}

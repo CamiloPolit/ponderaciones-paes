@@ -11,7 +11,6 @@ import {
 import { Button } from "@/components/ui/button";
 
 export default function LocationMenu({ locations, position, setPosition }) {
-  console.log(locations);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,7 +23,7 @@ export default function LocationMenu({ locations, position, setPosition }) {
           Sedes donde se imparte la carrera:
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup onValueChange={setPosition}>
+        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
           {locations.map((location) => {
             return (
               <DropdownMenuRadioItem key={location} value={location}>

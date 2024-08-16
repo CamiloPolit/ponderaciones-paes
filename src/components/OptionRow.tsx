@@ -19,7 +19,7 @@ export default function OptionRow({
   return (
     <div className="w-3/4 border-t-[1px] border-gray-300 py-7 last:border-b-[1px] md:py-0">
       <div className="flex h-[70px] flex-col items-center justify-between px-7 md:flex-row">
-        <h2 className="font-semibold">{filter_type}</h2>
+        <h2 className="mb-4 font-semibold md:mb-0">{filter_type}</h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="font-medium">

@@ -22,7 +22,7 @@ export default function OptionTabs({ activeTab, setActiveTab, options }) {
               >
                 <p
                   className={`text-sm font-semibold leading-7 ${
-                    activeTab === option ? "text-slate-200" : "text-stone-800"
+                    activeTab === option ? "text-white" : "text-stone-800"
                   }`}
                 >
                   {option}

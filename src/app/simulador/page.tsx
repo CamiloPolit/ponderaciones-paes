@@ -634,7 +634,7 @@ export default function Simulador() {
             <section className="rounded-lg">
               <h2 className="mb-4 text-2xl font-bold">Ubicación de la Sede</h2>
               <div className="flex h-[400px] w-full justify-center">
-                <MapContainer
+                {/* <MapContainer
                   center={[
                     Number(careerData[0].latitud),
                     Number(careerData[0].longitud),
@@ -651,7 +651,7 @@ export default function Simulador() {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                </MapContainer>
+                </MapContainer> */}
               </div>
             </section>
             <div className="mt-6 flex justify-center gap-[40px]">

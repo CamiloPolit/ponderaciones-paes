@@ -105,6 +105,8 @@ export default function Simulador() {
   const [showSimulation, setShowSimulation] = useState(false);
   const [showStatistics, setShowStatistics] = useState(false);
 
+  const [displayConfetti, setDisplayConfetti] = useState(false);
+
   // Doesn't matter the value of toastTrigger, every time it changes, the toast'll apappear
   const [toastTrigger, setToastTrigger] = useState(0);
 
@@ -168,6 +170,10 @@ export default function Simulador() {
     } else {
       setShowCalculations(false);
       setShowSimulation(true);
+
+      if (totalWeightedScoreAux >= filteredCareerData[0].puntaje_corte) {
+        setDisplayConfetti(true);
+      }
     }
   };
 
@@ -445,7 +451,9 @@ export default function Simulador() {
                 <div className="text-lg font-semibold text-black text-opacity-55">
                   Puntaje Simulado:
                 </div>
-                <div className="text-3xl font-bold">{totalWeightedScore}</div>
+                <div className="text-3xl font-bold">
+                  {totalWeightedScore.toFixed(2)}
+                </div>
               </div>
               <div className="flex items-center justify-between">
                 <div className="text-lg font-semibold text-black text-opacity-55">
@@ -463,8 +471,8 @@ export default function Simulador() {
               </div>
               <div className="flex items-center justify-between">
                 <div className="items-center gap-2 text-lg font-semibold text-stone-700">
-                  {false
-                    ? "✅ ¡Felicitaciones! Quedarías seleccionada/a en la carrera con una diferencia de 100 puntos."
+                  {totalWeightedScore > filteredCareerData[0]?.puntaje_corte
+                    ? `✅ ¡Felicitaciones! Quedarías seleccionada/a en la carrera con una diferencia de ${(totalWeightedScore - filteredCareerData[0]?.puntaje_corte).toFixed(2)} puntos.`
                     : `❌ Lamentablemente no quedarías seleccionado/a en la carrera con el puntaje simulado, te faltarían ${(filteredCareerData[0]?.puntaje_corte - totalWeightedScore).toFixed(2)} puntos.`}
                 </div>
               </div>
@@ -494,14 +502,16 @@ export default function Simulador() {
         </div>
       )}
 
-      {/* <Confetti
-        width={width - 50}
-        recycle={false}
-        numberOfPieces={1500}
-        gravity={0.2}
-        opacity={0.55}
-        height={height}
-      /> */}
+      {displayConfetti && (
+        <Confetti
+          width={width - 50}
+          recycle={false}
+          numberOfPieces={1500}
+          gravity={0.2}
+          opacity={0.55}
+          height={height}
+        />
+      )}
 
       {showStatistics && (
         <div className="flex min-h-screen flex-col bg-neutral-50">
@@ -663,24 +673,6 @@ export default function Simulador() {
             <section className="rounded-lg">
               <h2 className="mb-4 text-2xl font-bold">Ubicación de la Sede</h2>
               <div className="flex h-[400px] w-full justify-center">
-                {/* <MapContainer
-                  center={[
-                    Number(careerData[0].latitud),
-                    Number(careerData[0].longitud),
-                  ]}
-                  zoom={15}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    margin: "auto",
-                    borderRadius: "20px",
-                  }}
-                >
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                </MapContainer> */}
                 <UniversityMap
                   latitud={filteredCareerData[0].latitud}
                   longitud={filteredCareerData[0].longitud}

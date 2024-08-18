@@ -14,8 +14,8 @@ export default function UniversityMap({ latitud, longitud }) {
       center={[Number(latitud), Number(longitud)]}
       zoom={15}
       style={{
-        height: "300px",
-        width: "300px",
+        height: "100%",
+        width: "100%",
         margin: "auto",
         borderRadius: "20px",
       }}

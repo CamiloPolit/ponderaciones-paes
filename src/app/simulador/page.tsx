@@ -1,4 +1,5 @@
 "use client";
+import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -8,7 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+const MapContainer = dynamic(() =>
+  import("react-leaflet").then((mod) => mod.MapContainer),
+);
+const TileLayer = dynamic(() =>
+  import("react-leaflet").then((mod) => mod.TileLayer),
+);
+
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 import PieChartt from "@/components/PieChart";
@@ -28,7 +35,6 @@ import SimulationTable from "@/components/SimulationTable";
 import LocationMenu from "@/components/LocationMenu";
 import OptionTabs from "@/components/OptionTabs";
 import OptionRow from "@/components/OptionRow";
-import ScoresStatisticsCards from "@/components/ScoresStatisticsCards";
 import MaxScoresNumberCard from "@/components/MaxScoresNumberCard";
 import AccreditationCard from "@/components/AccreditationCard";
 import CareerScoresMetrics from "@/components/CareerScoresMetrics";
@@ -634,7 +640,7 @@ export default function Simulador() {
             <section className="rounded-lg">
               <h2 className="mb-4 text-2xl font-bold">Ubicación de la Sede</h2>
               <div className="flex h-[400px] w-full justify-center">
-                {/* <MapContainer
+                <MapContainer
                   center={[
                     Number(careerData[0].latitud),
                     Number(careerData[0].longitud),
@@ -651,7 +657,7 @@ export default function Simulador() {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                </MapContainer> */}
+                </MapContainer>
               </div>
             </section>
             <div className="mt-6 flex justify-center gap-[40px]">

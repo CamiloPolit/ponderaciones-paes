@@ -119,7 +119,7 @@ export default function PieChartt({ women_percentage, slots, career }) {
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 text-center font-medium leading-none">
           Un {women_percentage}% del total de estudiantes son mujeres, y un{" "}
-          {100 - women_percentage}% son hombres
+          {(100 - women_percentage).toFixed(2)}% son hombres
         </div>
       </CardFooter>
     </Card>

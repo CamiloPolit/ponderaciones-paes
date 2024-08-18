@@ -45,13 +45,6 @@ export default function RootLayout({
             >
               Simulador
             </Link>
-            <Link
-              href="/mallas"
-              className="text-[1.1rem] font-medium underline-offset-4 hover:underline"
-              prefetch={false}
-            >
-              Mallas
-            </Link>
           </nav>
         </header>
         {children}

@@ -472,7 +472,7 @@ export default function Simulador() {
               <div className="flex items-center justify-between">
                 <div className="items-center gap-2 text-lg font-semibold text-stone-700">
                   {totalWeightedScore > filteredCareerData[0]?.puntaje_corte
-                    ? `✅ ¡Felicitaciones! Quedarías seleccionada/a en la carrera con una diferencia de ${(totalWeightedScore - filteredCareerData[0]?.puntaje_corte).toFixed(2)} puntos.`
+                    ? `✅ ¡Felicitaciones! Quedarías seleccionado/a en la carrera con una diferencia de ${(totalWeightedScore - filteredCareerData[0]?.puntaje_corte).toFixed(2)} puntos.`
                     : `❌ Lamentablemente no quedarías seleccionado/a en la carrera con el puntaje simulado, te faltarían ${(filteredCareerData[0]?.puntaje_corte - totalWeightedScore).toFixed(2)} puntos.`}
                 </div>
               </div>
@@ -504,7 +504,7 @@ export default function Simulador() {
 
       {displayConfetti && (
         <Confetti
-          width={width - 50}
+          width={width - 25}
           recycle={false}
           numberOfPieces={1500}
           gravity={0.2}

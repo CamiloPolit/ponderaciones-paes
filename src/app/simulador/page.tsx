@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
@@ -9,12 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-const MapContainer = dynamic(() =>
-  import("react-leaflet").then((mod) => mod.MapContainer),
-);
-const TileLayer = dynamic(() =>
-  import("react-leaflet").then((mod) => mod.TileLayer),
-);
+
+// const MapContainer = dynamic(() =>
+//   import("react-leaflet").then((mod) => mod.MapContainer),
+// );
+// const TileLayer = dynamic(() =>
+//   import("react-leaflet").then((mod) => mod.TileLayer),
+// );
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
@@ -38,6 +39,10 @@ import OptionRow from "@/components/OptionRow";
 import MaxScoresNumberCard from "@/components/MaxScoresNumberCard";
 import AccreditationCard from "@/components/AccreditationCard";
 import CareerScoresMetrics from "@/components/CareerScoresMetrics";
+const UniversityMap = dynamic(() => import("@/components/UniversityMap"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
 const labels = [
   "Nem",
@@ -119,9 +124,12 @@ export default function Simulador() {
     return data;
   };
 
+  const filteredCareerData = useMemo(() => {
+    return careerData.filter((career) => career.nomb_sede === position);
+  }, [careerData, position]);
+
   const handleSimulation = () => {
     let isValid = true;
-    let electivesChecked = [];
     let totalWeightedScoreAux = 0;
 
     labels.forEach((label) => {
@@ -136,11 +144,7 @@ export default function Simulador() {
         (label === "Ciencias" || label === "Historia")
       ) {
         if (!value) {
-          if (electivesChecked.length === 0) {
-            electivesChecked.push(label);
-          } else {
-            isValid = false;
-          }
+          isValid = false;
           return;
         }
       }
@@ -149,7 +153,7 @@ export default function Simulador() {
         isValid = false;
       } else {
         const dataKey = labelToDataKey[label];
-        const weight = careerData[0]?.[dataKey];
+        const weight = filteredCareerData[0]?.[dataKey];
 
         if (weight) {
           totalWeightedScoreAux += (value * weight) / 100;
@@ -162,9 +166,6 @@ export default function Simulador() {
     if (!isValid || !isCareerSelected) {
       setToastTrigger((prev) => prev + 1);
     } else {
-      console.log("Todos los campos son válidos");
-      console.log(isValid, isCareerSelected);
-      console.log("Puntaje ponderado total:", totalWeightedScore);
       setShowCalculations(false);
       setShowSimulation(true);
     }
@@ -181,8 +182,11 @@ export default function Simulador() {
 
         const newLocations = data.map((item) => item.nomb_sede);
         setLocations(newLocations);
-        setIsLocationUnique(newLocations.length === 1);
         setIsDataLoaded(true);
+
+        newLocations.length === 1 && setPosition(newLocations[0]);
+
+        setIsLocationUnique(newLocations.length === 1);
       });
     } else if (selectedUniversity && !selectedCareer) {
       fetchUniversityData().then((data) => {
@@ -429,8 +433,8 @@ export default function Simulador() {
       )}
 
       {showSimulation && (
-        <div className="flex h-[80vh] items-center justify-center">
-          <Card className="bg-background w-full max-w-2xl rounded-lg p-8 shadow-md">
+        <div className="flex h-[80vh] items-center justify-center px-[20px] md:px-0">
+          <Card className="bg-background w-full max-w-2xl rounded-lg p-4 shadow-md md:p-8">
             <CardHeader>
               <CardTitle className="text-3xl font-bold">
                 Puntaje Simulado
@@ -448,7 +452,7 @@ export default function Simulador() {
                   Último Puntaje Matriculado:
                 </div>
                 <div className="text-3xl font-bold">
-                  {careerData[0]?.puntaje_corte}
+                  {filteredCareerData[0]?.puntaje_corte}
                 </div>
               </div>
               <div className="flex items-center justify-between">
@@ -461,7 +465,7 @@ export default function Simulador() {
                 <div className="items-center gap-2 text-lg font-semibold text-stone-700">
                   {false
                     ? "✅ ¡Felicitaciones! Quedarías seleccionada/a en la carrera con una diferencia de 100 puntos."
-                    : `❌ Lamentablemente no quedarías seleccionado/a en la carrera con el puntaje simulado, te faltarían ${(careerData[0]?.puntaje_corte - totalWeightedScore).toFixed(2)} puntos.`}
+                    : `❌ Lamentablemente no quedarías seleccionado/a en la carrera con el puntaje simulado, te faltarían ${(filteredCareerData[0]?.puntaje_corte - totalWeightedScore).toFixed(2)} puntos.`}
                 </div>
               </div>
             </CardContent>
@@ -483,7 +487,7 @@ export default function Simulador() {
                   setShowStatistics(true);
                 }}
               >
-                Ver estadísticas de los alumnos y carrera
+                Ver Estadísticas
               </Button>
             </div>
           </Card>
@@ -500,46 +504,65 @@ export default function Simulador() {
       /> */}
 
       {showStatistics && (
-        <div className="flex h-screen flex-col bg-neutral-50">
+        <div className="flex min-h-screen flex-col bg-neutral-50">
           <div className="flex flex-1 flex-col gap-8 p-6 md:p-10">
             <section>
-              <h2 className="mb-4 text-2xl font-bold">
-                Estadísticas de la carrera
-              </h2>
+              <h2 className="mb-4 text-2xl font-bold">Información General</h2>
               <div className="grid grid-cols-3 gap-4">
-                <div className="rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm">
+                <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">
                   <h3 className="mb-2 text-lg font-bold">Matrícula</h3>
-                  <p className="text-4xl font-bold">
-                    {careerData[0]?.formato_valores === "Pesos"
-                      ? `$${careerData[0]?.valor_matricula} CLP`
-                      : `${careerData[0]?.valor_matricula} UF`}
+                  <p className="text-center text-xl font-bold md:text-4xl">
+                    {filteredCareerData[0]?.formato_valores === "Pesos"
+                      ? `$${filteredCareerData[0]?.valor_matricula}`
+                      : `${filteredCareerData[0]?.valor_matricula} UF`}
                   </p>
                 </div>
-                <div className="rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm">
-                  <h3 className="mb-2 text-lg font-bold">Arancel</h3>
-                  <p className="text-4xl font-bold">
-                    {careerData[0]?.formato_valores === "Pesos"
-                      ? `$${careerData[0]?.valor_arancel} CLP`
-                      : `${careerData[0]?.valor_arancel} UF`}
+                <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">
+                  <h3 className="mb-2 text-center text-lg font-bold">
+                    Arancel
+                  </h3>
+                  <p className="text-xl font-bold md:text-4xl">
+                    {filteredCareerData[0]?.formato_valores === "Pesos"
+                      ? `$${filteredCareerData[0]?.valor_arancel}`
+                      : `${filteredCareerData[0]?.valor_arancel} UF`}
                   </p>
                 </div>
-                <div className="rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm">
-                  <h3 className="mb-2 text-lg font-bold">
+                <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">
+                  <h3 className="mb-2 text-center text-lg font-bold">
                     Vacantes Admisión Regular
                   </h3>
-                  <p className="text-4xl font-bold">{careerData[0]?.vac_1er}</p>
+                  <p className="text-xl font-bold md:text-4xl">
+                    {filteredCareerData[0]?.vac_1er}
+                  </p>
                 </div>
-                <div className="rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm">
-                  <h3 className="mb-2 text-lg font-bold">Cupos BEA</h3>
-                  <p className="text-4xl font-bold">{careerData[0]?.bea}</p>
+                <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">
+                  <h3 className="mb-2 text-center text-lg font-bold">
+                    Cupos BEA
+                  </h3>
+                  <p className="text-4xl font-bold">
+                    {filteredCareerData[0]?.bea}
+                  </p>
                 </div>
-                <div className="rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm">
-                  <h3 className="mb-2 text-lg font-bold">Cupos PACE</h3>
-                  <p className="text-4xl font-bold">{careerData[0]?.pace}</p>
+                <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">
+                  <h3 className="mb-2 text-center text-lg font-bold">
+                    Cupos PACE
+                  </h3>
+                  <p className="text-4xl font-bold">
+                    {filteredCareerData[0]?.pace}
+                  </p>
                 </div>
-                <div className="rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm">
-                  <h3 className="mb-2 text-lg font-bold">Cupos MC</h3>
-                  <p className="text-4xl font-bold">{careerData[0]?.mc}</p>
+                <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">
+                  <h3 className="mb-2 text-center text-lg font-bold">
+                    Cupos +MC
+                  </h3>
+
+                  {filteredCareerData[0]?.mc == null ? (
+                    <p className="text-center text-lg font-bold">No Aplica</p>
+                  ) : (
+                    <p className="text-4xl font-bold">
+                      {filteredCareerData[0]?.mc}
+                    </p>
+                  )}
                 </div>
               </div>
             </section>
@@ -550,8 +573,8 @@ export default function Simulador() {
               <div className="flex flex-col justify-center gap-10 md:flex-row">
                 <div className="h-full max-w-[500px]">
                   <PieChartt
-                    women_percentage={careerData[0]?.porcentaje_mujeres}
-                    slots={careerData[0]?.vac_1er}
+                    women_percentage={filteredCareerData[0]?.porcentaje_mujeres}
+                    slots={filteredCareerData[0]?.vac_1er}
                     career={selectedCareer}
                   />
                 </div>
@@ -561,7 +584,7 @@ export default function Simulador() {
                       Puntaje Corte Cupos +MC
                     </h3>
                     <p className="mb-5 text-2xl font-semibold">
-                      {careerData[0]?.puntaje_corte_mujeres}
+                      {filteredCareerData[0]?.puntaje_corte_mujeres}
                     </p>
                     <img
                       src="careerIcons/women_in_stem.png"
@@ -575,14 +598,14 @@ export default function Simulador() {
 
             <section>
               <h2 className="mb-4 text-2xl font-bold">Puntajes y Notas</h2>
-              <div className="flex flex-col justify-evenly md:flex-row">
+              <div className="flex flex-col justify-evenly gap-5 md:flex-row md:gap-0">
                 <CareerScoresMetrics
                   title="Métricas de Puntajes"
-                  description="Puntaje Corte, Promedio, Mediano y Máximo de los alumnos que ingresaron a la carrera."
-                  min={careerData[0]?.puntaje_corte}
-                  mean={careerData[0]?.puntaje_promedio}
-                  median={careerData[0]?.puntaje_mediana}
-                  max={careerData[0]?.puntaje_maximo}
+                  description="Puntaje Corte, Promedio, Mediano y Máximo de los alumnos que ingresaron a la carrera por admisión regular."
+                  min={filteredCareerData[0]?.puntaje_corte}
+                  mean={filteredCareerData[0]?.puntaje_promedio}
+                  median={filteredCareerData[0]?.puntaje_mediana}
+                  max={filteredCareerData[0]?.puntaje_maximo}
                 />
                 <MaxScoresNumberCard
                   title="Puntajes Máximos"
@@ -606,21 +629,21 @@ export default function Simulador() {
                 />
               </div>
 
-              <Card className="m-auto mt-11 flex h-[150px] w-full max-w-3xl flex-row items-center">
+              <Card className="m-auto mt-5 flex h-[150px] w-full max-w-3xl flex-row items-center md:mt-11">
                 <div className="bg-background flex-1 p-6">
                   <div className="flex items-center justify-evenly">
                     <div className="flex flex-col items-center justify-center">
                       <h2 className="text-[1.2rem] font-bold">NEM Promedio</h2>
                       <p className="text-primary text-3xl font-bold">
-                        {careerData[0]?.promedio_notas}
+                        {filteredCareerData[0]?.promedio_notas}
                       </p>
                     </div>
                     <div className="flex flex-col items-center justify-center">
                       <h2 className="text-[1.2rem] font-bold">
-                        Ranking Promedio
+                        Puntaje Ranking Promedio
                       </h2>
                       <p className="text-primary text-3xl font-bold">
-                        {careerData[0]?.ranking_promedio}
+                        {filteredCareerData[0]?.ranking_promedio}
                       </p>
                     </div>
                   </div>
@@ -640,7 +663,7 @@ export default function Simulador() {
             <section className="rounded-lg">
               <h2 className="mb-4 text-2xl font-bold">Ubicación de la Sede</h2>
               <div className="flex h-[400px] w-full justify-center">
-                <MapContainer
+                {/* <MapContainer
                   center={[
                     Number(careerData[0].latitud),
                     Number(careerData[0].longitud),
@@ -657,7 +680,11 @@ export default function Simulador() {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   />
-                </MapContainer>
+                </MapContainer> */}
+                <UniversityMap
+                  latitud={filteredCareerData[0].latitud}
+                  longitud={filteredCareerData[0].longitud}
+                />
               </div>
             </section>
             <div className="mt-6 flex justify-center gap-[40px]">

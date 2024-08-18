@@ -47,12 +47,12 @@ export default function PieChartt({ women_percentage, slots, career }) {
   const chartData = [
     {
       genre: "Mujeres",
-      visitors: Math.trunc((slots * women_percentage) / 100),
+      visitors: Math.ceil((slots * women_percentage) / 100),
       fill: "var(--color-Mujeres)",
     },
     {
       genre: "Hombres",
-      visitors: Math.trunc(slots - (slots * women_percentage) / 100),
+      visitors: Math.ceil(slots - Math.ceil((slots * women_percentage) / 100)),
       fill: "var(--color-Hombres)",
     },
   ];
@@ -63,7 +63,7 @@ export default function PieChartt({ women_percentage, slots, career }) {
   return (
     <Card className="flex flex-col shadow-sm">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Porcentaje de Mujeres Matriculadas</CardTitle>
+        <CardTitle>Distribución de Género</CardTitle>
         <CardDescription>{career}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -118,7 +118,8 @@ export default function PieChartt({ women_percentage, slots, career }) {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 text-center font-medium leading-none">
-          ¡La representatividad es importante para asegurar un ambiente diverso!
+          Un {women_percentage}% del total de estudiantes son mujeres, y un{" "}
+          {100 - women_percentage}% son hombres
         </div>
       </CardFooter>
     </Card>

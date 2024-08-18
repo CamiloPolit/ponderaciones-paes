@@ -504,7 +504,7 @@ export default function Simulador() {
 
       {displayConfetti && (
         <Confetti
-          width={width - 25}
+          width={width}
           recycle={false}
           numberOfPieces={1500}
           gravity={0.2}

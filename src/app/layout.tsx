@@ -24,7 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+        className={cn(
+          "min-h-screen overflow-x-hidden font-sans antialiased",
+          fontSans.variable,
+        )}
       >
         <header className="flex w-11/12 justify-between">
           <Link className="ml-[5%] block w-[6.5rem] py-3 sm:w-52" href={"/"}>

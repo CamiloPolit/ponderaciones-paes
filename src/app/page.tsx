@@ -166,15 +166,17 @@ export default function Home() {
           </p>
 
           <p className="mb-3 text-center text-xs leading-7 text-stone-400">
-            Absolutamente todos los datos de la página corresponden a bases de
-            datos oficiales tanto del DEMRE como del Mineduc.
+            Absolutamente todos los datos estadísticos de la página fueron
+            procesados gracias a bases de datos oficiales tanto del DEMRE como
+            del Mineduc.
           </p>
         </div>
 
         <p className="text-center text-xs leading-7 text-stone-400">
           Quiero agradecer a Benjamín Henríquez y Francisco Cea por el constante
-          apoyo y feedbacks en la creación de esta página, sin ellos nada de
-          esto hubiese sido posible.
+          apoyo y feedbacks en la creación de esta página, además de Felipe
+          Córdova por su ayuda en la obtención de datos de sedes de
+          universidades.
         </p>
 
         <div className="flex justify-center">
@@ -184,11 +186,18 @@ export default function Home() {
           >
             Linkedin de Benjamín
           </a>
+
           <a
             href="https://github.com/fcocea"
-            className="text-center text-xs leading-7 text-slate-400"
+            className="px-5 text-center text-xs leading-7 text-slate-400"
           >
             Github de Francisco
+          </a>
+          <a
+            href="https://www.linkedin.com/in/fcordovav/"
+            className="px-5 text-center text-xs leading-7 text-blue-500"
+          >
+            Linkedin de Felipe
           </a>
         </div>
       </footer>

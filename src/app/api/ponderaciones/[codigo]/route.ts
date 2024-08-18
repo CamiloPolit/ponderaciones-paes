@@ -5,7 +5,7 @@ export async function GET(request, { params }) {
   try {
     const careerCode = params.codigo;
     const result =
-      await sql`SELECT * FROM INFO_ADMISION WHERE cod_carrera = ${careerCode};`;
+      await sql`SELECT * FROM info_carreras WHERE cod_carrera = ${careerCode};`;
     const data = result.rows;
     return NextResponse.json({ data }, { status: 200 });
   } catch (error) {

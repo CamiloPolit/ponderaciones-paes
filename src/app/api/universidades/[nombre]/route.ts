@@ -13,24 +13,9 @@ export async function GET(request, { params }) {
 
     if (career) {
       result = await sql`
-        SELECT 
-          fc.*,
-          ia.NEM, 
-          ia.RANKING, 
-          ia.CLEC, 
-          ia.M1, 
-          ia.HSCO, 
-          ia.CIEN, 
-          ia.M2, 
-          ia.VAC_1ER, 
-          ia.BEA, 
-          ia.PACE, 
-          ia.MC, 
-          ia.PROM_MIN_POST, 
-          ia.POND_MIN_POST
-        FROM FETCH_CARRERAS AS fc
-        JOIN INFO_ADMISION AS ia ON fc.CODIGO_CARRERA = ia.COD_CARRERA
-        WHERE fc.nomb_inst = ${university} AND fc.nombre_carrera = ${career};
+        SELECT *
+        FROM info_carreras
+        WHERE nomb_inst = ${university} AND nombre_carrera = ${career};
       `;
     } else {
       result = await sql`

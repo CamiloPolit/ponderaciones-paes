@@ -42,19 +42,21 @@ export default function PreviewSimulator() {
 
   useEffect(() => {
     if (selectedUniversity) {
-      sessionStorage.setItem("University", matchedText);
-    } else {
-      sessionStorage.removeItem("University");
+      localStorage.setItem("University", matchedText);
     }
   }, [selectedUniversity]);
 
   useEffect(() => {
-    if (selectedUniversity) {
-      sessionStorage.setItem("Career", selectedCareer);
-    } else {
-      sessionStorage.removeItem("Career");
+    if (isCareerSelected) {
+      localStorage.setItem("Career", selectedCareer);
     }
   }, [isCareerSelected]);
+
+  useEffect(() => {
+    if (isCareerSelected) {
+      localStorage.setItem("Location", position);
+    }
+  }, [position]);
 
   useEffect(() => {
     setIsDataLoaded(false);

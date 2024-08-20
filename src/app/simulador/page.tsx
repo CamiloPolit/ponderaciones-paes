@@ -1,7 +1,9 @@
 "use client";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+import universities from "../universities.json";
 import React, { useState, useRef, useEffect, useMemo } from "react";
+
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
@@ -63,6 +65,8 @@ const labelToDataKey = {
   Ciencias: "cien",
   Historia: "hsco",
 };
+
+const universityList = universities.Universities;
 
 export default function Simulador() {
   const { toast } = useToast();
@@ -170,6 +174,9 @@ export default function Simulador() {
     } else {
       setShowCalculations(false);
       setShowSimulation(true);
+      localStorage.removeItem("University");
+      localStorage.removeItem("Career");
+      localStorage.removeItem("Location");
 
       if (totalWeightedScoreAux >= filteredCareerData[0].puntaje_corte) {
         setDisplayConfetti(true);
@@ -186,11 +193,23 @@ export default function Simulador() {
       fetchCareerData().then((data) => {
         setCareerData(data);
 
+        localStorage.getItem("Career") &&
+          setMainCareerLogo(data[0].area_conocimiento);
+
+        localStorage.getItem("Career") &&
+          fetchUniversityData().then((data) => {
+            setUniversityData(data);
+            setFilteredCareers(data);
+          });
+
         const newLocations = data.map((item) => item.nomb_sede);
         setLocations(newLocations);
         setIsDataLoaded(true);
 
         newLocations.length === 1 && setPosition(newLocations[0]);
+
+        const location = localStorage.getItem("Location");
+        location && setPosition(location);
 
         setIsLocationUnique(newLocations.length === 1);
       });
@@ -213,61 +232,33 @@ export default function Simulador() {
       });
   }, [toastTrigger]);
 
-  const [testScores, setTestScores] = useState({
-    m1: 0,
-    m2: 0,
-    language: 0,
-    science: 0,
-    socialStudies: 0,
-  });
-  const [totalScore, setTotalScore] = useState(0);
-  const [rank, setRank] = useState(0);
-  const [careerStats, setCareerStats] = useState({
-    avgCorrectAnswers: {
-      m1: 85,
-      m2: 90,
-      language: 90,
-      science: 80,
-      socialStudies: 75,
-    },
-    avgScores: {
-      m1: 90,
-      m2: 85,
-      language: 92,
-      science: 88,
-      socialStudies: 80,
-    },
-    perfectScores: {
-      m1: 10,
-      m2: 15,
-      language: 15,
-      science: 8,
-      socialStudies: 5,
-    },
-    tuition: 5000,
-    annualCost: 10000,
-    availableVacancies: 200,
-    womenEnrolled: 40,
-    lastWomanScore: 450,
-    accreditationYears: 10,
-    accreditationPeriod: "2020-2030",
-    avgNEM: 450,
-    rank: 25,
-  });
-  const calculateTotalScore = () => {
-    const total =
-      testScores.m1 +
-      testScores.m2 +
-      testScores.language +
-      testScores.science +
-      testScores.socialStudies;
-    setTotalScore(total);
-    calculateRank(total);
-  };
-  const calculateRank = (total) => {
-    const rank = Math.floor(Math.random() * 100) + 1;
-    setRank(rank);
-  };
+  useEffect(() => {
+    const university = localStorage.getItem("University");
+    const career = localStorage.getItem("Career");
+
+    console.log(university, career);
+
+    if (university !== null && career !== null) {
+      setSelectedUniversity(true);
+      setSelectedCareer(career);
+      setMatchedText(university);
+      setIsDisabled(false);
+      setInputValue(university);
+      setIsCareerSelected(true);
+
+      let match = universityList.find((suggestion) =>
+        suggestion.name.toLowerCase().startsWith(university.toLowerCase()),
+      );
+
+      setImageSrc(
+        match
+          ? "/logos/".concat(
+              match.abbreviation?.toLocaleLowerCase().concat(".png"),
+            )
+          : "",
+      );
+    }
+  }, []);
 
   return (
     <>
@@ -422,7 +413,7 @@ export default function Simulador() {
                   }
                   className="mt-10"
                 >
-                  Guardar como predeterminado al entrar a la página
+                  Guardar como predeterminado
                 </Button>
               </div>
             </div>
@@ -484,6 +475,7 @@ export default function Simulador() {
                 onClick={() => {
                   setShowSimulation(false);
                   setShowCalculations(true);
+                  setDisplayConfetti(false);
                 }}
               >
                 Volver

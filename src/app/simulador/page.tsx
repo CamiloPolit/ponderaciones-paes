@@ -12,13 +12,6 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 
-// const MapContainer = dynamic(() =>
-//   import("react-leaflet").then((mod) => mod.MapContainer),
-// );
-// const TileLayer = dynamic(() =>
-//   import("react-leaflet").then((mod) => mod.TileLayer),
-// );
-
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 import PieChartt from "@/components/PieChart";
@@ -187,9 +180,9 @@ export default function Simulador() {
     } else {
       setShowCalculations(false);
       setShowSimulation(true);
-      localStorage.removeItem("University");
-      localStorage.removeItem("Career");
-      localStorage.removeItem("Location");
+      sessionStorage.removeItem("University");
+      sessionStorage.removeItem("Career");
+      sessionStorage.removeItem("Location");
 
       if (totalWeightedScoreAux >= filteredCareerData[0].puntaje_corte) {
         setDisplayConfetti(true);
@@ -206,10 +199,10 @@ export default function Simulador() {
       fetchCareerData().then((data) => {
         setCareerData(data);
 
-        localStorage.getItem("Career") &&
+        sessionStorage.getItem("Career") &&
           setMainCareerLogo(data[0].area_conocimiento);
 
-        localStorage.getItem("Career") &&
+        sessionStorage.getItem("Career") &&
           fetchUniversityData().then((data) => {
             setUniversityData(data);
             setFilteredCareers(data);
@@ -221,7 +214,7 @@ export default function Simulador() {
 
         newLocations.length === 1 && setPosition(newLocations[0]);
 
-        const location = localStorage.getItem("Location");
+        const location = sessionStorage.getItem("Location");
         location && setPosition(location);
 
         setIsLocationUnique(newLocations.length === 1);
@@ -246,8 +239,8 @@ export default function Simulador() {
   }, [toastTrigger]);
 
   useEffect(() => {
-    const university = localStorage.getItem("University");
-    const career = localStorage.getItem("Career");
+    const university = sessionStorage.getItem("University");
+    const career = sessionStorage.getItem("Career");
 
     console.log(university, career);
 
@@ -304,6 +297,7 @@ export default function Simulador() {
                       setInputValue={setInputValue}
                       imageSrc={imageSrc}
                       setImageSrc={setImageSrc}
+                      setIsCareerSelected={setIsCareerSelected}
                     />
                     <CarreerSearch
                       careerComponentRef={careerComponentRef}
@@ -388,6 +382,7 @@ export default function Simulador() {
                   toastTrigger={toastTrigger}
                   setToastTrigger={setToastTrigger}
                   weightedInputs={weightedInputs}
+                  isCareerSelected={isCareerSelected}
                 />
               </div>
             </div>
@@ -512,7 +507,7 @@ export default function Simulador() {
           width={width}
           recycle={false}
           numberOfPieces={1500}
-          gravity={0.35}
+          gravity={0.45}
           opacity={0.55}
           height={height}
         />
@@ -522,6 +517,27 @@ export default function Simulador() {
         <div className="flex min-h-screen flex-col bg-neutral-50">
           <div className="flex flex-1 flex-col gap-8 p-6 md:p-10">
             <section>
+              <div className="mb-6 flex justify-between gap-[40px]">
+                <Button
+                  variant="outline"
+                  className="text-black hover:bg-gray-200"
+                  onClick={() => {
+                    setShowStatistics(false);
+                    setShowSimulation(true);
+                  }}
+                >
+                  Volver
+                </Button>
+                <Button
+                  className="bg-black text-white hover:bg-gray-800"
+                  onClick={() => {
+                    setShowCalculations(true);
+                    setShowStatistics(false);
+                  }}
+                >
+                  Simular Nuevamente
+                </Button>
+              </div>
               <h2 className="mb-4 text-2xl font-bold">Información General</h2>
               <div className="grid grid-cols-3 gap-4">
                 <div className="flex flex-col items-center justify-center rounded-lg border border-stone-300 bg-neutral-200 p-4 shadow-sm md:items-start md:justify-normal">

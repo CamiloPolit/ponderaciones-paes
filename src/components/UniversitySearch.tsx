@@ -17,6 +17,7 @@ export default function Page({
   setInputValue,
   imageSrc,
   setImageSrc,
+  setIsCareerSelected,
 }) {
   const [highlightedText, setHighlightedText] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -57,6 +58,7 @@ export default function Page({
 
     setMatchedText(match);
     setSelectedUniversity(false);
+    setIsCareerSelected(false);
     setInputValue(value);
     setIsDisabled(true);
 

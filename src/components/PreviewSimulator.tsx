@@ -42,19 +42,19 @@ export default function PreviewSimulator() {
 
   useEffect(() => {
     if (selectedUniversity) {
-      localStorage.setItem("University", matchedText);
+      sessionStorage.setItem("University", matchedText);
     }
   }, [selectedUniversity]);
 
   useEffect(() => {
     if (isCareerSelected) {
-      localStorage.setItem("Career", selectedCareer);
+      sessionStorage.setItem("Career", selectedCareer);
     }
   }, [isCareerSelected]);
 
   useEffect(() => {
     if (isCareerSelected) {
-      localStorage.setItem("Location", position);
+      sessionStorage.setItem("Location", position);
     }
   }, [position]);
 

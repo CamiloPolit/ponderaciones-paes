@@ -9,6 +9,7 @@ export default function SimulationTable({
   areElectivesFilled,
   setToastTrigger,
   weightedInputs,
+  isCareerSelected,
 }) {
   const labelToDataKey = {
     Nem: "nem",
@@ -35,15 +36,14 @@ export default function SimulationTable({
         weightedInputs.current[label].value = storedValue;
       }
     });
-  }, [labels]);
+  }, [labels, careerData]);
 
   useEffect(() => {
     labels.forEach((label) => {
       const dataKey = labelToDataKey[label];
       const value = careerData[0]?.[dataKey];
 
-      if (!isDataLoaded || value === null) {
-        sessionStorage.removeItem(label);
+      if (!isDataLoaded || value === null || !isCareerSelected) {
         if (weightedInputs.current[label]) {
           weightedInputs.current[label].value = "";
         }
@@ -81,7 +81,7 @@ export default function SimulationTable({
                 className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
                 maxLength="4"
                 onBlur={(e) => handleInputChange(label, e.target.value)}
-                disabled={!isDataLoaded || value === null}
+                disabled={!isDataLoaded || value === null || !isCareerSelected}
               />
             </div>
             <div className="relative mb-[-22px]">

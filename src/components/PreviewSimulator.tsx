@@ -76,6 +76,7 @@ export default function PreviewSimulator() {
     } else if (selectedUniversity && !selectedCareer) {
       fetchUniversityData().then((data) => {
         setUniversityData(data);
+        setFilteredCareers(data);
         setCareerData(data);
       });
     }

@@ -7,7 +7,6 @@ export default function SimulationTable({
   isDataLoaded,
   setAreElectivesFilled,
   areElectivesFilled,
-  toastTrigger,
   setToastTrigger,
   weightedInputs,
 }) {
@@ -29,6 +28,29 @@ export default function SimulationTable({
     : null;
   setAreElectivesFilled(cienciasValue !== null && historiaValue !== null);
 
+  useEffect(() => {
+    labels.forEach((label) => {
+      const storedValue = sessionStorage.getItem(label);
+      if (storedValue) {
+        weightedInputs.current[label].value = storedValue;
+      }
+    });
+  }, [labels]);
+
+  useEffect(() => {
+    labels.forEach((label) => {
+      const dataKey = labelToDataKey[label];
+      const value = careerData[0]?.[dataKey];
+
+      if (!isDataLoaded || value === null) {
+        sessionStorage.removeItem(label);
+        if (weightedInputs.current[label]) {
+          weightedInputs.current[label].value = "";
+        }
+      }
+    });
+  }, [isDataLoaded, labels, careerData]);
+
   const handleInputChange = (label, value) => {
     const numValue = Number(value);
 
@@ -39,6 +61,8 @@ export default function SimulationTable({
     if (isNaN(numValue) || numValue < 100 || numValue > 1000) {
       setToastTrigger((prev) => prev + 1);
     }
+
+    sessionStorage.setItem(label, value);
   };
 
   return (

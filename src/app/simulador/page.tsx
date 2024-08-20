@@ -137,6 +137,7 @@ export default function Simulador() {
   const handleSimulation = () => {
     let isValid = true;
     let totalWeightedScoreAux = 0;
+    let electiveMaxScore = 0;
 
     labels.forEach((label) => {
       if (weightedInputs.current[label].disabled) {
@@ -149,10 +150,11 @@ export default function Simulador() {
         areElectivesFilled &&
         (label === "Ciencias" || label === "Historia")
       ) {
-        if (!value) {
-          isValid = false;
-          return;
+        if (value) {
+          electiveMaxScore = Math.max(electiveMaxScore, value);
+          isValid = true;
         }
+        return;
       }
 
       if (isNaN(value) || value < 100 || value > 1000) {
@@ -166,6 +168,17 @@ export default function Simulador() {
         }
       }
     });
+
+    if (electiveMaxScore > 0) {
+      const electiveLabel =
+        electiveMaxScore === weightedInputs.current["Ciencias"].value
+          ? "cien"
+          : "hsco";
+      const electiveWeight = filteredCareerData[0]?.[electiveLabel];
+      if (electiveWeight) {
+        totalWeightedScoreAux += (electiveMaxScore * electiveWeight) / 100;
+      }
+    }
 
     setTotalWeightedScore(totalWeightedScoreAux);
 
@@ -499,7 +512,7 @@ export default function Simulador() {
           width={width}
           recycle={false}
           numberOfPieces={1500}
-          gravity={0.2}
+          gravity={0.35}
           opacity={0.55}
           height={height}
         />

@@ -6,7 +6,6 @@ import React, { useState, useRef, useEffect, useMemo } from "react";
 
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
@@ -321,16 +320,6 @@ export default function Simulador() {
                       setMainCareerLogo={setMainCareerLogo}
                     />
 
-                    <div className="flex items-center justify-center gap-2 font-semibold">
-                      <Switch id="NEM-switch" />
-                      <label
-                        htmlFor="NEM-switch"
-                        className="scroll-m-20 text-sm font-semibold tracking-tight"
-                      >
-                        Ingresar NEM como nota (Escala de 1 al 7, <br /> con dos
-                        cifras decimales separadas por coma)
-                      </label>
-                    </div>
                     <Separator className="my-4 w-full" />
                     {!isLocationUnique && (
                       <>

@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChevronDownIcon } from "lucide-react";
@@ -23,12 +24,23 @@ import groupB from "../../NEM_transformation/NEM_GRUPO_B.json";
 import groupC from "../../NEM_transformation/NEM_GRUPO_C.json";
 
 export default function Component({ text, onNemChange }) {
+  const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Seleccionar");
   const [nem, setNem] = useState("");
 
   const handleSubmit = () => {
     let formattedNem = nem.toString().replace(",", ".");
+
+    if (selectedOption === "Seleccionar") {
+      toast({
+        variant: "destructive",
+        title: "Debes seleccionar un tipo de establecimiento",
+        description:
+          "No tienes ningun tipo de establecimiento seleccionado. Por favor, selecciona uno para poder calcular tu NEM.",
+      });
+      return;
+    }
 
     if (formattedNem.endsWith(".00") || formattedNem.endsWith(".0")) {
       formattedNem = formattedNem.replace(".00", "");
@@ -45,10 +57,19 @@ export default function Component({ text, onNemChange }) {
 
     if (nemValue !== undefined) {
       onNemChange(nemValue);
+      toast({
+        title: "NEM calculado con éxito",
+        description:
+          "El NEM ha sido calculado con éxito. Puedes ver el resultado en el input de simulación.",
+      });
     } else {
-      console.log(formattedNem);
-
-      console.error("NEM no encontrado para el valor ingresado.");
+      toast({
+        variant: "destructive",
+        title: "El NEM ingresado no es válido",
+        description:
+          "El NEM ingresado no es válido. Recuerda que el NEM debe ser un número entre 1 y 7 con hasta dos decimales.",
+      });
+      return;
     }
 
     setIsOpen(false);

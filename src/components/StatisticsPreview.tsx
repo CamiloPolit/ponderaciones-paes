@@ -19,6 +19,7 @@ export default function StatisticsPreview({
   selectedCareer,
   careerData,
   filteredCareerData,
+  imageSrc,
 }) {
   return (
     <div className="flex min-h-screen flex-col bg-neutral-50">
@@ -132,7 +133,7 @@ export default function StatisticsPreview({
 
         <section>
           <h2 className="mb-4 text-2xl font-bold">Puntajes y Notas</h2>
-          <div className="flex flex-col justify-center gap-5 md:flex-row md:justify-evenly md:gap-0">
+          <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:items-stretch md:justify-evenly md:gap-0">
             <CareerScoresMetrics
               title="Métricas de Puntajes"
               description="Puntaje Corte, Promedio, Mediano y Máximo de los alumnos que ingresaron a la carrera por admisión regular."
@@ -190,7 +191,14 @@ export default function StatisticsPreview({
         <section>
           <h2 className="mb-4 text-2xl font-bold">Acreditación Universidad</h2>
           <div className="">
-            <AccreditationCard />
+            <AccreditationCard
+              university={filteredCareerData[0].nomb_inst}
+              acreditada_inst={filteredCareerData[0].acreditada_inst}
+              acre_inst_desde_hasta={
+                filteredCareerData[0].acre_inst_desde_hasta
+              }
+              imageSrc={imageSrc}
+            />
           </div>
         </section>
 

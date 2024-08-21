@@ -471,6 +471,7 @@ export default function Simulador() {
           selectedCareer={selectedCareer}
           careerData={careerData}
           filteredCareerData={filteredCareerData}
+          imageSrc={imageSrc}
         />
       )}
       <Toaster />

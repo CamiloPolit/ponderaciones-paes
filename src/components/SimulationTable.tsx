@@ -1,5 +1,16 @@
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+import NemDialog from "@/components/NemDialog";
+
+const labelToDataKey = {
+  Nem: "nem",
+  Ranking: "ranking",
+  M1: "m1",
+  M2: "m2",
+  Lectura: "clec",
+  Ciencias: "cien",
+  Historia: "hsco",
+};
 
 export default function SimulationTable({
   labels,
@@ -11,15 +22,7 @@ export default function SimulationTable({
   weightedInputs,
   isCareerSelected,
 }) {
-  const labelToDataKey = {
-    Nem: "nem",
-    Ranking: "ranking",
-    M1: "m1",
-    M2: "m2",
-    Lectura: "clec",
-    Ciencias: "cien",
-    Historia: "hsco",
-  };
+  const [nemValue, setNemValue] = useState("");
 
   const cienciasValue = isDataLoaded
     ? careerData[0]?.[labelToDataKey["Ciencias"]]
@@ -51,7 +54,7 @@ export default function SimulationTable({
     });
   }, [isDataLoaded, labels, careerData]);
 
-  const handleInputChange = (label, value) => {
+  const handleInputBlur = (label, value) => {
     const numValue = Number(value);
 
     if (value === "") {
@@ -74,14 +77,30 @@ export default function SimulationTable({
         return (
           <div key={label} className="flex items-center">
             <div className="flex flex-col items-center justify-center py-2">
+              {label === "Nem" && isCareerSelected && (
+                <NemDialog
+                  text="Calcular aquí"
+                  onNemChange={(value) => {
+                    setNemValue(value);
+                    weightedInputs.current[label].value = value;
+                    sessionStorage.setItem(label, value);
+                  }}
+                />
+              )}
               <p className="text-center font-semibold">{label}</p>
+
               <input
                 type="text"
                 ref={(el) => (weightedInputs.current[label] = el)}
                 className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
                 maxLength="4"
-                onBlur={(e) => handleInputChange(label, e.target.value)}
+                onBlur={(e) => handleInputBlur(label, e.target.value)}
                 disabled={!isDataLoaded || value === null || !isCareerSelected}
+                onChange={(e) => {
+                  if (label === "Nem") {
+                    setNemValue(e.target.value);
+                  }
+                }}
               />
             </div>
             <div className="relative mb-[-22px]">

@@ -234,15 +234,13 @@ export default function Simulador() {
         variant: "destructive",
         title: "¡Verifica los datos!",
         description:
-          "Tienes datos que no son válidos, por favor, revisa que cumpla con la escala requerida.",
+          "Tienes datos que no son válidos, por favor, revisa que cumpla con la escala requerida (100 a 1000).",
       });
   }, [toastTrigger]);
 
   useEffect(() => {
     const university = sessionStorage.getItem("University");
     const career = sessionStorage.getItem("Career");
-
-    console.log(university, career);
 
     if (university !== null && career !== null) {
       setSelectedUniversity(true);
@@ -312,6 +310,7 @@ export default function Simulador() {
                       mainCareerLogo={mainCareerLogo}
                       setMainCareerLogo={setMainCareerLogo}
                     />
+
                     <div className="flex items-center justify-center gap-2 font-semibold">
                       <Switch id="NEM-switch" />
                       <label
@@ -533,6 +532,7 @@ export default function Simulador() {
                   onClick={() => {
                     setShowCalculations(true);
                     setShowStatistics(false);
+                    setDisplayConfetti(false);
                   }}
                 >
                   Simular Nuevamente
@@ -634,7 +634,7 @@ export default function Simulador() {
 
             <section>
               <h2 className="mb-4 text-2xl font-bold">Puntajes y Notas</h2>
-              <div className="flex flex-col justify-evenly gap-5 md:flex-row md:gap-0">
+              <div className="flex flex-col justify-center gap-5 md:flex-row md:justify-evenly md:gap-0">
                 <CareerScoresMetrics
                   title="Métricas de Puntajes"
                   description="Puntaje Corte, Promedio, Mediano y Máximo de los alumnos que ingresaron a la carrera por admisión regular."
@@ -669,13 +669,15 @@ export default function Simulador() {
                 <div className="bg-background flex-1 p-6">
                   <div className="flex items-center justify-evenly">
                     <div className="flex flex-col items-center justify-center">
-                      <h2 className="text-[1.2rem] font-bold">NEM Promedio</h2>
-                      <p className="text-primary text-3xl font-bold">
+                      <h2 className="text-center text-[1.2rem] font-bold">
+                        NEM Promedio
+                      </h2>
+                      <p className="text-primary text-center text-3xl font-bold">
                         {filteredCareerData[0]?.promedio_notas}
                       </p>
                     </div>
-                    <div className="flex flex-col items-center justify-center">
-                      <h2 className="text-[1.2rem] font-bold">
+                    <div className="flex flex-col items-center justify-center text-center">
+                      <h2 className="text-center text-[1.2rem] font-bold">
                         Puntaje Ranking Promedio
                       </h2>
                       <p className="text-primary text-3xl font-bold">
@@ -721,6 +723,7 @@ export default function Simulador() {
                 onClick={() => {
                   setShowCalculations(true);
                   setShowStatistics(false);
+                  setDisplayConfetti(false);
                 }}
               >
                 Simular Nuevamente

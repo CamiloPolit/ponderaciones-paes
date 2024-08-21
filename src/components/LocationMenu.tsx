@@ -14,7 +14,7 @@ export default function LocationMenu({ locations, position, setPosition }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="font-medium">
+        <Button variant="outline" className="max-w-[70%] truncate font-medium">
           {position}
         </Button>
       </DropdownMenuTrigger>

@@ -44,6 +44,7 @@ export default function Component({ text, onNemChange }) {
 
     if (formattedNem.endsWith(".00") || formattedNem.endsWith(".0")) {
       formattedNem = formattedNem.replace(".00", "");
+      formattedNem = formattedNem.replace(".0", "");
     }
 
     const nemValue =

@@ -107,7 +107,7 @@ export default function Component({ text, onNemChange }) {
             </DropdownMenu>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="nem">Ingresa el NEM (Dos Cifras Decimales)</Label>
+            <Label htmlFor="nem">Ingresa el NEM (Dos cifras decimales)</Label>
             <Input
               id="nem"
               type="text"

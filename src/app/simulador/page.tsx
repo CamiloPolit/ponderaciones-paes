@@ -175,6 +175,16 @@ export default function Simulador() {
 
     setTotalWeightedScore(totalWeightedScoreAux);
 
+    if (!isLocationUnique && position === "Selecciona la sede") {
+      toast({
+        variant: "destructive",
+        title: "Debes seleccionar una sede",
+        description:
+          "No tienes ninguna sede seleccionada, selecciona una para continuar.",
+      });
+      return;
+    }
+
     if (!isValid || !isCareerSelected) {
       setToastTrigger((prev) => prev + 1);
     } else {
@@ -395,7 +405,7 @@ export default function Simulador() {
                 </h1>
                 <OptionRow
                   filter_type="Tipo de uso de la página"
-                  options={["Simulador", "Mostrar sólo Estadísticas"]}
+                  options={["Simulador", "Mostrar sólo estadísticas"]}
                   optionSelected={useType}
                   setOptionSelected={setUseType}
                 />

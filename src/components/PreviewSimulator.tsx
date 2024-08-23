@@ -95,7 +95,9 @@ export default function PreviewSimulator() {
         setInputValue={setInputValue}
         imageSrc={imageSrc}
         setImageSrc={setImageSrc}
+        setIsCareerSelected={setIsCareerSelected}
       />
+
       <CarreerSearch
         careerComponentRef={careerComponentRef}
         isDisabled={isDisabled}

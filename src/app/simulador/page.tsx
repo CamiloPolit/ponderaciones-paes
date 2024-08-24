@@ -36,6 +36,7 @@ import CareerScoresMetrics from "@/components/CareerScoresMetrics";
 import ResultsPreview from "@/components/ResultsPreview";
 import OptionsPreview from "@/components/OptionsPreview";
 import StatisticsPreview from "@/components/StatisticsPreview";
+import GeneralTable from "@/components/GeneralTable";
 
 const labels = [
   "Nem",
@@ -403,16 +404,10 @@ export default function Simulador() {
                         setIsCareerSelected={setIsCareerSelected}
                       />
                     </div>
-                    <SimulationTable
+                    <GeneralTable
                       labels={labels}
-                      careerData={careerData}
-                      isDataLoaded={isDataLoaded}
-                      setAreElectivesFilled={setAreElectivesFilled}
-                      areElectivesFilled={areElectivesFilled}
-                      toastTrigger={toastTrigger}
                       setToastTrigger={setToastTrigger}
                       weightedInputs={weightedInputs}
-                      isCareerSelected={isCareerSelected}
                     />
                   </div>
                 )}

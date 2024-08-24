@@ -12,25 +12,12 @@ const labelToDataKey = {
   Historia: "hsco",
 };
 
-export default function SimulationTable({
+export default function GeneralTable({
   labels,
-  careerData,
-  isDataLoaded,
-  setAreElectivesFilled,
-  areElectivesFilled,
   setToastTrigger,
   weightedInputs,
-  isCareerSelected,
 }) {
   const [nemValue, setNemValue] = useState("");
-
-  const cienciasValue = isDataLoaded
-    ? careerData[0]?.[labelToDataKey["Ciencias"]]
-    : null;
-  const historiaValue = isDataLoaded
-    ? careerData[0]?.[labelToDataKey["Historia"]]
-    : null;
-  setAreElectivesFilled(cienciasValue !== null && historiaValue !== null);
 
   useEffect(() => {
     labels.forEach((label) => {
@@ -39,20 +26,7 @@ export default function SimulationTable({
         weightedInputs.current[label].value = storedValue;
       }
     });
-  }, [labels, careerData]);
-
-  useEffect(() => {
-    labels.forEach((label) => {
-      const dataKey = labelToDataKey[label];
-      const value = careerData[0]?.[dataKey];
-
-      if (!isDataLoaded || value === null || !isCareerSelected) {
-        if (weightedInputs.current[label]) {
-          weightedInputs.current[label].value = "";
-        }
-      }
-    });
-  }, [isDataLoaded, labels, careerData]);
+  }, [labels]);
 
   const handleInputBlur = (label, value) => {
     const numValue = Number(value);
@@ -71,9 +45,6 @@ export default function SimulationTable({
   return (
     <div suppressHydrationWarning className="grid grid-cols-2 gap-x-7 px-7">
       {labels.map((label) => {
-        const dataKey = labelToDataKey[label];
-        const value = isDataLoaded ? careerData[0]?.[dataKey] : undefined;
-
         return (
           <div key={label} className="flex items-center">
             <div className="flex flex-col items-center justify-center py-2">
@@ -91,6 +62,7 @@ export default function SimulationTable({
                   Estimar aquí
                 </span>
               ) : null}
+
               <p className="text-center font-semibold">{label}</p>
 
               <input
@@ -99,7 +71,6 @@ export default function SimulationTable({
                 className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
                 maxLength="4"
                 onBlur={(e) => handleInputBlur(label, e.target.value)}
-                disabled={!isDataLoaded || value === null || !isCareerSelected}
                 onChange={(e) => {
                   if (label === "Nem") {
                     setNemValue(e.target.value);
@@ -110,14 +81,15 @@ export default function SimulationTable({
             <div className="relative mb-[-22px]">
               <Badge
                 variant="outline"
-                className={`cursor-default ${value ? "" : "opacity-0"} ${
-                  areElectivesFilled &&
-                  (label === "Ciencias" || label === "Historia")
+                className={`cursor-default ${
+                  label === "Ciencias" || label === "Historia"
                     ? "bg-yellow-100"
-                    : "bg-lime-100"
-                } text-[0.85rem]`}
+                    : label === "M2"
+                      ? "bg-blue-50"
+                      : "bg-lime-100"
+                } text-[0.85rem] text-opacity-0`}
               >
-                {value ?? "30"}
+                {30}
               </Badge>
             </div>
           </div>

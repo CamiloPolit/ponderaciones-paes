@@ -32,6 +32,7 @@ export default function GeneralTable({
     const numValue = Number(value);
 
     if (value === "") {
+      sessionStorage.removeItem(label);
       return;
     }
 

@@ -7,36 +7,22 @@ import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
-import PieChartt from "@/components/PieChart";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 import UniversitySearch from "@/components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
 import SimulationTable from "@/components/SimulationTable";
 import LocationMenu from "@/components/LocationMenu";
 import OptionTabs from "@/components/OptionTabs";
-import OptionRow from "@/components/OptionRow";
-import MaxScoresNumberCard from "@/components/MaxScoresNumberCard";
-import AccreditationCard from "@/components/AccreditationCard";
-import CareerScoresMetrics from "@/components/CareerScoresMetrics";
 import ResultsPreview from "@/components/ResultsPreview";
 import OptionsPreview from "@/components/OptionsPreview";
 import StatisticsPreview from "@/components/StatisticsPreview";
 import GeneralTable from "@/components/GeneralTable";
+import CareerSimulationPreview from "@/components/CareerSimulationPreview";
 
 const labels = [
   "Nem",
@@ -103,6 +89,8 @@ export default function Simulador() {
 
   const [displayConfetti, setDisplayConfetti] = useState(false);
 
+  const [showCareerInfoCards, setShowCareerInfoCards] = useState(false);
+
   // Doesn't matter the value of toastTrigger, every time it changes, the toast'll apappear
   const [toastTrigger, setToastTrigger] = useState(0);
 
@@ -125,79 +113,6 @@ export default function Simulador() {
   const filteredCareerData = useMemo(() => {
     return careerData.filter((career) => career.nomb_sede === position);
   }, [careerData, position]);
-
-  const handleSimulation = () => {
-    let isValid = true;
-    let totalWeightedScoreAux = 0;
-    let electiveMaxScore = 0;
-
-    labels.forEach((label) => {
-      if (weightedInputs.current[label].disabled) {
-        return;
-      }
-
-      let value = Number(weightedInputs.current[label].value);
-
-      if (
-        areElectivesFilled &&
-        (label === "Ciencias" || label === "Historia")
-      ) {
-        if (value) {
-          electiveMaxScore = Math.max(electiveMaxScore, value);
-          isValid = true;
-        }
-        return;
-      }
-
-      if (isNaN(value) || value < 100 || value > 1000) {
-        isValid = false;
-      } else {
-        const dataKey = labelToDataKey[label];
-        const weight = filteredCareerData[0]?.[dataKey];
-
-        if (weight) {
-          totalWeightedScoreAux += (value * weight) / 100;
-        }
-      }
-    });
-
-    if (electiveMaxScore > 0) {
-      const electiveLabel =
-        electiveMaxScore === weightedInputs.current["Ciencias"].value
-          ? "cien"
-          : "hsco";
-      const electiveWeight = filteredCareerData[0]?.[electiveLabel];
-      if (electiveWeight) {
-        totalWeightedScoreAux += (electiveMaxScore * electiveWeight) / 100;
-      }
-    }
-
-    setTotalWeightedScore(totalWeightedScoreAux);
-
-    if (!isLocationUnique && position === "Selecciona la sede") {
-      toast({
-        variant: "destructive",
-        title: "Debes seleccionar una sede",
-        description:
-          "No tienes ninguna sede seleccionada, selecciona una para continuar.",
-      });
-      return;
-    }
-
-    if (!isValid || !isCareerSelected) {
-      setToastTrigger((prev) => prev + 1);
-    } else {
-      setShowCalculations(false);
-      setShowSimulation(true);
-      sessionStorage.removeItem("University");
-      sessionStorage.removeItem("Career");
-      sessionStorage.removeItem("Location");
-
-      if (totalWeightedScoreAux >= filteredCareerData[0].puntaje_corte) {
-        setDisplayConfetti(true);
-      }
-    }
-  };
 
   useEffect(() => {
     setCareerData([]);
@@ -272,6 +187,135 @@ export default function Simulador() {
       );
     }
   }, []);
+
+  const handleSimulation = () => {
+    let isValid = true;
+    let totalWeightedScoreAux = 0;
+    let electiveMaxScore = 0;
+
+    labels.forEach((label) => {
+      if (weightedInputs.current[label].disabled) {
+        return;
+      }
+
+      let value = Number(weightedInputs.current[label].value);
+      console.log(value);
+
+      if (
+        areElectivesFilled &&
+        (label === "Ciencias" || label === "Historia")
+      ) {
+        if (value) {
+          electiveMaxScore = Math.max(electiveMaxScore, value);
+          isValid = true;
+        }
+        return;
+      }
+
+      if (isNaN(value) || value < 100 || value > 1000) {
+        isValid = false;
+      } else {
+        const dataKey = labelToDataKey[label];
+        const weight = filteredCareerData[0]?.[dataKey];
+
+        if (weight) {
+          totalWeightedScoreAux += (value * weight) / 100;
+        }
+      }
+    });
+
+    if (electiveMaxScore > 0) {
+      const electiveLabel =
+        electiveMaxScore === weightedInputs.current["Ciencias"].value
+          ? "cien"
+          : "hsco";
+      const electiveWeight = filteredCareerData[0]?.[electiveLabel];
+      if (electiveWeight) {
+        totalWeightedScoreAux += (electiveMaxScore * electiveWeight) / 100;
+      }
+    }
+
+    setTotalWeightedScore(totalWeightedScoreAux);
+
+    if (!isLocationUnique && position === "Selecciona la sede") {
+      toast({
+        variant: "destructive",
+        title: "Debes seleccionar una sede",
+        description:
+          "No tienes ninguna sede seleccionada, selecciona una para continuar.",
+      });
+      return;
+    }
+
+    if (!isValid || !isCareerSelected) {
+      setToastTrigger((prev) => prev + 1);
+    } else {
+      setShowCalculations(false);
+      setShowSimulation(true);
+      sessionStorage.removeItem("University");
+      sessionStorage.removeItem("Career");
+      sessionStorage.removeItem("Location");
+
+      if (totalWeightedScoreAux >= filteredCareerData[0].puntaje_corte) {
+        setDisplayConfetti(true);
+      }
+    }
+  };
+
+  const handleUniversitySimulation = () => {
+    let isValid = true;
+    const mandatoryExams = ["Nem", "Ranking", "M1", "Lectura"];
+    let cienciasValue = 0;
+    let historiaValue = 0;
+
+    labels.forEach((label) => {
+      let value = Number(weightedInputs.current[label].value);
+
+      if (weightedInputs.current[label].disabled) {
+        return;
+      }
+
+      if (mandatoryExams.includes(label) && !value) {
+        isValid = false;
+        return;
+      }
+
+      if (value < 100 || value > 1000) {
+        if (value == 0) {
+          return;
+        }
+
+        isValid = false;
+      }
+
+      if (label === "Ciencias") {
+        cienciasValue = value;
+      } else if (label === "Historia") {
+        historiaValue = value;
+      }
+    });
+
+    if (cienciasValue === 0 && historiaValue === 0) {
+      isValid = false;
+    }
+
+    if (!isValid || !selectedUniversity) {
+      toast({
+        variant: "destructive",
+        title: "¡Verifica los datos!",
+        description:
+          "Revisa que los datos cumplan con la escala requerida (100 a 1000), además, recuerda simular en todas las pruebas obligatorias, y en al menos una electiva.",
+      });
+    } else {
+      setShowCalculations(false);
+      setShowCareerInfoCards(true);
+      sessionStorage.removeItem("University");
+      sessionStorage.removeItem("Career");
+      sessionStorage.removeItem("Location");
+    }
+
+    console.log(universityData);
+  };
 
   return (
     <>
@@ -388,8 +432,8 @@ export default function Simulador() {
                 )}
 
                 {searchType === "Búsqueda por Universidad" && (
-                  <div className="flex gap-10">
-                    <div className="flex items-center justify-center">
+                  <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:gap-10">
+                    <div>
                       <UniversitySearch
                         selectedUniversity={selectedUniversity}
                         setSelectedUniversity={setSelectedUniversity}
@@ -426,13 +470,24 @@ export default function Simulador() {
           )}
 
           <button
-            onClick={handleSimulation}
+            onClick={
+              searchType == "Búsqueda por Universidad"
+                ? handleUniversitySimulation
+                : handleSimulation
+            }
             disabled={activeTab === "Opciones avanzadas"}
             className={`my-2 w-1/3 rounded-md ${activeTab === "Simulador" ? "bg-stone-950 text-white hover:bg-stone-900" : "disabled:cursor-default disabled:bg-transparent disabled:text-transparent"} p-3 text-sm font-medium leading-none`}
           >
             Hacer Simulación
           </button>
         </motion.div>
+      )}
+
+      {showCareerInfoCards && (
+        <CareerSimulationPreview
+          universityData={universityData}
+          areElectivesFilled={areElectivesFilled}
+        />
       )}
 
       {showSimulation && (

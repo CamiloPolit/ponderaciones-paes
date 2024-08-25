@@ -21,7 +21,7 @@ export async function GET(request, { params }) {
       `;
     } else {
       result = await sql`
-        SELECT DISTINCT NOMBRE_CARRERA,AREA_CONOCIMIENTO,NOMB_INST FROM FETCH_CARRERAS WHERE nomb_inst = ${university} ORDER BY NOMBRE_CARRERA ASC;
+        SELECT DISTINCT NOMBRE_CARRERA,AREA_CONOCIMIENTO,NOMB_INST,NEM,RANKING,CLEC,M1,HSCO,CIEN,M2 FROM info_carreras WHERE nomb_inst = ${university} ORDER BY NOMBRE_CARRERA ASC;
       `;
     }
     return NextResponse.json(result.rows);

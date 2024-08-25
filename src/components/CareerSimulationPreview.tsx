@@ -13,7 +13,13 @@ export default function CareerSimulationPreview({
   areElectivesFilled,
   setShowCareerInfoCards,
   setShowCalculations,
+  setAreElectivesFilled,
 }) {
+  const cienciasValue = sessionStorage.getItem("Ciencias");
+  const historiaValue = sessionStorage.getItem("Historia");
+
+  setAreElectivesFilled(cienciasValue && historiaValue);
+
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
       <div className="space-y-8">

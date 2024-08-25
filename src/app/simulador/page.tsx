@@ -488,6 +488,7 @@ export default function Simulador() {
           areElectivesFilled={areElectivesFilled}
           setShowCareerInfoCards={setShowCareerInfoCards}
           setShowCalculations={setShowCalculations}
+          setAreElectivesFilled={setAreElectivesFilled}
         />
       )}
 

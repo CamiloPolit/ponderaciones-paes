@@ -27,26 +27,29 @@ export default function CareerSimulationCard({
     Historia: hsco,
   };
 
-  // Filtrar las claves de weights que no evalúan a falso
   const requiredKeys = Object.keys(weights).filter((key) => {
-    if (!areElectivesFilled && (key === "Ciencias" || key === "Historia")) {
-      return false;
-    }
     return weights[key];
   });
 
-  // Verificar que todas las claves necesarias estén presentes en sessionStorage
   const areRequiredValuesPresent = requiredKeys.every((key) => {
-    const sessionValue = sessionStorage.getItem(key);
-    return sessionValue !== null; // Verificar si existe en sessionStorage
+    if (
+      requiredKeys.includes("Ciencias") &&
+      requiredKeys.includes("Historia")
+    ) {
+      const cienValue = sessionStorage.getItem("Ciencias");
+      const hscoValue = sessionStorage.getItem("Historia");
+      console.log(key);
+
+      return cienValue !== null || hscoValue !== null;
+    } else {
+      return sessionStorage.getItem(key) !== null;
+    }
   });
 
-  // Si algún valor necesario no está presente en sessionStorage, omitir la renderización de la tarjeta
   if (!areRequiredValuesPresent) {
     return null;
   }
 
-  // Calcular el puntaje ponderado
   const labels = [
     { label: "Nem", value: nem },
     { label: "Ranking", value: ranking },
@@ -58,12 +61,10 @@ export default function CareerSimulationCard({
   ];
 
   labels.forEach(({ label, value }) => {
-    if (!value) return; // Saltar si no hay valor
+    if (!value) return;
 
-    // Obtener el valor correspondiente desde sessionStorage
     const sessionValue = Number(sessionStorage.getItem(label));
 
-    // Ponderar Ciencias e Historia como electivas si se han completado
     if (areElectivesFilled && (label === "Ciencias" || label === "Historia")) {
       electiveMaxScore = Math.max(electiveMaxScore, sessionValue);
     } else {
@@ -74,7 +75,6 @@ export default function CareerSimulationCard({
     }
   });
 
-  // Si se tiene un puntaje máximo para Ciencias o Historia, se pondera aquí
   if (electiveMaxScore > 0) {
     const electiveLabel =
       electiveMaxScore === Number(sessionStorage.getItem("Ciencias"))
@@ -128,7 +128,7 @@ export default function CareerSimulationCard({
             {m2 && (
               <Badge
                 variant="outline"
-                className="bg-blue-500 text-center text-blue-50"
+                className="bg-blue-500 text-center text-green-50"
               >
                 M2 {m2}%
               </Badge>
@@ -160,11 +160,27 @@ export default function CareerSimulationCard({
           </div>
           <h3 className="text-xl font-semibold">{career}</h3>
         </div>
+
         <div className="flex items-center justify-between">
-          <p className="text-muted-foreground">{university}</p>
-          <p className="text-muted-foreground">
-            Puntaje simulado: {totalWeightedScoreAux.toFixed(2)}
-          </p>
+          <div>
+            <p className="text-stone-700">{university}</p>
+            <div className="flex items-center space-x-2">
+              <p className="text-stone-700">Puntaje simulado:</p>
+              <span className="text-primary font-semibold">
+                {totalWeightedScoreAux.toFixed(2)}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Badge
+              variant={true ? "outline" : "ghost"}
+              className={
+                true ? "bg-green-500 text-green-50" : "bg-red-500 text-red-50"
+              }
+            >
+              {650 >= 450 ? "Seleccionado" : "No seleccionado"}
+            </Badge>
+          </div>
         </div>
       </div>
     </div>

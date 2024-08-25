@@ -28,7 +28,12 @@ export default function CareerSimulationCard({
   };
 
   // Filtrar las claves de weights que no evalúan a falso
-  const requiredKeys = Object.keys(weights).filter((key) => weights[key]);
+  const requiredKeys = Object.keys(weights).filter((key) => {
+    if (!areElectivesFilled && (key === "Ciencias" || key === "Historia")) {
+      return false;
+    }
+    return weights[key];
+  });
 
   // Verificar que todas las claves necesarias estén presentes en sessionStorage
   const areRequiredValuesPresent = requiredKeys.every((key) => {

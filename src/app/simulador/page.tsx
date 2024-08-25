@@ -424,7 +424,6 @@ export default function Simulador() {
                     isDataLoaded={isDataLoaded}
                     setAreElectivesFilled={setAreElectivesFilled}
                     areElectivesFilled={areElectivesFilled}
-                    toastTrigger={toastTrigger}
                     setToastTrigger={setToastTrigger}
                     weightedInputs={weightedInputs}
                     isCareerSelected={isCareerSelected}
@@ -487,6 +486,8 @@ export default function Simulador() {
         <CareerSimulationPreview
           universityData={universityData}
           areElectivesFilled={areElectivesFilled}
+          setShowCareerInfoCards={setShowCareerInfoCards}
+          setShowCalculations={setShowCalculations}
         />
       )}
 

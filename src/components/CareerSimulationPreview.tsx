@@ -11,16 +11,31 @@ import CareerSimulationCard from "./CareerSimulationCard";
 export default function CareerSimulationPreview({
   universityData,
   areElectivesFilled,
+  setShowCareerInfoCards,
+  setShowCalculations,
 }) {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
       <div className="space-y-8">
         <div className="space-y-2">
+          <Button
+            variant="outline"
+            className="text-black hover:bg-gray-200"
+            onClick={() => {
+              setShowCareerInfoCards(false);
+              setShowCalculations(true);
+            }}
+          >
+            Volver
+          </Button>
           <h2 className="text-3xl font-bold">
             Oferta de Carreras Ofrecidas por la {universityData[0].nomb_inst}
           </h2>
-          <p className="text-muted-foreground">
-            Explora las diferentes carreras
+          <p className="text-stone-700">Explora las diferentes carreras</p>
+          <p className="text-stone-700">
+            * Recuerda que las carreras listadas corresponden sólo a las que fue
+            posible hacer la simulación en base a los puntajes ingresados en los
+            input.
           </p>
         </div>
         <div className="space-y-6">

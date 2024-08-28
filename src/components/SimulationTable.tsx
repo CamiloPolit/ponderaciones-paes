@@ -107,15 +107,19 @@ export default function SimulationTable({
                 }}
               />
             </div>
-            <div className="relative mb-[-22px]">
+            <div
+              className={`relative mb-[-22px] ${
+                label === "Nem" || label === "Ranking" ? "mb-[-35px]" : ""
+              }`}
+            >
               <Badge
                 variant="outline"
                 className={`cursor-default ${value ? "" : "opacity-0"} ${
                   areElectivesFilled &&
                   (label === "Ciencias" || label === "Historia")
-                    ? "bg-yellow-100"
-                    : "bg-lime-100"
-                } text-[0.85rem]`}
+                    ? "bg-yellow-300"
+                    : "bg-green-300"
+                } text-[0.85rem] text-neutral-700`}
               >
                 {value ?? "30"}
               </Badge>

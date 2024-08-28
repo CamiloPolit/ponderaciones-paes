@@ -387,7 +387,7 @@ export default function Simulador() {
                           <div className="m-auto my-4 flex w-11/12 items-center gap-3">
                             <Badge
                               variant="outline"
-                              className="h-8 min-w-20 bg-lime-100"
+                              className="h-8 min-w-20 border border-stone-400 bg-green-300"
                             ></Badge>
                             <p>=</p>
                             <p className="text-sm font-medium leading-none text-stone-800">
@@ -402,7 +402,7 @@ export default function Simulador() {
                           <div className="m-auto flex w-11/12 items-center gap-3">
                             <Badge
                               variant="outline"
-                              className="h-8 min-w-20 bg-yellow-100"
+                              className="h-8 min-w-20 border border-stone-400 bg-yellow-300"
                             ></Badge>
                             <p>=</p>
                             <p className="text-sm font-medium leading-none text-stone-800">
@@ -433,19 +433,58 @@ export default function Simulador() {
                 {searchType === "Búsqueda por Universidad" && (
                   <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:gap-10">
                     <div>
-                      <UniversitySearch
-                        selectedUniversity={selectedUniversity}
-                        setSelectedUniversity={setSelectedUniversity}
-                        matchedText={matchedText}
-                        setMatchedText={setMatchedText}
-                        isDisabled={isDisabled}
-                        setIsDisabled={setIsDisabled}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
-                        imageSrc={imageSrc}
-                        setImageSrc={setImageSrc}
-                        setIsCareerSelected={setIsCareerSelected}
-                      />
+                      <div className="mt-10">
+                        <UniversitySearch
+                          selectedUniversity={selectedUniversity}
+                          setSelectedUniversity={setSelectedUniversity}
+                          matchedText={matchedText}
+                          setMatchedText={setMatchedText}
+                          isDisabled={isDisabled}
+                          setIsDisabled={setIsDisabled}
+                          inputValue={inputValue}
+                          setInputValue={setInputValue}
+                          imageSrc={imageSrc}
+                          setImageSrc={setImageSrc}
+                          setIsCareerSelected={setIsCareerSelected}
+                        />
+                      </div>
+                      <Separator className="my-10 w-full" />
+                      <div className="my-5">
+                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
+                          <Badge
+                            variant="outline"
+                            className="h-8 min-w-20 border border-stone-400 bg-green-300"
+                          ></Badge>
+                          <p>=</p>
+                          <p className="text-sm font-medium leading-none text-stone-800">
+                            Debes rendir esta prueba obligatoriamente.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="my-5">
+                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
+                          <Badge
+                            variant="outline"
+                            className="h-8 min-w-20 border border-stone-400 bg-blue-300"
+                          ></Badge>
+                          <p>=</p>
+                          <p className="text-sm font-medium leading-none text-stone-800">
+                            Obligatoria sólo para algunas carreras.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="my-5">
+                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
+                          <Badge
+                            variant="outline"
+                            className="h-8 min-w-20 border border-stone-400 bg-yellow-300"
+                          ></Badge>
+                          <p>=</p>
+                          <p className="text-sm font-medium leading-none text-stone-800">
+                            Debes rendir al menos una de estas pruebas.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                     <GeneralTable
                       labels={labels}

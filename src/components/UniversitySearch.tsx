@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { MdBlock } from "react-icons/md";
 import universities from "../app/universities.json";
 import UniversitiesMenu from "./UniversitiesMenu";
+import { Badge } from "./ui/badge";
 
 const suggestions = universities.Universities;
 
@@ -140,7 +141,6 @@ export default function Page({
           setIsDisabled={setIsDisabled}
           setSelectedUniversity={setSelectedUniversity}
           setMatchedText={setMatchedText}
-          inputValue={inputValue}
         />
       </div>
     </div>

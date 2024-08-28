@@ -448,7 +448,9 @@ export default function Simulador() {
                           setIsCareerSelected={setIsCareerSelected}
                         />
                       </div>
+
                       <Separator className="my-10 w-full" />
+
                       <div className="my-5">
                         <div className="m-auto my-4 flex w-11/12 items-center gap-3">
                           <Badge
@@ -490,6 +492,7 @@ export default function Simulador() {
                       labels={labels}
                       setToastTrigger={setToastTrigger}
                       weightedInputs={weightedInputs}
+                      selectedUniversity={selectedUniversity}
                     />
                   </div>
                 )}

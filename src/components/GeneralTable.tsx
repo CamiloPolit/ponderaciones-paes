@@ -16,6 +16,7 @@ export default function GeneralTable({
   labels,
   setToastTrigger,
   weightedInputs,
+  selectedUniversity,
 }) {
   const [nemValue, setNemValue] = useState("");
 
@@ -26,7 +27,7 @@ export default function GeneralTable({
         weightedInputs.current[label].value = storedValue;
       }
     });
-  }, [labels]);
+  }, [labels, selectedUniversity]);
 
   const handleInputBlur = (label, value) => {
     const numValue = Number(value);
@@ -43,13 +44,22 @@ export default function GeneralTable({
     sessionStorage.setItem(label, value);
   };
 
+  //Necesito que al selectedUniversity ser falso, se limpien los inputs
+  if (!selectedUniversity) {
+    labels.forEach((label) => {
+      if (weightedInputs.current[label]) {
+        weightedInputs.current[label].value = "";
+      }
+    });
+  }
+
   return (
     <div suppressHydrationWarning className="grid grid-cols-2 gap-x-7 px-7">
       {labels.map((label) => {
         return (
           <div key={label} className="flex items-center">
             <div className="flex flex-col items-center justify-center py-2">
-              {label === "Nem" ? (
+              {label === "Nem" && selectedUniversity ? (
                 <NemDialog
                   text="Calcular aquí"
                   onNemChange={(value) => {
@@ -58,7 +68,7 @@ export default function GeneralTable({
                     sessionStorage.setItem(label, value);
                   }}
                 />
-              ) : label === "Ranking" ? (
+              ) : label === "Ranking" && selectedUniversity ? (
                 <span className="mb-[-5px] cursor-pointer text-[0.86rem] font-medium text-blue-300">
                   Estimar aquí
                 </span>
@@ -71,6 +81,7 @@ export default function GeneralTable({
                 ref={(el) => (weightedInputs.current[label] = el)}
                 className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
                 maxLength="4"
+                disabled={!selectedUniversity}
                 onBlur={(e) => handleInputBlur(label, e.target.value)}
                 onChange={(e) => {
                   if (label === "Nem") {

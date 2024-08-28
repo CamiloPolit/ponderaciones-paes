@@ -95,9 +95,15 @@ export default function Simulador() {
   const [toastTrigger, setToastTrigger] = useState(0);
 
   const fetchUniversityData = async () => {
-    const response = await fetch(
-      `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}`,
-    );
+    let response;
+
+    searchType == "Búsqueda por Universidad y Carrera"
+      ? (response = await fetch(
+          `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}`,
+        ))
+      : (response = await fetch(
+          `/api/filtros/carrera/${inputValue.toUpperCase().replace(/ /g, "_")}`,
+        ));
     const data = await response.json();
     return data;
   };
@@ -150,7 +156,7 @@ export default function Simulador() {
         setCareerData(data);
       });
     }
-  }, [selectedUniversity, selectedCareer]);
+  }, [selectedUniversity, selectedCareer, searchType]);
 
   useEffect(() => {
     toastTrigger &&
@@ -261,6 +267,13 @@ export default function Simulador() {
       }
     }
   };
+
+  useEffect(() => {
+    setIsCareerSelected(searchType === "Búsqueda por Universidad y Carrera");
+    setSelectedCareer("");
+    setIsCareerSelected(false);
+    setMainCareerLogo("");
+  }, [searchType]);
 
   const handleUniversitySimulation = () => {
     let isValid = true;

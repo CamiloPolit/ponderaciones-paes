@@ -69,64 +69,68 @@ export default function SimulationTable({
   };
 
   return (
-    <div suppressHydrationWarning className="grid grid-cols-2 gap-x-7 px-7">
-      {labels.map((label) => {
-        const dataKey = labelToDataKey[label];
-        const value = isDataLoaded ? careerData[0]?.[dataKey] : undefined;
+    <div className="flex w-full justify-evenly">
+      <div suppressHydrationWarning className="grid grid-cols-2 gap-x-12 px-7">
+        {labels.map((label) => {
+          const dataKey = labelToDataKey[label];
+          const value = isDataLoaded ? careerData[0]?.[dataKey] : undefined;
 
-        return (
-          <div key={label} className="flex items-center">
-            <div className="flex flex-col items-center justify-center py-2">
-              {label === "Nem" ? (
-                <NemDialog
-                  text="Calcular aquí"
-                  onNemChange={(value) => {
-                    setNemValue(value);
-                    weightedInputs.current[label].value = value;
-                    sessionStorage.setItem(label, value);
+          return (
+            <div key={label} className="flex items-center">
+              <div className="flex flex-col items-center justify-center py-2">
+                {label === "Nem" ? (
+                  <NemDialog
+                    text="Calcular aquí"
+                    onNemChange={(value) => {
+                      setNemValue(value);
+                      weightedInputs.current[label].value = value;
+                      sessionStorage.setItem(label, value);
+                    }}
+                  />
+                ) : label === "Ranking" ? (
+                  <span className="mb-[-5px] cursor-pointer text-[0.86rem] font-medium text-blue-300">
+                    Estimar aquí
+                  </span>
+                ) : null}
+                <p className="text-center font-semibold">{label}</p>
+
+                <input
+                  type="text"
+                  ref={(el) => (weightedInputs.current[label] = el)}
+                  className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
+                  maxLength="4"
+                  onBlur={(e) => handleInputBlur(label, e.target.value)}
+                  disabled={
+                    !isDataLoaded || value === null || !isCareerSelected
+                  }
+                  onChange={(e) => {
+                    if (label === "Nem") {
+                      setNemValue(e.target.value);
+                    }
                   }}
                 />
-              ) : label === "Ranking" ? (
-                <span className="mb-[-5px] cursor-pointer text-[0.86rem] font-medium text-blue-300">
-                  Estimar aquí
-                </span>
-              ) : null}
-              <p className="text-center font-semibold">{label}</p>
-
-              <input
-                type="text"
-                ref={(el) => (weightedInputs.current[label] = el)}
-                className="mx-1 w-20 rounded-xl border-2 p-2 text-center text-[1rem] text-black/85 hover:border-black disabled:bg-stone-200 sm:w-24"
-                maxLength="4"
-                onBlur={(e) => handleInputBlur(label, e.target.value)}
-                disabled={!isDataLoaded || value === null || !isCareerSelected}
-                onChange={(e) => {
-                  if (label === "Nem") {
-                    setNemValue(e.target.value);
-                  }
-                }}
-              />
-            </div>
-            <div
-              className={`relative mb-[-22px] ${
-                label === "Nem" || label === "Ranking" ? "mb-[-35px]" : ""
-              }`}
-            >
-              <Badge
-                variant="outline"
-                className={`cursor-default ${value ? "" : "opacity-0"} ${
-                  areElectivesFilled &&
-                  (label === "Ciencias" || label === "Historia")
-                    ? "bg-yellow-300"
-                    : "bg-green-300"
-                } text-[0.85rem] text-neutral-700`}
+              </div>
+              <div
+                className={`relative mb-[-22px] ${
+                  label === "Nem" || label === "Ranking" ? "mb-[-35px]" : ""
+                }`}
               >
-                {value ?? "30"}
-              </Badge>
+                <Badge
+                  variant="outline"
+                  className={`cursor-default ${value ? "" : "opacity-0"} ${
+                    areElectivesFilled &&
+                    (label === "Ciencias" || label === "Historia")
+                      ? "bg-yellow-300"
+                      : "bg-green-300"
+                  } text-[0.85rem] text-neutral-700`}
+                >
+                  {value ?? "30"}
+                </Badge>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -44,7 +44,6 @@ export default function GeneralTable({
     sessionStorage.setItem(label, value);
   };
 
-  //Necesito que al selectedUniversity ser falso, se limpien los inputs
   if (!selectedUniversity) {
     labels.forEach((label) => {
       if (weightedInputs.current[label]) {
@@ -54,7 +53,7 @@ export default function GeneralTable({
   }
 
   return (
-    <div suppressHydrationWarning className="grid grid-cols-2 gap-x-7 px-7">
+    <div suppressHydrationWarning className="grid grid-cols-2 gap-x-12 px-7">
       {labels.map((label) => {
         return (
           <div key={label} className="flex items-center">

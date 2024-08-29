@@ -38,7 +38,6 @@ export default function CareerSimulationCard({
     ) {
       const cienValue = sessionStorage.getItem("Ciencias");
       const hscoValue = sessionStorage.getItem("Historia");
-      console.log(key);
 
       return cienValue !== null || hscoValue !== null;
     } else {
@@ -77,7 +76,8 @@ export default function CareerSimulationCard({
 
   if (electiveMaxScore > 0) {
     const electiveLabel =
-      electiveMaxScore === Number(sessionStorage.getItem("Ciencias"))
+      electiveMaxScore === Number(sessionStorage.getItem("Ciencias")) &&
+      weights["Ciencias"]
         ? "Ciencias"
         : "Historia";
     const electiveWeight = weights[electiveLabel];
@@ -87,8 +87,8 @@ export default function CareerSimulationCard({
   }
 
   return (
-    <div className="bg-background flex cursor-pointer overflow-hidden rounded-lg shadow-lg">
-      <div className="bg-muted flex w-32 items-center justify-center md:w-40">
+    <div className="bg-background flex cursor-pointer overflow-hidden rounded-lg shadow-md">
+      <div className="bg-muted hidden w-32 items-center justify-center md:flex md:w-40">
         <img
           src={`careerIcons/${careerLogo}.png`}
           width={50}
@@ -98,9 +98,16 @@ export default function CareerSimulationCard({
           style={{ aspectRatio: "50/50", objectFit: "cover" }}
         />
       </div>
-      <div className="flex-1 space-y-4 p-4 md:p-6">
+      <div className="flex-1 space-y-6 p-4 md:space-y-4 md:p-6">
         <div>
-          <div className="mb-2 flex items-center space-x-4">
+          <div className="mb-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 md:justify-start">
+            <h3 className="w-full text-center text-xl font-semibold leading-6 md:text-start">
+              {career}
+            </h3>
+            <p className="mb-2 w-full text-center leading-4 text-stone-700 md:text-start">
+              {university}
+            </p>
+
             {nem && (
               <Badge
                 variant="outline"
@@ -158,28 +165,14 @@ export default function CareerSimulationCard({
               </Badge>
             )}
           </div>
-          <h3 className="text-xl font-semibold">{career}</h3>
         </div>
 
         <div className="flex items-center justify-between">
-          <div>
-            <p className="text-stone-700">{university}</p>
-            <div className="flex items-center space-x-2">
-              <p className="text-stone-700">Puntaje simulado:</p>
-              <span className="text-primary font-semibold">
-                {totalWeightedScoreAux.toFixed(2)}
-              </span>
-            </div>
-          </div>
           <div className="flex items-center space-x-2">
-            <Badge
-              variant={true ? "outline" : "ghost"}
-              className={
-                true ? "bg-green-500 text-green-50" : "bg-red-500 text-red-50"
-              }
-            >
-              {650 >= 450 ? "Seleccionado" : "No seleccionado"}
-            </Badge>
+            <p className="text-stone-700">Puntaje simulado:</p>
+            <span className="text-primary font-semibold">
+              {totalWeightedScoreAux.toFixed(2)}
+            </span>
           </div>
         </div>
       </div>

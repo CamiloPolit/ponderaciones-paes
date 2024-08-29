@@ -94,10 +94,10 @@ export default function GeneralTable({
                 variant="outline"
                 className={`cursor-default ${
                   label === "Ciencias" || label === "Historia"
-                    ? "bg-green-300"
+                    ? "bg-yellow-300"
                     : label === "M2"
                       ? "bg-blue-300"
-                      : "bg-yellow-300"
+                      : "bg-green-300"
                 } border border-stone-400 text-[0.85rem] text-opacity-0`}
               >
                 {30}

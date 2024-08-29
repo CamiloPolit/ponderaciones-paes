@@ -349,7 +349,7 @@ export default function Simulador() {
             <div className="flex w-11/12 items-center justify-center">
               <div className="min-h-[300px] w-full gap-10 rounded-b-xl border-[1px] border-gray-300 py-5 md:flex md:w-2/3 md:items-center md:justify-center">
                 {searchType === "Búsqueda por Universidad y Carrera" && (
-                  <div className="flex flex-col items-center justify-center">
+                  <div className="flex flex-col items-center justify-center md:flex-row md:gap-10">
                     <div className="xs:px-7">
                       <UniversitySearch
                         selectedUniversity={selectedUniversity}
@@ -378,7 +378,7 @@ export default function Simulador() {
                         setMainCareerLogo={setMainCareerLogo}
                       />
 
-                      <Separator className="my-4 w-full" />
+                      <Separator className="m-auto my-4 w-full" />
                       {!isLocationUnique && (
                         <>
                           <div className="flex items-center justify-center">
@@ -391,7 +391,7 @@ export default function Simulador() {
                               setPosition={setPosition}
                             />
                           </div>
-                          <Separator className="my-4 w-full" />
+                          <Separator className="my-4 w-11/12" />
                         </>
                       )}
 
@@ -427,20 +427,17 @@ export default function Simulador() {
                         </div>
                       )}
                     </div>
+                    <SimulationTable
+                      labels={labels}
+                      careerData={careerData}
+                      isDataLoaded={isDataLoaded}
+                      setAreElectivesFilled={setAreElectivesFilled}
+                      areElectivesFilled={areElectivesFilled}
+                      setToastTrigger={setToastTrigger}
+                      weightedInputs={weightedInputs}
+                      isCareerSelected={isCareerSelected}
+                    />
                   </div>
-                )}
-
-                {searchType === "Búsqueda por Universidad y Carrera" && (
-                  <SimulationTable
-                    labels={labels}
-                    careerData={careerData}
-                    isDataLoaded={isDataLoaded}
-                    setAreElectivesFilled={setAreElectivesFilled}
-                    areElectivesFilled={areElectivesFilled}
-                    setToastTrigger={setToastTrigger}
-                    weightedInputs={weightedInputs}
-                    isCareerSelected={isCareerSelected}
-                  />
                 )}
 
                 {searchType === "Búsqueda por Universidad" && (

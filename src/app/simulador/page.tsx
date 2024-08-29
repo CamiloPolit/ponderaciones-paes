@@ -539,8 +539,11 @@ export default function Simulador() {
           universityData={universityData}
           areElectivesFilled={areElectivesFilled}
           setShowCareerInfoCards={setShowCareerInfoCards}
-          setShowCalculations={setShowCalculations}
           setAreElectivesFilled={setAreElectivesFilled}
+          setShowStatistics={setShowStatistics}
+          setCareerData={setCareerData}
+          setPosition={setPosition}
+          setShowCalculations={setShowCalculations}
         />
       )}
 
@@ -576,6 +579,8 @@ export default function Simulador() {
           careerData={careerData}
           filteredCareerData={filteredCareerData}
           imageSrc={imageSrc}
+          searchType={searchType}
+          setShowCareerInfoCards={setShowCareerInfoCards}
         />
       )}
       <Toaster />

@@ -9,7 +9,11 @@ export async function GET(request, { params }) {
     let result;
 
     result = await sql`
-        SELECT * FROM info_carreras WHERE nomb_inst = ${university} ORDER BY NOMBRE_CARRERA ASC;
+        SELECT *
+        FROM info_carreras t1
+        JOIN acreditaciones_universidades t2
+        ON t1.nomb_inst = t2.nomb_inst
+        WHERE t1.nomb_inst = ${university} ORDER BY t1.NOMBRE_CARRERA ASC;
       `;
 
     return NextResponse.json(result.rows);

@@ -20,7 +20,10 @@ export default function StatisticsPreview({
   careerData,
   filteredCareerData,
   imageSrc,
+  searchType,
+  setShowCareerInfoCards,
 }) {
+  console.log(filteredCareerData);
   return (
     <div className="flex min-h-screen flex-col bg-neutral-50">
       <div className="flex flex-1 flex-col gap-8 p-6 md:p-10">
@@ -31,7 +34,9 @@ export default function StatisticsPreview({
               className="text-black hover:bg-gray-200"
               onClick={() => {
                 setShowStatistics(false);
-                setShowSimulation(true);
+                searchType == "Búsqueda por Universidad y Carrera"
+                  ? setShowSimulation(true)
+                  : setShowCareerInfoCards(true);
               }}
             >
               Volver
@@ -100,12 +105,12 @@ export default function StatisticsPreview({
         <section>
           <h2 className="mb-4 text-2xl font-bold">Representatividad</h2>
 
-          <div className="flex flex-col justify-center gap-10 md:flex-row">
+          <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
             <div className="h-full max-w-[500px]">
               <PieChartt
                 women_percentage={filteredCareerData[0]?.porcentaje_mujeres}
                 slots={filteredCareerData[0]?.vac_1er}
-                career={selectedCareer}
+                career={filteredCareerData[0]?.nombre_carrera}
               />
             </div>
 
@@ -217,7 +222,9 @@ export default function StatisticsPreview({
             className="text-black hover:bg-gray-200"
             onClick={() => {
               setShowStatistics(false);
-              setShowSimulation(true);
+              searchType == "Búsqueda por Universidad y Carrera"
+                ? setShowSimulation(true)
+                : setShowCareerInfoCards(true);
             }}
           >
             Volver

@@ -12,8 +12,11 @@ export default function CareerSimulationPreview({
   universityData,
   areElectivesFilled,
   setShowCareerInfoCards,
-  setShowCalculations,
   setAreElectivesFilled,
+  setShowStatistics,
+  setCareerData,
+  setPosition,
+  setShowCalculations,
 }) {
   const cienciasValue = sessionStorage.getItem("Ciencias");
   const historiaValue = sessionStorage.getItem("Historia");
@@ -90,7 +93,13 @@ export default function CareerSimulationPreview({
                 m2={career.m2}
                 cien={career.cien}
                 hsco={career.hsco}
+                last_score={career.puntaje_corte}
                 areElectivesFilled={areElectivesFilled}
+                setShowCareerInfoCards={setShowCareerInfoCards}
+                setShowStatistics={setShowStatistics}
+                setCareerData={setCareerData}
+                universityData={universityData}
+                setPosition={setPosition}
               />
             ))}
           </div>

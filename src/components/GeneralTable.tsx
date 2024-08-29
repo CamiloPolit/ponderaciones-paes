@@ -23,7 +23,7 @@ export default function GeneralTable({
   useEffect(() => {
     labels.forEach((label) => {
       const storedValue = sessionStorage.getItem(label);
-      if (storedValue) {
+      if (storedValue && selectedUniversity) {
         weightedInputs.current[label].value = storedValue;
       }
     });

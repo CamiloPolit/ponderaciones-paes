@@ -13,6 +13,12 @@ export default function CareerSimulationCard({
   cien,
   hsco,
   areElectivesFilled,
+  last_score,
+  setShowCareerInfoCards,
+  setShowStatistics,
+  setCareerData,
+  universityData,
+  setPosition,
 }) {
   let totalWeightedScoreAux = 0;
   let electiveMaxScore = 0;
@@ -86,8 +92,24 @@ export default function CareerSimulationCard({
     }
   }
 
+  const handleClick = () => {
+    const filteredData = universityData.filter(
+      (data) => data.nomb_inst === university && data.nombre_carrera === career,
+    );
+    console.log(filteredData);
+
+    setCareerData(filteredData);
+    setPosition(filteredData[0].nomb_sede);
+    setShowCareerInfoCards(false);
+    setShowStatistics(true);
+    console.log(filteredData);
+  };
+
   return (
-    <div className="bg-background flex cursor-pointer overflow-hidden rounded-lg shadow-md">
+    <div
+      className="bg-background flex cursor-pointer overflow-hidden rounded-lg shadow-md duration-75 hover:scale-[1.007]"
+      onClick={handleClick}
+    >
       <div className="bg-muted hidden w-32 items-center justify-center md:flex md:w-40">
         <img
           src={`careerIcons/${careerLogo}.png`}
@@ -167,11 +189,17 @@ export default function CareerSimulationCard({
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
+        <div>
           <div className="flex items-center space-x-2">
             <p className="text-stone-700">Puntaje simulado:</p>
             <span className="text-primary font-semibold">
               {totalWeightedScoreAux.toFixed(2)}
+            </span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <p className="text-stone-700">Puntaje corte:</p>
+            <span className="text-primary font-semibold">
+              {Number(last_score).toFixed(2)}
             </span>
           </div>
         </div>

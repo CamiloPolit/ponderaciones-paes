@@ -66,27 +66,28 @@ export default function CareersMenu({
               ))}
             </div>
           </div>
-          {filteredCareers.map((career) => (
-            <div
-              key={career.codigo_carrera}
-              className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
-              onMouseDown={() => {
-                setSelectedCareer(career.nombre_carrera);
-                setMainCareerLogo(career.area_conocimiento);
-                setIsCareerSelected(true);
-                setIsInputActive(false);
-              }}
-            >
-              <div className="max-h-8 max-w-8">
-                <img
-                  src={`/careerIcons/${career.area_conocimiento}.png`}
-                  alt={`Foto ${career.nombre_carrera}`}
-                  className="object-cover"
-                />
+          {universityData &&
+            filteredCareers.map((career) => (
+              <div
+                key={career.codigo_carrera}
+                className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
+                onMouseDown={() => {
+                  setSelectedCareer(career.nombre_carrera);
+                  setMainCareerLogo(career.area_conocimiento);
+                  setIsCareerSelected(true);
+                  setIsInputActive(false);
+                }}
+              >
+                <div className="max-h-8 max-w-8">
+                  <img
+                    src={`/careerIcons/${career.area_conocimiento}.png`}
+                    alt={`Foto ${career.nombre_carrera}`}
+                    className="object-cover"
+                  />
+                </div>
+                <div className="w-10/12 p-2">{career.nombre_carrera}</div>
               </div>
-              <div className="w-10/12 p-2">{career.nombre_carrera}</div>
-            </div>
-          ))}
+            ))}
         </div>
       )}
     </div>

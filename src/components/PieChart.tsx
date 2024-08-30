@@ -64,7 +64,7 @@ export default function PieChartt({ women_percentage, slots, career }) {
     <Card className="flex flex-col shadow-sm">
       <CardHeader className="items-center pb-0">
         <CardTitle>Distribución de Género</CardTitle>
-        <CardDescription>{career}</CardDescription>
+        <CardDescription className="text-center">{career}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer

@@ -44,7 +44,7 @@ export default function SimulationTable({
   useEffect(() => {
     labels.forEach((label) => {
       const dataKey = labelToDataKey[label];
-      const value = careerData[0]?.[dataKey];
+      const value = careerData?.[0]?.[dataKey];
 
       if (!isDataLoaded || value === null || !isCareerSelected) {
         if (weightedInputs.current[label]) {

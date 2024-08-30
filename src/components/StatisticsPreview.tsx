@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import PieChartt from "@/components/PieChart";
@@ -23,7 +23,10 @@ export default function StatisticsPreview({
   searchType,
   setShowCareerInfoCards,
 }) {
-  console.log(filteredCareerData);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-neutral-50">
       <div className="flex flex-1 flex-col gap-8 p-6 md:p-10">

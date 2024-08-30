@@ -23,6 +23,8 @@ import OptionsPreview from "@/components/OptionsPreview";
 import StatisticsPreview from "@/components/StatisticsPreview";
 import GeneralTable from "@/components/GeneralTable";
 import CareerSimulationPreview from "@/components/CareerSimulationPreview";
+import useFetchUniversityData from "@/hooks/useFetchUniversityData";
+import useFetchCareerData from "@/hooks/useFetchCareerData";
 
 const labels = [
   "Nem",
@@ -47,6 +49,21 @@ const labelToDataKey = {
 const universityList = universities.Universities;
 
 export default function Simulador() {
+  const {
+    careerData,
+    setCareerData,
+    careerDataLoading,
+    careerDataError,
+    fetchCareerData,
+  } = useFetchCareerData();
+  const {
+    universityData,
+    setUniversityData,
+    universityDataLoading,
+    universityDataError,
+    fetchUniversityData,
+  } = useFetchUniversityData();
+
   const { toast } = useToast();
   const { width, height } = useWindowSize();
 
@@ -61,9 +78,13 @@ export default function Simulador() {
   const [inputValue, setInputValue] = useState("");
   const [isLocationUnique, setIsLocationUnique] = useState(true);
 
-  const [universityData, setUniversityData] = useState([]);
-  const [careerData, setCareerData] = useState([]);
-  const [filteredCareers, setFilteredCareers] = useState([]);
+  const [activeTab, setActiveTab] = useState("Simulador");
+  const options = ["Simulador", "Opciones avanzadas"];
+
+  const [useType, setUseType] = useState("Simulador");
+  const [searchType, setSearchType] = useState(
+    "Búsqueda por Universidad y Carrera",
+  );
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
@@ -72,14 +93,6 @@ export default function Simulador() {
   const [areElectivesFilled, setAreElectivesFilled] = useState(false);
 
   const weightedInputs = useRef({});
-
-  const [activeTab, setActiveTab] = useState("Simulador");
-  const options = ["Simulador", "Opciones avanzadas"];
-
-  const [useType, setUseType] = useState("Simulador");
-  const [searchType, setSearchType] = useState(
-    "Búsqueda por Universidad y Carrera",
-  );
 
   const [totalWeightedScore, setTotalWeightedScore] = useState(0);
 
@@ -94,29 +107,12 @@ export default function Simulador() {
   // Doesn't matter the value of toastTrigger, every time it changes, the toast'll apappear
   const [toastTrigger, setToastTrigger] = useState(0);
 
-  const fetchUniversityData = async () => {
-    let response;
-
-    searchType == "Búsqueda por Universidad y Carrera"
-      ? (response = await fetch(
-          `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}`,
-        ))
-      : (response = await fetch(
-          `/api/filtros/carrera/${inputValue.toUpperCase().replace(/ /g, "_")}`,
-        ));
-    const data = await response.json();
-    return data;
-  };
-
-  const fetchCareerData = async () => {
-    const response = await fetch(
-      `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}?carrera=${selectedCareer}`,
-    );
-    const data = await response.json();
-    return data;
-  };
+  const [filteredCareers, setFilteredCareers] = useState([]);
 
   const filteredCareerData = useMemo(() => {
+    if (!careerData || !careerData.length) {
+      return [];
+    }
     return careerData.filter((career) => career.nomb_sede === position);
   }, [careerData, position]);
 
@@ -126,14 +122,14 @@ export default function Simulador() {
     setPosition("Selecciona la sede");
 
     if (selectedUniversity && selectedCareer) {
-      fetchCareerData().then((data) => {
+      fetchCareerData(inputValue, selectedCareer).then((data) => {
         setCareerData(data);
 
         sessionStorage.getItem("Career") &&
           setMainCareerLogo(data[0].area_conocimiento);
 
         sessionStorage.getItem("Career") &&
-          fetchUniversityData().then((data) => {
+          fetchUniversityData(inputValue, searchType).then((data) => {
             setUniversityData(data);
             setFilteredCareers(data);
           });
@@ -150,7 +146,7 @@ export default function Simulador() {
         setIsLocationUnique(newLocations.length === 1);
       });
     } else if (selectedUniversity && !selectedCareer) {
-      fetchUniversityData().then((data) => {
+      fetchUniversityData(inputValue, searchType).then((data) => {
         setUniversityData(data);
         setFilteredCareers(data);
         setCareerData(data);
@@ -273,6 +269,7 @@ export default function Simulador() {
     setSelectedCareer("");
     setIsCareerSelected(false);
     setMainCareerLogo("");
+    setIsDataLoaded(false);
   }, [searchType]);
 
   const handleUniversitySimulation = () => {
@@ -395,7 +392,7 @@ export default function Simulador() {
                         </>
                       )}
 
-                      {isDataLoaded && (
+                      {isDataLoaded && isCareerSelected && (
                         <div className="my-5">
                           <div className="m-auto my-4 flex w-11/12 items-center gap-3">
                             <Badge
@@ -410,7 +407,7 @@ export default function Simulador() {
                         </div>
                       )}
 
-                      {areElectivesFilled && (
+                      {areElectivesFilled && isCareerSelected && (
                         <div className="my-5">
                           <div className="m-auto flex w-11/12 items-center gap-3">
                             <Badge

@@ -3,6 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 import UniversitySearch from "@/components/UniversitySearch";
 import CarreerSearch from "@/components/CarreerSearch";
 import LocationMenu from "@/components/LocationMenu";
+import useFetchCareerData from "@/hooks/useFetchCareerData";
+import useFetchUniversityData from "@/hooks/useFetchUniversityData";
 
 export default function PreviewSimulator() {
   const [imageSrc, setImageSrc] = useState("");
@@ -15,8 +17,6 @@ export default function PreviewSimulator() {
   const [inputValue, setInputValue] = useState("");
   const [isLocationUnique, setIsLocationUnique] = useState(true);
 
-  const [universityData, setUniversityData] = useState([]);
-  const [careerData, setCareerData] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [locations, setLocations] = useState([]);
   const [position, setPosition] = useState("Selecciona la sede");
@@ -24,21 +24,25 @@ export default function PreviewSimulator() {
   const [filteredCareers, setFilteredCareers] = useState([]);
   const [mainCareerLogo, setMainCareerLogo] = useState("");
 
-  const fetchUniversityData = async () => {
-    const response = await fetch(
-      `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}`,
-    );
-    const data = await response.json();
-    return data;
-  };
+  const [useType, setUseType] = useState("Simulador");
+  const [searchType, setSearchType] = useState(
+    "Búsqueda por Universidad y Carrera",
+  );
 
-  const fetchCareerData = async () => {
-    const response = await fetch(
-      `/api/universidades/${inputValue.toUpperCase().replace(/ /g, "_")}?carrera=${selectedCareer}`,
-    );
-    const data = await response.json();
-    return data;
-  };
+  const {
+    careerData,
+    setCareerData,
+    careerDataLoading,
+    careerDataError,
+    fetchCareerData,
+  } = useFetchCareerData();
+  const {
+    universityData,
+    setUniversityData,
+    universityDataLoading,
+    universityDataError,
+    fetchUniversityData,
+  } = useFetchUniversityData();
 
   useEffect(() => {
     if (selectedUniversity) {
@@ -53,34 +57,42 @@ export default function PreviewSimulator() {
   }, [isCareerSelected]);
 
   useEffect(() => {
-    if (isCareerSelected) {
-      sessionStorage.setItem("Location", position);
-    }
-  }, [position]);
-
-  useEffect(() => {
-    setIsDataLoaded(false);
     setCareerData([]);
 
     setPosition("Selecciona la sede");
 
     if (selectedUniversity && selectedCareer) {
-      fetchCareerData().then((data) => {
+      fetchCareerData(inputValue, selectedCareer).then((data) => {
         setCareerData(data);
+
+        sessionStorage.getItem("Career") &&
+          setMainCareerLogo(data[0].area_conocimiento);
+
+        sessionStorage.getItem("Career") &&
+          fetchUniversityData(inputValue, searchType).then((data) => {
+            setUniversityData(data);
+            setFilteredCareers(data);
+          });
 
         const newLocations = data.map((item) => item.nomb_sede);
         setLocations(newLocations);
-        setIsLocationUnique(newLocations.length === 1);
         setIsDataLoaded(true);
+
+        newLocations.length === 1 && setPosition(newLocations[0]);
+
+        const location = sessionStorage.getItem("Location");
+        location && setPosition(location);
+
+        setIsLocationUnique(newLocations.length === 1);
       });
     } else if (selectedUniversity && !selectedCareer) {
-      fetchUniversityData().then((data) => {
+      fetchUniversityData(inputValue, searchType).then((data) => {
         setUniversityData(data);
         setFilteredCareers(data);
         setCareerData(data);
       });
     }
-  }, [selectedUniversity, selectedCareer]);
+  }, [selectedUniversity, selectedCareer, searchType]);
 
   return (
     <>
@@ -110,6 +122,7 @@ export default function PreviewSimulator() {
         setFilteredCareers={setFilteredCareers}
         mainCareerLogo={mainCareerLogo}
         setMainCareerLogo={setMainCareerLogo}
+        universityDataLoading={universityDataLoading}
       />
 
       {!isLocationUnique && (

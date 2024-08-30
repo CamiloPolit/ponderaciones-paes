@@ -24,6 +24,7 @@ export default function CareersMenu({
   setIsCareerSelected,
   filteredCareers,
   setFilteredCareers,
+  universityDataLoading,
 }) {
   const handleClick = (type) => {
     setActiveCareerType(type);
@@ -66,7 +67,9 @@ export default function CareersMenu({
               ))}
             </div>
           </div>
-          {universityData &&
+          {universityDataLoading ? (
+            <div className="w-full bg-gray-50 text-center">Cargando...</div>
+          ) : (
             filteredCareers.map((career) => (
               <div
                 key={career.codigo_carrera}
@@ -87,7 +90,8 @@ export default function CareersMenu({
                 </div>
                 <div className="w-10/12 p-2">{career.nombre_carrera}</div>
               </div>
-            ))}
+            ))
+          )}
         </div>
       )}
     </div>

@@ -175,6 +175,7 @@ export default function Simulador() {
       setIsDisabled(false);
       setInputValue(university);
       setIsCareerSelected(true);
+      setIsDataLoaded(true);
 
       let match = universityList.find((suggestion) =>
         suggestion.name.toLowerCase().startsWith(university.toLowerCase()),
@@ -266,8 +267,6 @@ export default function Simulador() {
 
   useEffect(() => {
     setIsCareerSelected(searchType === "Búsqueda por Universidad y Carrera");
-    setSelectedCareer("");
-    setIsCareerSelected(false);
     setMainCareerLogo("");
     setIsDataLoaded(false);
   }, [searchType]);
@@ -373,6 +372,7 @@ export default function Simulador() {
                         setFilteredCareers={setFilteredCareers}
                         mainCareerLogo={mainCareerLogo}
                         setMainCareerLogo={setMainCareerLogo}
+                        universityDataLoading={universityDataLoading}
                       />
 
                       <Separator className="m-auto my-4 w-full" />

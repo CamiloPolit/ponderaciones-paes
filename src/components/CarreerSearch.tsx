@@ -14,6 +14,7 @@ export default function CareerSearch({
   universityData,
   mainCareerLogo,
   setMainCareerLogo,
+  universityDataLoading,
 }) {
   const [activeCareerType, setActiveCareerType] = useState("Todo");
   const [isInputActive, setIsInputActive] = useState(false);
@@ -94,6 +95,7 @@ export default function CareerSearch({
           setIsCareerSelected={setIsCareerSelected}
           filteredCareers={filteredCareers}
           setFilteredCareers={setFilteredCareers}
+          universityDataLoading={universityDataLoading}
         />
       </div>
     </div>

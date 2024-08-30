@@ -392,37 +392,41 @@ export default function Simulador() {
                         </>
                       )}
 
-                      {isDataLoaded && isCareerSelected && (
-                        <div className="my-5">
-                          <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                            <Badge
-                              variant="outline"
-                              className="h-8 min-w-20 border border-stone-400 bg-green-300"
-                            ></Badge>
-                            <p>=</p>
-                            <p className="text-sm font-medium leading-none text-stone-800">
-                              Debes rendir esta prueba obligatoriamente.
-                            </p>
+                      {isDataLoaded &&
+                        isCareerSelected &&
+                        !careerDataLoading && (
+                          <div className="my-5">
+                            <div className="m-auto my-4 flex w-11/12 items-center gap-3">
+                              <Badge
+                                variant="outline"
+                                className="h-8 min-w-20 border border-stone-400 bg-green-300"
+                              ></Badge>
+                              <p>=</p>
+                              <p className="text-sm font-medium leading-none text-stone-800">
+                                Debes rendir esta prueba obligatoriamente.
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
-                      {areElectivesFilled && isCareerSelected && (
-                        <div className="my-5">
-                          <div className="m-auto flex w-11/12 items-center gap-3">
-                            <Badge
-                              variant="outline"
-                              className="h-8 min-w-20 border border-stone-400 bg-yellow-300"
-                            ></Badge>
-                            <p>=</p>
-                            <p className="text-sm font-medium leading-none text-stone-800">
-                              Puedes escoger cuál rendir, en caso <br /> de
-                              rendir ambas, se considerará <br />
-                              el puntaje máximo.
-                            </p>
+                      {areElectivesFilled &&
+                        isCareerSelected &&
+                        !careerDataLoading && (
+                          <div className="my-5">
+                            <div className="m-auto flex w-11/12 items-center gap-3">
+                              <Badge
+                                variant="outline"
+                                className="h-8 min-w-20 border border-stone-400 bg-yellow-300"
+                              ></Badge>
+                              <p>=</p>
+                              <p className="text-sm font-medium leading-none text-stone-800">
+                                Puedes escoger cuál rendir, en caso <br /> de
+                                rendir ambas, se considerará <br />
+                                el puntaje máximo.
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
                     </div>
                     <SimulationTable
                       labels={labels}

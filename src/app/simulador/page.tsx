@@ -378,7 +378,7 @@ export default function Simulador() {
                       />
 
                       <Separator className="m-auto my-4 w-full" />
-                      {!isLocationUnique && (
+                      {!isLocationUnique && isCareerSelected && (
                         <>
                           <div className="flex items-center justify-center">
                             <p className="px-2 text-[1.15rem] font-semibold">

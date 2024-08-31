@@ -117,25 +117,25 @@ export default function StatisticsPreview({
               />
             </div>
 
-            {filteredCareerData[0]?.mc == null ? (
-              ""
-            ) : (
-              <div className="flex items-center justify-center rounded-lg border border-stone-300 bg-white p-4 shadow-sm">
-                <div className="flex max-w-[200px] flex-col items-center justify-center">
-                  <h3 className="mb-2 text-center text-2xl font-bold">
-                    Puntaje Corte Cupos +MC
-                  </h3>
-                  <p className="mb-5 text-2xl font-semibold">
-                    {filteredCareerData[0]?.puntaje_corte_mujeres}
-                  </p>
-                  <img
-                    src="careerIcons/women_in_stem.png"
-                    alt="Women in STEM"
-                    className=""
-                  />
+            {filteredCareerData[0]?.mc &&
+              filteredCareerData[0]?.puntaje_corte_mujeres <
+                filteredCareerData[0]?.puntaje_corte && (
+                <div className="flex items-center justify-center rounded-lg border border-stone-300 bg-white p-4 shadow-sm">
+                  <div className="flex max-w-[200px] flex-col items-center justify-center">
+                    <h3 className="mb-2 text-center text-2xl font-bold">
+                      Puntaje Corte Cupos +MC
+                    </h3>
+                    <p className="mb-5 text-2xl font-semibold">
+                      {filteredCareerData[0]?.puntaje_corte_mujeres}
+                    </p>
+                    <img
+                      src="careerIcons/women_in_stem.png"
+                      alt="Women in STEM"
+                      className=""
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </section>
 

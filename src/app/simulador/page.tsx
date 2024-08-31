@@ -267,6 +267,8 @@ export default function Simulador() {
 
   useEffect(() => {
     setIsCareerSelected(searchType === "Búsqueda por Universidad y Carrera");
+    searchType !== "Búsqueda por Universidad y Carrera" &&
+      setSelectedCareer("");
     setMainCareerLogo("");
     setIsDataLoaded(false);
   }, [searchType]);

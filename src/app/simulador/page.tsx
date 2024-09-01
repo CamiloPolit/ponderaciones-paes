@@ -25,6 +25,7 @@ import GeneralTable from "@/components/GeneralTable";
 import CareerSimulationPreview from "@/components/CareerSimulationPreview";
 import useFetchUniversityData from "@/hooks/useFetchUniversityData";
 import useFetchCareerData from "@/hooks/useFetchCareerData";
+import CareerFilterSearch from "@/components/CareerFilterSearch";
 
 const labels = [
   "Nem",
@@ -108,6 +109,8 @@ export default function Simulador() {
   const [toastTrigger, setToastTrigger] = useState(0);
 
   const [filteredCareers, setFilteredCareers] = useState([]);
+
+  const [filterSelectedCareer, setFilterSelectedCareer] = useState(false);
 
   const filteredCareerData = useMemo(() => {
     if (!careerData || !careerData.length) {
@@ -266,7 +269,11 @@ export default function Simulador() {
   };
 
   useEffect(() => {
-    setIsCareerSelected(searchType === "Búsqueda por Universidad y Carrera");
+    setIsCareerSelected(
+      searchType === "Búsqueda por Universidad y Carrera" &&
+        selectedCareer !== "",
+    );
+    console.log("Estoy cargando por primera vez");
     searchType !== "Búsqueda por Universidad y Carrera" &&
       setSelectedCareer("");
     setMainCareerLogo("");
@@ -506,6 +513,29 @@ export default function Simulador() {
                       setToastTrigger={setToastTrigger}
                       weightedInputs={weightedInputs}
                       selectedUniversity={selectedUniversity}
+                    />
+                  </div>
+                )}
+
+                {searchType === "Búsqueda por Carrera" && (
+                  <div className="flex flex-col items-center justify-center gap-5 md:flex-row md:gap-10">
+                    <div className="mt-3">
+                      <CareerFilterSearch
+                        filterSelectedCareer={filterSelectedCareer}
+                        setFilterSelectedCareer={setFilterSelectedCareer}
+                        matchedText={matchedText}
+                        setMatchedText={setMatchedText}
+                        inputValue={inputValue}
+                        setInputValue={setInputValue}
+                        imageSrc={imageSrc}
+                        setImageSrc={setImageSrc}
+                      />
+                    </div>
+                    <GeneralTable
+                      labels={labels}
+                      setToastTrigger={setToastTrigger}
+                      weightedInputs={weightedInputs}
+                      selectedUniversity={filterSelectedCareer}
                     />
                   </div>
                 )}

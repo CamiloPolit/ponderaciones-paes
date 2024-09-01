@@ -1,0 +1,46 @@
+import React, { useState } from "react";
+
+export default function CareerFilterSearch({
+  filteredSuggestions,
+  setInputValue,
+  setHighlightedText,
+  setImageSrc,
+  isInputActive,
+  setIsInputActive,
+  setFilterSelectedCareer,
+  setMatchedText,
+  inputValue,
+}) {
+  return (
+    isInputActive &&
+    inputValue && (
+      <div className="absolute z-10 max-h-48 w-full overflow-x-hidden overflow-y-scroll">
+        {filteredSuggestions.map((career) => (
+          <div
+            key={career.nombre_carrera}
+            className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
+            onMouseDown={() => {
+              setInputValue(career.nombre_carrera);
+              setHighlightedText(career.nombre_carrera);
+              setImageSrc(
+                `careerIcons/${career.area_conocimiento.toLowerCase()}.png`,
+              );
+              setIsInputActive(false);
+              setFilterSelectedCareer(true);
+              setMatchedText(career.nombre_carrera);
+            }}
+          >
+            <div className="flex max-h-8 max-w-8 items-center justify-center py-2">
+              <img
+                src={`/careerIcons/${career.area_conocimiento}.png`}
+                alt={`Foto ${career.nombre_carrera}`}
+                draggable="false"
+              />
+            </div>
+            <div className="w-10/12 p-2">{career.nombre_carrera}</div>
+          </div>
+        ))}
+      </div>
+    )
+  );
+}

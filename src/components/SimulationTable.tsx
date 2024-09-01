@@ -78,7 +78,7 @@ export default function SimulationTable({
           return (
             <div key={label} className="flex items-center">
               <div className="flex flex-col items-center justify-center py-2">
-                {label === "Nem" ? (
+                {label === "Nem" && isCareerSelected ? (
                   <NemDialog
                     text="Calcular aquí"
                     onNemChange={(value) => {
@@ -87,7 +87,7 @@ export default function SimulationTable({
                       sessionStorage.setItem(label, value);
                     }}
                   />
-                ) : label === "Ranking" ? (
+                ) : label === "Ranking" && isCareerSelected ? (
                   <span className="mb-[-5px] cursor-pointer text-[0.86rem] font-medium text-blue-300">
                     Estimar aquí
                   </span>

@@ -1,28 +1,27 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { MdBlock } from "react-icons/md";
-import universities from "../app/universities.json";
-import UniversitiesMenu from "./UniversitiesMenu";
+import CareerFilterMenu from "./CareerFilterMenu";
+import useFetchCareerSuggestions from "@/hooks/useFetchCareerSuggestions";
+import debounce from "lodash.debounce";
 
-const suggestions = universities.Universities;
-
-export default function Page({
-  selectedUniversity,
-  setSelectedUniversity,
+export default function KnowledgeAreaSearch({
+  filterSelectedCareer,
+  setFilterSelectedCareer,
   matchedText,
   setMatchedText,
-  isDisabled,
-  setIsDisabled,
   inputValue,
   setInputValue,
   imageSrc,
   setImageSrc,
-  setIsCareerSelected,
 }) {
   const [highlightedText, setHighlightedText] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [isInputActive, setIsInputActive] = useState(false);
   const containerRef = useRef(null);
+  const cache = useRef({});
+
+  const { suggestions, fetchCareerSuggestions } = useFetchCareerSuggestions();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -40,39 +39,56 @@ export default function Page({
     };
   }, []);
 
+  const debouncedFetchSuggestions = useCallback(
+    debounce(async (value) => {
+      if (cache.current[value]) {
+        setFilteredSuggestions(cache.current[value]);
+      } else {
+        const fetchedSuggestions = await fetchCareerSuggestions(value);
+        cache.current[value] = fetchedSuggestions;
+        setFilteredSuggestions(fetchedSuggestions);
+      }
+    }, 400),
+    [fetchCareerSuggestions],
+  );
+
   const handleChange = (e) => {
     const value = e.target.value;
+    setInputValue(value);
+    if (value) {
+      debouncedFetchSuggestions(value);
+    } else {
+      setFilteredSuggestions([]);
+      setMatchedText("");
+      setImageSrc("");
+    }
 
-    let match = suggestions.find((suggestion) =>
-      suggestion.name.toLowerCase().startsWith(value.toLowerCase()),
+    const match = filteredSuggestions.find((suggestion) =>
+      suggestion.nombre_carrera.toLowerCase().startsWith(value.toLowerCase()),
     );
 
     setImageSrc(
       match
-        ? "/logos/".concat(
-            match.abbreviation?.toLocaleLowerCase().concat(".png"),
+        ? "/careerIcons/".concat(
+            match.area_conocimiento?.toLowerCase().concat(".png"),
           )
         : "",
     );
-    match = match?.name;
-
-    setMatchedText(match);
-    setSelectedUniversity(false);
-    setIsCareerSelected(false);
-    setInputValue(value);
-    setIsDisabled(true);
+    setMatchedText(match ? match.nombre_carrera : "");
+    setFilterSelectedCareer(false);
 
     if (match && value) {
-      const matchModified = value.slice(0).concat(match.slice(value.length));
+      const matchModified = value.concat(
+        match.nombre_carrera.slice(value.length),
+      );
       setHighlightedText(matchModified);
     } else {
       setHighlightedText("");
     }
 
-    if (highlightedText == value && value) {
+    if (highlightedText === value && value) {
       setHighlightedText("");
-      setSelectedUniversity(true);
-      setIsDisabled(false);
+      setFilterSelectedCareer(true);
       setIsInputActive(false);
     }
   };
@@ -82,23 +98,27 @@ export default function Page({
       e.preventDefault();
       setInputValue(matchedText);
       setHighlightedText("");
-      setSelectedUniversity(true);
-      setIsDisabled(false);
+      setFilterSelectedCareer(true);
     }
   };
 
   useEffect(() => {
-    setFilteredSuggestions(
-      suggestions.filter((suggestion) =>
-        suggestion.name.toLowerCase().startsWith(inputValue.toLowerCase()),
-      ),
-    );
-  }, [inputValue]);
+    if (inputValue) {
+      const filtered = suggestions.filter((suggestion) =>
+        suggestion.nombre_carrera
+          .toLowerCase()
+          .startsWith(inputValue.toLowerCase()),
+      );
+      setFilteredSuggestions(filtered);
+    } else {
+      setFilteredSuggestions([]);
+    }
+  }, [suggestions, inputValue]);
 
   return (
     <div className="my-5 flex items-center justify-center">
       <div className="flex h-11 w-11 items-center justify-center">
-        {(highlightedText || selectedUniversity) && (
+        {(highlightedText || filterSelectedCareer) && (
           <img
             className="h-min"
             src={imageSrc}
@@ -106,7 +126,7 @@ export default function Page({
             draggable="false"
           />
         )}
-        {!highlightedText && !selectedUniversity && (
+        {!highlightedText && !filterSelectedCareer && (
           <MdBlock size="40px" className="text-gray-500" />
         )}
       </div>
@@ -117,9 +137,9 @@ export default function Page({
           value={inputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          onFocus={(e) => setIsInputActive(true)}
-          placeholder="Nombre de la universidad"
-          className={`xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/80 sm:w-96 ${isDisabled ? "hover:border-black" : ""}`}
+          onFocus={() => setIsInputActive(true)}
+          placeholder="Nombre de la carrera"
+          className="xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/80 hover:border-black sm:w-96"
         />
         {inputValue && (
           <input
@@ -129,16 +149,17 @@ export default function Page({
             className="xs:text-xl pointer-events-none absolute left-0 top-0 ml-1 w-64 rounded-3xl border-2 border-transparent bg-transparent p-2 text-[1rem] text-black/50 hover:border-black sm:w-96"
           />
         )}
-        <UniversitiesMenu
+
+        <CareerFilterMenu
           filteredSuggestions={filteredSuggestions}
           setInputValue={setInputValue}
           setHighlightedText={setHighlightedText}
           setImageSrc={setImageSrc}
           isInputActive={isInputActive}
           setIsInputActive={setIsInputActive}
-          setIsDisabled={setIsDisabled}
-          setSelectedUniversity={setSelectedUniversity}
+          setFilterSelectedCareer={setFilterSelectedCareer}
           setMatchedText={setMatchedText}
+          inputValue={inputValue}
         />
       </div>
     </div>

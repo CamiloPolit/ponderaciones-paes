@@ -2,16 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import NemDialog from "@/components/NemDialog";
 
-const labelToDataKey = {
-  Nem: "nem",
-  Ranking: "ranking",
-  M1: "m1",
-  M2: "m2",
-  Lectura: "clec",
-  Ciencias: "cien",
-  Historia: "hsco",
-};
-
 export default function GeneralTable({
   labels,
   setToastTrigger,
@@ -89,6 +79,7 @@ export default function GeneralTable({
                 }}
               />
             </div>
+
             <div className="relative mb-[-22px]">
               <Badge
                 variant="outline"

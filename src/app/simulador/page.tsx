@@ -111,6 +111,8 @@ export default function Simulador() {
   const [filteredCareers, setFilteredCareers] = useState([]);
 
   const [filterSelectedCareer, setFilterSelectedCareer] = useState(false);
+  const [careerFilterInputValue, setCareerFilterInputValue] = useState("");
+  const [careerFilterImageSrc, setCareerFilterImageSrc] = useState("");
 
   const filteredCareerData = useMemo(() => {
     if (!careerData || !careerData.length) {
@@ -525,10 +527,10 @@ export default function Simulador() {
                         setFilterSelectedCareer={setFilterSelectedCareer}
                         matchedText={matchedText}
                         setMatchedText={setMatchedText}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
-                        imageSrc={imageSrc}
-                        setImageSrc={setImageSrc}
+                        careerFilterInputValue={careerFilterInputValue}
+                        setCareerFilterInputValue={setCareerFilterInputValue}
+                        careerFilterImageSrc={careerFilterImageSrc}
+                        setCareerFilterImageSrc={setCareerFilterImageSrc}
                       />
                     </div>
                     <GeneralTable

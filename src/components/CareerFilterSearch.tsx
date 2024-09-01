@@ -10,10 +10,10 @@ export default function KnowledgeAreaSearch({
   setFilterSelectedCareer,
   matchedText,
   setMatchedText,
-  inputValue,
-  setInputValue,
-  imageSrc,
-  setImageSrc,
+  careerFilterInputValue,
+  setCareerFilterInputValue,
+  careerFilterImageSrc,
+  setCareerFilterImageSrc,
 }) {
   const [highlightedText, setHighlightedText] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -54,20 +54,20 @@ export default function KnowledgeAreaSearch({
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setInputValue(value);
+    setCareerFilterInputValue(value);
     if (value) {
       debouncedFetchSuggestions(value);
     } else {
       setFilteredSuggestions([]);
       setMatchedText("");
-      setImageSrc("");
+      setCareerFilterImageSrc("");
     }
 
     const match = filteredSuggestions.find((suggestion) =>
       suggestion.nombre_carrera.toLowerCase().startsWith(value.toLowerCase()),
     );
 
-    setImageSrc(
+    setCareerFilterImageSrc(
       match
         ? "/careerIcons/".concat(
             match.area_conocimiento?.toLowerCase().concat(".png"),
@@ -96,24 +96,24 @@ export default function KnowledgeAreaSearch({
   const handleKeyDown = (e) => {
     if ((e.key === "Tab" || e.key === "Enter") && highlightedText) {
       e.preventDefault();
-      setInputValue(matchedText);
+      setCareerFilterInputValue(matchedText);
       setHighlightedText("");
       setFilterSelectedCareer(true);
     }
   };
 
   useEffect(() => {
-    if (inputValue) {
+    if (careerFilterInputValue) {
       const filtered = suggestions.filter((suggestion) =>
         suggestion.nombre_carrera
           .toLowerCase()
-          .startsWith(inputValue.toLowerCase()),
+          .startsWith(careerFilterInputValue.toLowerCase()),
       );
       setFilteredSuggestions(filtered);
     } else {
       setFilteredSuggestions([]);
     }
-  }, [suggestions, inputValue]);
+  }, [suggestions, careerFilterInputValue]);
 
   return (
     <div className="my-5 flex items-center justify-center">
@@ -121,7 +121,7 @@ export default function KnowledgeAreaSearch({
         {(highlightedText || filterSelectedCareer) && (
           <img
             className="h-min"
-            src={imageSrc}
+            src={careerFilterImageSrc}
             alt="Logo Universidad"
             draggable="false"
           />
@@ -134,14 +134,14 @@ export default function KnowledgeAreaSearch({
       <div ref={containerRef} className="relative">
         <input
           type="text"
-          value={inputValue}
+          value={careerFilterInputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           onFocus={() => setIsInputActive(true)}
           placeholder="Nombre de la carrera"
           className="xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/80 hover:border-black sm:w-96"
         />
-        {inputValue && (
+        {careerFilterInputValue && (
           <input
             type="text"
             value={highlightedText}
@@ -152,14 +152,14 @@ export default function KnowledgeAreaSearch({
 
         <CareerFilterMenu
           filteredSuggestions={filteredSuggestions}
-          setInputValue={setInputValue}
+          setCareerFilterInputValue={setCareerFilterInputValue}
           setHighlightedText={setHighlightedText}
-          setImageSrc={setImageSrc}
+          setCareerFilterImageSrc={setCareerFilterImageSrc}
           isInputActive={isInputActive}
           setIsInputActive={setIsInputActive}
           setFilterSelectedCareer={setFilterSelectedCareer}
           setMatchedText={setMatchedText}
-          inputValue={inputValue}
+          careerFilterInputValue={careerFilterInputValue}
         />
       </div>
     </div>

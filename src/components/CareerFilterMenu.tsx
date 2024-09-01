@@ -2,27 +2,27 @@ import React, { useState } from "react";
 
 export default function CareerFilterSearch({
   filteredSuggestions,
-  setInputValue,
+  setCareerFilterInputValue,
   setHighlightedText,
-  setImageSrc,
+  setCareerFilterImageSrc,
   isInputActive,
   setIsInputActive,
   setFilterSelectedCareer,
   setMatchedText,
-  inputValue,
+  careerFilterInputValue,
 }) {
   return (
     isInputActive &&
-    inputValue && (
+    careerFilterInputValue && (
       <div className="absolute z-10 max-h-48 w-full overflow-x-hidden overflow-y-scroll">
         {filteredSuggestions.map((career) => (
           <div
             key={career.nombre_carrera}
             className="flex cursor-pointer items-center justify-around bg-gray-50 hover:bg-gray-200"
             onMouseDown={() => {
-              setInputValue(career.nombre_carrera);
+              setCareerFilterInputValue(career.nombre_carrera);
               setHighlightedText(career.nombre_carrera);
-              setImageSrc(
+              setCareerFilterImageSrc(
                 `careerIcons/${career.area_conocimiento.toLowerCase()}.png`,
               );
               setIsInputActive(false);

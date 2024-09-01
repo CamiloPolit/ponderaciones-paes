@@ -19,6 +19,7 @@ export default function CareerSimulationCard({
   setCareerData,
   universityData,
   setPosition,
+  location,
 }) {
   let totalWeightedScoreAux = 0;
   let electiveMaxScore = 0;
@@ -126,8 +127,11 @@ export default function CareerSimulationCard({
             <h3 className="w-full text-center text-xl font-semibold leading-6 md:text-start">
               {career}
             </h3>
-            <p className="mb-2 w-full text-center leading-4 text-stone-700 md:text-start">
-              {university}
+            <p className="w-full text-center leading-4 text-stone-700 md:text-start">
+              {`${university}`}
+            </p>
+            <p className="mb-2 w-full text-center text-[0.85rem] leading-4 text-stone-700 md:text-start">
+              {`${location}`}
             </p>
 
             {nem && (

@@ -100,6 +100,7 @@ export default function CareerSimulationPreview({
                 setCareerData={setCareerData}
                 universityData={universityData}
                 setPosition={setPosition}
+                location={career.nomb_sede}
               />
             ))}
           </div>

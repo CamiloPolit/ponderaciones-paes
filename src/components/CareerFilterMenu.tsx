@@ -23,7 +23,7 @@ export default function CareerFilterSearch({
               setCareerFilterInputValue(career.nombre_carrera);
               setHighlightedText(career.nombre_carrera);
               setCareerFilterImageSrc(
-                `careerIcons/${career.area_conocimiento.toLowerCase()}.png`,
+                `./careerIcons/${career.area_conocimiento.toLowerCase()}.png`,
               );
               setIsInputActive(false);
               setFilterSelectedCareer(true);

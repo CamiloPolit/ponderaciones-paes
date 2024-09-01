@@ -108,7 +108,7 @@ export default function CareerSimulationCard({
 
   return (
     <div
-      className="bg-background flex cursor-pointer overflow-hidden rounded-lg shadow-md duration-75 hover:scale-[1.007]"
+      className={`bg-background flex cursor-pointer overflow-hidden rounded-lg border ${totalWeightedScoreAux.toFixed(2) > Number(last_score).toFixed(2) ? "border-green-500" : "border-red-500"} shadow-sm duration-75 hover:scale-[1.007]`}
       onClick={handleClick}
     >
       <div className="bg-muted hidden w-32 items-center justify-center md:flex md:w-40">

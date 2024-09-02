@@ -28,6 +28,7 @@ import useFetchCareerData from "@/hooks/useFetchCareerData";
 import CareerFilterSearch from "@/components/CareerFilterSearch";
 import useFetchCareerFilter from "@/hooks/useFetchCareerFilter";
 import PersistentBadges from "@/components/PersistentBadges";
+import useFetchCareerPlace from "@/hooks/useFetchCareerPlace";
 
 const labels = [
   "Nem",
@@ -72,6 +73,13 @@ export default function Simulador() {
     careerSearchError,
     fetchCareerSearchData,
   } = useFetchCareerFilter();
+  const {
+    careerPlace,
+    setCareerPlace,
+    placeLoading,
+    placeError,
+    fetchCareerPlace,
+  } = useFetchCareerPlace();
 
   const { toast } = useToast();
   const { width, height } = useWindowSize();
@@ -219,7 +227,7 @@ export default function Simulador() {
     }
   }, []);
 
-  const handleSimulation = () => {
+  const handleSimulation = async () => {
     let isValid = true;
     let totalWeightedScoreAux = 0;
     let electiveMaxScore = 0;
@@ -597,6 +605,9 @@ export default function Simulador() {
           setShowStatistics={setShowStatistics}
           filteredCareerData={filteredCareerData}
           setDisplayConfetti={setDisplayConfetti}
+          careerPlace={careerPlace}
+          placeLoading={placeLoading}
+          fetchCareerPlace={fetchCareerPlace}
         />
       )}
 

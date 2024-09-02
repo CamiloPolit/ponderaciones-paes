@@ -21,7 +21,8 @@ export default function KnowledgeAreaSearch({
   const containerRef = useRef(null);
   const cache = useRef({});
 
-  const { suggestions, fetchCareerSuggestions } = useFetchCareerSuggestions();
+  const { suggestions, loading, error, fetchCareerSuggestions } =
+    useFetchCareerSuggestions();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -160,6 +161,7 @@ export default function KnowledgeAreaSearch({
           setFilterSelectedCareer={setFilterSelectedCareer}
           setMatchedText={setMatchedText}
           careerFilterInputValue={careerFilterInputValue}
+          loading={loading}
         />
       </div>
     </div>

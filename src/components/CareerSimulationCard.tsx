@@ -1,5 +1,6 @@
 import React from "react";
 import { Badge } from "@/components/ui/badge";
+import getUniversityAbbreviation from "@/utils/getUniversityAbbreviation";
 
 export default function CareerSimulationCard({
   university,
@@ -20,9 +21,12 @@ export default function CareerSimulationCard({
   universityData,
   setPosition,
   location,
+  searchType,
 }) {
   let totalWeightedScoreAux = 0;
   let electiveMaxScore = 0;
+
+  console.log(`/logos/${getUniversityAbbreviation(university)?.toLowerCase()}`);
 
   const weights = {
     Nem: nem,
@@ -103,7 +107,6 @@ export default function CareerSimulationCard({
     setPosition(filteredData[0].nomb_sede);
     setShowCareerInfoCards(false);
     setShowStatistics(true);
-    console.log(filteredData);
   };
 
   return (
@@ -113,25 +116,26 @@ export default function CareerSimulationCard({
     >
       <div className="bg-muted hidden w-32 items-center justify-center md:flex md:w-40">
         <img
-          src={`careerIcons/${careerLogo}.png`}
-          width={50}
-          height={50}
+          src={
+            searchType == "Búsqueda por Universidad"
+              ? `/careerIcons/${careerLogo}.png`
+              : `/logos/${getUniversityAbbreviation(university)?.toLowerCase()}.png`
+          }
           alt="University Logo"
-          className="object-contain"
-          style={{ aspectRatio: "50/50", objectFit: "cover" }}
+          className="max-w-[40px] object-contain"
         />
       </div>
       <div className="flex-1 space-y-6 p-4 md:space-y-4 md:p-6">
         <div>
           <div className="mb-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 md:justify-start">
             <h3 className="w-full text-center text-xl font-semibold leading-6 md:text-start">
-              {career}
+              {searchType == "Búsqueda por Universidad" ? career : university}
             </h3>
             <p className="w-full text-center leading-4 text-stone-700 md:text-start">
-              {`${university}`}
+              {searchType == "Búsqueda por Universidad" ? university : location}
             </p>
             <p className="mb-2 w-full text-center text-[0.85rem] leading-4 text-stone-700 md:text-start">
-              {`${location}`}
+              {searchType == "Búsqueda por Universidad" ? location : career}
             </p>
 
             {nem && (

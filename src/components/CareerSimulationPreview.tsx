@@ -8,6 +8,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import CareerSimulationCard from "./CareerSimulationCard";
 
+import useScrollPosition from "@/hooks/useScrollPosition";
+import { useEffect } from "react";
+
 export default function CareerSimulationPreview({
   universityData,
   areElectivesFilled,
@@ -17,11 +20,24 @@ export default function CareerSimulationPreview({
   setCareerData,
   setPosition,
   setShowCalculations,
+  searchType,
+  cardsPreviewScrollPosition,
+  setCardsPreviewScrollPosition,
 }) {
+  const scrollPosition = useScrollPosition();
+
   const cienciasValue = sessionStorage.getItem("Ciencias");
   const historiaValue = sessionStorage.getItem("Historia");
 
   setAreElectivesFilled(cienciasValue && historiaValue);
+
+  useEffect(() => {
+    setCardsPreviewScrollPosition(scrollPosition);
+  }, [scrollPosition]);
+
+  useEffect(() => {
+    window.scrollTo(0, cardsPreviewScrollPosition);
+  }, []);
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
@@ -37,14 +53,19 @@ export default function CareerSimulationPreview({
           >
             Volver
           </Button>
+
           <h2 className="text-3xl font-bold">
-            Oferta de Carreras Ofrecidas por la {universityData[0].nomb_inst}
+            {searchType === "Búsqueda por Universidad"
+              ? `Oferta de Carreras Ofrecidas por la ${universityData[0].nomb_inst}`
+              : `Universidades que Ofrecen ${universityData[0].nombre_carrera} en su Oferta de Carreras:`}
           </h2>
-          <p className="text-stone-700">Explora las diferentes carreras</p>
+          {searchType === "Búsqueda por Universidad" && (
+            <p className="text-stone-700">Explora las diferentes carreras</p>
+          )}
           <p className="text-stone-700">
             * Recuerda que las carreras listadas corresponden sólo a las que fue
             posible hacer la simulación en base a los puntajes ingresados en los
-            input.
+            campos de puntajes.
           </p>
         </div>
         <div className="space-y-6">
@@ -82,7 +103,11 @@ export default function CareerSimulationPreview({
           <div className="grid gap-6">
             {universityData.map((career) => (
               <CareerSimulationCard
-                key={career.nombre_carrera}
+                key={
+                  searchType == "Búsqueda por Universidad"
+                    ? career.nombre_carrera
+                    : career.nomb_inst.concat(career.nomb_sede)
+                }
                 university={career.nomb_inst}
                 career={career.nombre_carrera}
                 careerLogo={career.area_conocimiento}
@@ -101,6 +126,7 @@ export default function CareerSimulationPreview({
                 universityData={universityData}
                 setPosition={setPosition}
                 location={career.nomb_sede}
+                searchType={searchType}
               />
             ))}
           </div>

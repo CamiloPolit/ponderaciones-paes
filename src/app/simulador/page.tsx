@@ -27,6 +27,7 @@ import useFetchUniversityData from "@/hooks/useFetchUniversityData";
 import useFetchCareerData from "@/hooks/useFetchCareerData";
 import CareerFilterSearch from "@/components/CareerFilterSearch";
 import useFetchCareerFilter from "@/hooks/useFetchCareerFilter";
+import PersistentBadges from "@/components/PersistentBadges";
 
 const labels = [
   "Nem",
@@ -121,6 +122,11 @@ export default function Simulador() {
   const [careerFilterInputValue, setCareerFilterInputValue] = useState("");
   const [careerFilterImageSrc, setCareerFilterImageSrc] = useState("");
   const [careerFilterData, setCareerFilterData] = useState([]);
+  const [universityLogoFromCareerFilter, setUniversityLogoFromCareerFilter] =
+    useState("");
+
+  const [cardsPreviewScrollPosition, setCardsPreviewScrollPosition] =
+    useState(0);
 
   const filteredCareerData = useMemo(() => {
     if (!careerData || !careerData.length) {
@@ -288,16 +294,16 @@ export default function Simulador() {
   };
 
   useEffect(() => {
-    setIsCareerSelected(
-      searchType === "Búsqueda por Universidad y Carrera" &&
-        selectedCareer !== "",
-    );
-    console.log("Estoy cargando por primera vez");
+    if (searchType !== "Búsqueda por Universidad y Carrera") {
+      setIsCareerSelected(false);
+    }
     searchType !== "Búsqueda por Universidad y Carrera" &&
       setSelectedCareer("");
     setMainCareerLogo("");
     setIsDataLoaded(false);
   }, [searchType]);
+
+  console.log(searchType);
 
   const handleUniversitySimulation = () => {
     let isValid = true;
@@ -492,42 +498,7 @@ export default function Simulador() {
 
                       <Separator className="my-10 w-full" />
 
-                      <div className="my-5">
-                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                          <Badge
-                            variant="outline"
-                            className="h-8 min-w-20 border border-stone-400 bg-green-300"
-                          ></Badge>
-                          <p>=</p>
-                          <p className="text-sm font-medium leading-none text-stone-800">
-                            Debes rendir esta prueba obligatoriamente.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="my-5">
-                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                          <Badge
-                            variant="outline"
-                            className="h-8 min-w-20 border border-stone-400 bg-blue-300"
-                          ></Badge>
-                          <p>=</p>
-                          <p className="text-sm font-medium leading-none text-stone-800">
-                            Obligatoria sólo para algunas carreras.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="my-5">
-                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                          <Badge
-                            variant="outline"
-                            className="h-8 min-w-20 border border-stone-400 bg-yellow-300"
-                          ></Badge>
-                          <p>=</p>
-                          <p className="text-sm font-medium leading-none text-stone-800">
-                            Debes rendir al menos una de estas pruebas.
-                          </p>
-                        </div>
-                      </div>
+                      <PersistentBadges />
                     </div>
                     <GeneralTable
                       labels={labels}
@@ -554,42 +525,7 @@ export default function Simulador() {
 
                       <Separator className="my-10 w-full" />
 
-                      <div className="my-5">
-                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                          <Badge
-                            variant="outline"
-                            className="h-8 min-w-20 border border-stone-400 bg-green-300"
-                          ></Badge>
-                          <p>=</p>
-                          <p className="text-sm font-medium leading-none text-stone-800">
-                            Debes rendir esta prueba obligatoriamente.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="my-5">
-                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                          <Badge
-                            variant="outline"
-                            className="h-8 min-w-20 border border-stone-400 bg-blue-300"
-                          ></Badge>
-                          <p>=</p>
-                          <p className="text-sm font-medium leading-none text-stone-800">
-                            Obligatoria sólo para algunas carreras.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="my-5">
-                        <div className="m-auto my-4 flex w-11/12 items-center gap-3">
-                          <Badge
-                            variant="outline"
-                            className="h-8 min-w-20 border border-stone-400 bg-yellow-300"
-                          ></Badge>
-                          <p>=</p>
-                          <p className="text-sm font-medium leading-none text-stone-800">
-                            Debes rendir al menos una de estas pruebas.
-                          </p>
-                        </div>
-                      </div>
+                      <PersistentBadges />
                     </div>
 
                     <GeneralTable
@@ -620,8 +556,13 @@ export default function Simulador() {
                 ? handleSimulation
                 : handleUniversitySimulation
             }
-            disabled={activeTab === "Opciones avanzadas"}
-            className={`my-2 w-1/3 rounded-md ${activeTab === "Simulador" ? "bg-stone-950 text-white hover:bg-stone-900" : "disabled:cursor-default disabled:bg-transparent disabled:text-transparent"} p-3 text-sm font-medium leading-none`}
+            disabled={
+              (careerSearchLoading ||
+                universityDataLoading ||
+                careerDataLoading) &&
+              activeTab === "Simulador"
+            }
+            className={`my-2 w-1/3 rounded-md disabled:cursor-not-allowed disabled:bg-stone-600 ${activeTab === "Simulador" ? "bg-stone-950 text-white hover:bg-stone-900" : "cursor-default bg-transparent text-transparent"} p-3 text-sm font-medium leading-none`}
           >
             Hacer Simulación
           </button>
@@ -642,6 +583,9 @@ export default function Simulador() {
           setCareerData={setCareerData}
           setPosition={setPosition}
           setShowCalculations={setShowCalculations}
+          searchType={searchType}
+          cardsPreviewScrollPosition={cardsPreviewScrollPosition}
+          setCardsPreviewScrollPosition={setCardsPreviewScrollPosition}
         />
       )}
 

@@ -68,7 +68,9 @@ export default function CareersMenu({
             </div>
           </div>
           {universityDataLoading ? (
-            <div className="w-full bg-gray-50 text-center">Cargando...</div>
+            <div className="w-full bg-gray-50 py-2 text-center">
+              Cargando...
+            </div>
           ) : (
             filteredCareers.map((career) => (
               <div

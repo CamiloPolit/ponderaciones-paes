@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,9 +8,8 @@ import {
   DropdownMenuRadioItem,
 } from "@/components/ui/dropdown-menu";
 import CareerSimulationCard from "./CareerSimulationCard";
-
 import useScrollPosition from "@/hooks/useScrollPosition";
-import { useEffect } from "react";
+import CareersDropMenuFilter from "./CareersDropMenuFilter";
 
 export default function CareerSimulationPreview({
   universityData,
@@ -25,6 +25,8 @@ export default function CareerSimulationPreview({
   setCardsPreviewScrollPosition,
 }) {
   const scrollPosition = useScrollPosition();
+  const [selectedFilter, setSelectedFilter] = useState("Todo");
+  const [filteredData, setFilteredData] = useState(universityData);
 
   const cienciasValue = sessionStorage.getItem("Ciencias");
   const historiaValue = sessionStorage.getItem("Historia");
@@ -38,6 +40,22 @@ export default function CareerSimulationPreview({
   useEffect(() => {
     window.scrollTo(0, cardsPreviewScrollPosition);
   }, []);
+
+  useEffect(() => {
+    if (selectedFilter === "Todo") {
+      setFilteredData(universityData);
+    } else {
+      setFilteredData(
+        universityData.filter(
+          (universidad) => universidad.area_conocimiento === selectedFilter,
+        ),
+      );
+    }
+  }, [selectedFilter, universityData]);
+
+  const handleFilterClick = (filter) => {
+    setSelectedFilter(filter);
+  };
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:px-6">
@@ -69,43 +87,74 @@ export default function CareerSimulationPreview({
           </p>
         </div>
         <div className="space-y-6">
-          <div className="mb-4 flex items-center justify-between">
-            <div className="space-x-4">
-              <Button variant="outline">Tecnología</Button>
-              <Button variant="outline">Salud</Button>
-              <Button variant="outline">Humanista</Button>
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-4 md:justify-between">
+            <Button
+              variant={selectedFilter === "Todo" ? "default" : "outline"}
+              onClick={() => handleFilterClick("Todo")}
+            >
+              Todo
+            </Button>
+            <Button
+              variant={selectedFilter === "Tecnología" ? "default" : "outline"}
+              onClick={() => handleFilterClick("Tecnología")}
+            >
+              Tecnología
+            </Button>
+            <Button
+              variant={selectedFilter === "Salud" ? "default" : "outline"}
+              onClick={() => handleFilterClick("Salud")}
+            >
+              Salud
+            </Button>
+            <Button
+              variant={
+                selectedFilter === "Ciencias Sociales" ? "default" : "outline"
+              }
+              onClick={() => handleFilterClick("Ciencias Sociales")}
+            >
+              Cs. Sociales
+            </Button>
+            <Button
+              variant={
+                selectedFilter === "Ciencias Básicas" ? "default" : "outline"
+              }
+              onClick={() => handleFilterClick("Ciencias Básicas")}
+            >
+              Cs. Básicas
+            </Button>
+            <Button
+              variant={selectedFilter === "Educación" ? "default" : "outline"}
+              onClick={() => handleFilterClick("Educación")}
+            >
+              Educación
+            </Button>
+            <Button
+              variant={selectedFilter === "Humanidades" ? "default" : "outline"}
+              onClick={() => handleFilterClick("Humanidades")}
+            >
+              Humanidades
+            </Button>
+            <Button
+              variant={
+                selectedFilter === "Agropecuaria" ? "default" : "outline"
+              }
+              onClick={() => handleFilterClick("Agropecuaria")}
+            >
+              Agropecuaria
+            </Button>
+            <div className="hidden md:block">
+              <CareersDropMenuFilter />
             </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="shrink-0">
-                  <ArrowUpDownIcon className="mr-2 h-4 w-4" />
-                  Ordenar por
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-[200px]" align="end">
-                <DropdownMenuRadioGroup value="featured">
-                  <DropdownMenuRadioItem value="featured">
-                    Destacado
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="Newest">
-                    Más nuevo
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="low">
-                    Puntaje: Bajo a Alto
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="high">
-                    Puntaje: Alto a Bajo
-                  </DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          </div>
+          <div className="flex justify-end md:hidden">
+            <CareersDropMenuFilter />
           </div>
           <div className="grid gap-6">
-            {universityData.map((career) => (
+            {filteredData.map((career) => (
               <CareerSimulationCard
                 key={
-                  searchType == "Búsqueda por Universidad"
-                    ? career.nombre_carrera
+                  searchType === "Búsqueda por Universidad"
+                    ? career.nombre_carrera.concat(career.nomb_sede)
                     : career.nomb_inst.concat(career.nomb_sede)
                 }
                 university={career.nomb_inst}
@@ -133,27 +182,5 @@ export default function CareerSimulationPreview({
         </div>
       </div>
     </div>
-  );
-}
-
-function ArrowUpDownIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m21 16-4 4-4-4" />
-      <path d="M17 20V4" />
-      <path d="m3 8 4-4 4 4" />
-      <path d="M7 4v16" />
-    </svg>
   );
 }

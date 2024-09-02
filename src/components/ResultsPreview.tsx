@@ -57,7 +57,7 @@ export default function ResultsPreview({
                   ? "Cargando..."
                   : careerPlace === 0
                     ? "1"
-                    : careerPlace}
+                    : `${Number(careerPlace) + 1}/${filteredCareerData[0]?.vac_1er}`}
               </div>
             </div>
           ) : null}

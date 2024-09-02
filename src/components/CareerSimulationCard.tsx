@@ -26,8 +26,6 @@ export default function CareerSimulationCard({
   let totalWeightedScoreAux = 0;
   let electiveMaxScore = 0;
 
-  console.log(`/logos/${getUniversityAbbreviation(university)?.toLowerCase()}`);
-
   const weights = {
     Nem: nem,
     Ranking: ranking,
@@ -101,7 +99,6 @@ export default function CareerSimulationCard({
     const filteredData = universityData.filter(
       (data) => data.nomb_inst === university && data.nombre_carrera === career,
     );
-    console.log(filteredData);
 
     setCareerData(filteredData);
     setPosition(filteredData[0].nomb_sede);

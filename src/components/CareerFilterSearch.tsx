@@ -70,9 +70,7 @@ export default function KnowledgeAreaSearch({
 
     setCareerFilterImageSrc(
       match
-        ? "/careerIcons/".concat(
-            match.area_conocimiento?.toLowerCase().concat(".png"),
-          )
+        ? "/careerIcons/".concat(match.area_conocimiento.concat(".png"))
         : "",
     );
     setMatchedText(match ? match.nombre_carrera : "");
@@ -121,7 +119,7 @@ export default function KnowledgeAreaSearch({
       <div className="flex h-11 w-11 items-center justify-center">
         {(highlightedText || filterSelectedCareer) && (
           <img
-            className="h-min"
+            className="max-w-9 object-contain"
             src={careerFilterImageSrc}
             alt="Logo Universidad"
             draggable="false"

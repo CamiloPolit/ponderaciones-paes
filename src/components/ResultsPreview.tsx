@@ -53,7 +53,11 @@ export default function ResultsPreview({
                 Posición en la Lista:
               </div>
               <div className="text-3xl font-bold">
-                {placeLoading ? "Cargando..." : careerPlace}
+                {placeLoading
+                  ? "Cargando..."
+                  : careerPlace === 0
+                    ? "1"
+                    : careerPlace}
               </div>
             </div>
           ) : null}

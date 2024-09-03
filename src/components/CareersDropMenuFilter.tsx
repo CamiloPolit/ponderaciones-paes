@@ -8,7 +8,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-export default function CareersDropMenuFilter() {
+export default function CareersDropMenuFilter({
+  selectedFilter,
+  onFilterChange,
+}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -18,10 +21,10 @@ export default function CareersDropMenuFilter() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[200px]" align="end">
-        <DropdownMenuRadioGroup value="featured">
-          <DropdownMenuRadioItem value="featured">
-            Destacado
-          </DropdownMenuRadioItem>
+        <DropdownMenuRadioGroup
+          value={selectedFilter}
+          onValueChange={onFilterChange}
+        >
           <DropdownMenuRadioItem value="low">
             Puntaje: Bajo a Alto
           </DropdownMenuRadioItem>

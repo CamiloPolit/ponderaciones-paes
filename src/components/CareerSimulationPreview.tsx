@@ -27,6 +27,7 @@ export default function CareerSimulationPreview({
 }) {
   const scrollPosition = useScrollPosition();
   const [selectedFilter, setSelectedFilter] = useState("Todo");
+  const [sortOrder, setSortOrder] = useState("high");
   const [filteredData, setFilteredData] = useState(universityData);
 
   const cienciasValue = sessionStorage.getItem("Ciencias");
@@ -43,19 +44,29 @@ export default function CareerSimulationPreview({
   }, []);
 
   useEffect(() => {
-    if (selectedFilter === "Todo") {
-      setFilteredData(universityData);
-    } else {
-      setFilteredData(
-        universityData.filter(
-          (universidad) => universidad.area_conocimiento === selectedFilter,
-        ),
+    let filtered = universityData;
+
+    if (selectedFilter !== "Todo") {
+      filtered = filtered.filter(
+        (universidad) => universidad.area_conocimiento === selectedFilter,
       );
     }
-  }, [selectedFilter, universityData]);
+
+    if (sortOrder === "high") {
+      filtered = filtered.sort((a, b) => a.puntaje_corte - b.puntaje_corte);
+    } else if (sortOrder === "low") {
+      filtered = filtered.sort((a, b) => b.puntaje_corte - a.puntaje_corte);
+    }
+
+    setFilteredData(filtered);
+  }, [selectedFilter, sortOrder, universityData]);
 
   const handleFilterClick = (filter) => {
     setSelectedFilter(filter);
+  };
+
+  const handleSortChange = (value) => {
+    setSortOrder(value);
   };
 
   return (
@@ -90,7 +101,9 @@ export default function CareerSimulationPreview({
         <div className="space-y-6">
           <div className="mb-4 flex flex-wrap items-center justify-center gap-4 md:justify-between">
             <div
-              className={`${searchType === "Búsqueda por Carrera" ? "hidden" : ""} flex flex-wrap items-center justify-center gap-4`}
+              className={`${
+                searchType === "Búsqueda por Carrera" ? "hidden" : ""
+              } flex flex-wrap items-center justify-center gap-4`}
             >
               <CareersFilters
                 selectedFilter={selectedFilter}
@@ -99,11 +112,17 @@ export default function CareerSimulationPreview({
             </div>
 
             <div className="hidden md:block">
-              <CareersDropMenuFilter />
+              <CareersDropMenuFilter
+                selectedFilter={sortOrder}
+                onFilterChange={handleSortChange}
+              />
             </div>
           </div>
           <div className="flex justify-end md:hidden">
-            <CareersDropMenuFilter />
+            <CareersDropMenuFilter
+              selectedFilter={sortOrder}
+              onFilterChange={handleSortChange}
+            />
           </div>
           <div className="grid gap-6">
             {filteredData.map((career) => (

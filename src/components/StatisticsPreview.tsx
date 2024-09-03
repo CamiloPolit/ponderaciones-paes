@@ -11,6 +11,8 @@ const UniversityMap = dynamic(() => import("@/components/UniversityMap"), {
   loading: () => <p>Loading...</p>,
 });
 
+import getUniversityAbbreviation from "@/utils/getUniversityAbbreviation";
+
 export default function StatisticsPreview({
   setShowStatistics,
   setShowSimulation,
@@ -205,7 +207,7 @@ export default function StatisticsPreview({
               acre_inst_desde_hasta={
                 filteredCareerData[0].acre_inst_desde_hasta
               }
-              imageSrc={imageSrc}
+              imageSrc={`/logos/${getUniversityAbbreviation(filteredCareerData[0].nomb_inst)?.toLocaleLowerCase()}.png`}
             />
           </div>
         </section>

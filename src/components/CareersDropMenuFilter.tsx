@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 export default function CareersDropMenuFilter({
   selectedFilter,
-  onFilterChange,
+  setSelectedFilter,
 }) {
   return (
     <DropdownMenu>
@@ -23,7 +23,7 @@ export default function CareersDropMenuFilter({
       <DropdownMenuContent className="w-[200px]" align="end">
         <DropdownMenuRadioGroup
           value={selectedFilter}
-          onValueChange={onFilterChange}
+          onValueChange={setSelectedFilter}
         >
           <DropdownMenuRadioItem value="low">
             Puntaje: Bajo a Alto

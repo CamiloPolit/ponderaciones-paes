@@ -52,21 +52,11 @@ export default function CareerSimulationPreview({
       );
     }
 
-    if (sortOrder === "high") {
-      filtered = filtered.sort((a, b) => a.puntaje_corte - b.puntaje_corte);
-    } else if (sortOrder === "low") {
-      filtered = filtered.sort((a, b) => b.puntaje_corte - a.puntaje_corte);
-    }
-
     setFilteredData(filtered);
-  }, [selectedFilter, sortOrder, universityData]);
+  }, [selectedFilter, universityData]);
 
   const handleFilterClick = (filter) => {
     setSelectedFilter(filter);
-  };
-
-  const handleSortChange = (value) => {
-    setSortOrder(value);
   };
 
   return (
@@ -114,18 +104,21 @@ export default function CareerSimulationPreview({
             <div className="hidden md:block">
               <CareersDropMenuFilter
                 selectedFilter={sortOrder}
-                onFilterChange={handleSortChange}
+                setSelectedFilter={setSortOrder}
               />
             </div>
           </div>
           <div className="flex justify-end md:hidden">
             <CareersDropMenuFilter
               selectedFilter={sortOrder}
-              onFilterChange={handleSortChange}
+              setSelectedFilter={setSortOrder}
             />
           </div>
           <div className="grid gap-6">
-            {filteredData.map((career) => (
+            {(sortOrder === "high"
+              ? filteredData.slice().reverse()
+              : filteredData
+            ).map((career) => (
               <CareerSimulationCard
                 key={
                   searchType === "Búsqueda por Universidad"

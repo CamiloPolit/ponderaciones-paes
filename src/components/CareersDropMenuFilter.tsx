@@ -26,10 +26,10 @@ export default function CareersDropMenuFilter({
           onValueChange={setSelectedFilter}
         >
           <DropdownMenuRadioItem value="low">
-            Puntaje: Bajo a Alto
+            Puntaje: Alto a Bajo
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="high">
-            Puntaje: Alto a Bajo
+            Puntaje: Bajo a Alto
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>

@@ -27,7 +27,7 @@ export default function CareerSimulationPreview({
 }) {
   const scrollPosition = useScrollPosition();
   const [selectedFilter, setSelectedFilter] = useState("Todo");
-  const [sortOrder, setSortOrder] = useState("high");
+  const [sortOrder, setSortOrder] = useState("low");
   const [filteredData, setFilteredData] = useState(universityData);
 
   const cienciasValue = sessionStorage.getItem("Ciencias");
@@ -115,9 +115,18 @@ export default function CareerSimulationPreview({
             />
           </div>
           <div className="grid gap-6">
-            {(sortOrder === "high"
+            {(searchType === "Búsqueda por Carrera" && sortOrder === "high"
               ? filteredData.slice().reverse()
-              : filteredData
+              : searchType === "Búsqueda por Carrera" && sortOrder === "low"
+                ? filteredData
+                : searchType === "Búsqueda por Universidad" &&
+                    sortOrder === "high"
+                  ? filteredData
+                      .slice()
+                      .sort((a, b) => a.puntaje_corte - b.puntaje_corte)
+                  : filteredData
+                      .slice()
+                      .sort((a, b) => b.puntaje_corte - a.puntaje_corte)
             ).map((career) => (
               <CareerSimulationCard
                 key={

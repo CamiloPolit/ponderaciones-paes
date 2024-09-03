@@ -17,7 +17,7 @@ export default function OptionsPreview({
         </h1>
         <OptionRow
           filter_type="Tipo de uso de la página"
-          options={["Simulador", "Mostrar sólo estadísticas"]}
+          options={["Simulador", "Estadísticas (Pronto)"]}
           optionSelected={useType}
           setOptionSelected={setUseType}
         />
@@ -27,7 +27,6 @@ export default function OptionsPreview({
             "Búsqueda por Universidad y Carrera",
             "Búsqueda por Universidad",
             "Búsqueda por Carrera",
-            "Búsqueda por Área de Conocimiento",
           ]}
           optionSelected={searchType}
           setOptionSelected={setSearchType}

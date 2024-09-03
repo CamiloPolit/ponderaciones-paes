@@ -15,6 +15,8 @@ export default function CareerSearch({
   mainCareerLogo,
   setMainCareerLogo,
   universityDataLoading,
+  careerDataError,
+  universityDataError,
 }) {
   const [activeCareerType, setActiveCareerType] = useState("Todo");
   const [isInputActive, setIsInputActive] = useState(false);
@@ -70,11 +72,15 @@ export default function CareerSearch({
           onFocus={(e) => {
             setIsInputActive(true);
             setActiveCareerType("Todo");
-            setFilteredCareers(universityData);
+            careerDataError ||
+              universityDataError ||
+              setFilteredCareers(universityData);
           }}
           onChange={(e) => {
             setSelectedCareer(e.target.value);
-            setFilteredCareers(universityData);
+            careerDataError ||
+              universityDataError ||
+              setFilteredCareers(universityData);
           }}
           className={`xs:text-xl ml-1 w-64 rounded-xl border-2 p-2 text-[1rem] text-black/85 sm:w-96 ${
             isDisabled
@@ -96,6 +102,8 @@ export default function CareerSearch({
           filteredCareers={filteredCareers}
           setFilteredCareers={setFilteredCareers}
           universityDataLoading={universityDataLoading}
+          careerDataError={careerDataError}
+          universityDataError={universityDataError}
         />
       </div>
     </div>

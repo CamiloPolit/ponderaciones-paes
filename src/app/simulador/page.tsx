@@ -150,15 +150,15 @@ export default function Simulador() {
 
     if (selectedUniversity && selectedCareer) {
       fetchCareerData(inputValue, selectedCareer).then((data) => {
-        setCareerData(data);
+        careerDataError || universityDataError || setCareerData(data);
 
         sessionStorage.getItem("Career") &&
           setMainCareerLogo(data[0].area_conocimiento);
 
         sessionStorage.getItem("Career") &&
           fetchUniversityData(inputValue, searchType).then((data) => {
-            setUniversityData(data);
-            setFilteredCareers(data);
+            careerDataError || (universityDataError && setUniversityData(data));
+            careerDataError || universityDataError || setFilteredCareers(data);
           });
 
         const newLocations = data.map((item) => item.nomb_sede);
@@ -174,12 +174,14 @@ export default function Simulador() {
       });
     } else if (selectedUniversity && !selectedCareer) {
       fetchUniversityData(inputValue, searchType).then((data) => {
-        setUniversityData(data);
-        setFilteredCareers(data);
-        setCareerData(data);
+        careerDataError || universityDataError || setUniversityData(data);
+        careerDataError || universityDataError || setFilteredCareers(data);
+        careerDataError || universityDataError || setCareerData(data);
       });
     }
   }, [selectedUniversity, selectedCareer, searchType]);
+
+  console.log(universityDataError, careerDataError);
 
   useEffect(() => {
     if (filterSelectedCareer) {
@@ -417,6 +419,8 @@ export default function Simulador() {
                         mainCareerLogo={mainCareerLogo}
                         setMainCareerLogo={setMainCareerLogo}
                         universityDataLoading={universityDataLoading}
+                        careerDataError={careerDataError}
+                        universityDataError={universityDataError}
                       />
 
                       <Separator className="m-auto my-4 w-full" />

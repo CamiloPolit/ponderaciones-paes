@@ -25,18 +25,24 @@ export default function CareersMenu({
   filteredCareers,
   setFilteredCareers,
   universityDataLoading,
+  careerDataError,
+  universityDataError,
 }) {
   const handleClick = (type) => {
     setActiveCareerType(type);
     setIsInputActive(true);
 
     if (type === "Todo") {
-      setFilteredCareers(universityData);
-    } else {
+      careerDataError ||
+        universityDataError ||
+        setFilteredCareers(universityData);
+    } else if (!careerDataError && !universityDataError) {
       const filteredData = universityData.filter((career) => {
         return categoryMapping[career.area_conocimiento] === type;
       });
-      setFilteredCareers(filteredData);
+      careerDataError ||
+        universityDataError ||
+        setFilteredCareers(filteredData);
     }
   };
 
@@ -57,7 +63,7 @@ export default function CareersMenu({
               ].map((type) => (
                 <p
                   key={type}
-                  className={`cursor-pointer px-2 py-1 ${
+                  className={`cursor-pointer px-2 py-1 ${universityDataLoading ? "pointer-events-none cursor-default" : ""} ${
                     activeCareerType === type ? "text-blue-600" : "text-black"
                   }`}
                   onClick={() => handleClick(type)}
@@ -67,7 +73,7 @@ export default function CareersMenu({
               ))}
             </div>
           </div>
-          {universityDataLoading ? (
+          {universityDataLoading || careerDataError || universityDataError ? (
             <div className="w-full bg-gray-50 py-2 text-center">
               Cargando...
             </div>

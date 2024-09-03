@@ -10,6 +10,7 @@ import {
 import CareerSimulationCard from "./CareerSimulationCard";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import CareersDropMenuFilter from "./CareersDropMenuFilter";
+import CareersFilters from "./CareersFilters";
 
 export default function CareerSimulationPreview({
   universityData,
@@ -88,60 +89,15 @@ export default function CareerSimulationPreview({
         </div>
         <div className="space-y-6">
           <div className="mb-4 flex flex-wrap items-center justify-center gap-4 md:justify-between">
-            <Button
-              variant={selectedFilter === "Todo" ? "default" : "outline"}
-              onClick={() => handleFilterClick("Todo")}
+            <div
+              className={`${searchType === "Búsqueda por Carrera" ? "hidden" : ""} flex flex-wrap items-center justify-center gap-4`}
             >
-              Todo
-            </Button>
-            <Button
-              variant={selectedFilter === "Tecnología" ? "default" : "outline"}
-              onClick={() => handleFilterClick("Tecnología")}
-            >
-              Tecnología
-            </Button>
-            <Button
-              variant={selectedFilter === "Salud" ? "default" : "outline"}
-              onClick={() => handleFilterClick("Salud")}
-            >
-              Salud
-            </Button>
-            <Button
-              variant={
-                selectedFilter === "Ciencias Sociales" ? "default" : "outline"
-              }
-              onClick={() => handleFilterClick("Ciencias Sociales")}
-            >
-              Cs. Sociales
-            </Button>
-            <Button
-              variant={
-                selectedFilter === "Ciencias Básicas" ? "default" : "outline"
-              }
-              onClick={() => handleFilterClick("Ciencias Básicas")}
-            >
-              Cs. Básicas
-            </Button>
-            <Button
-              variant={selectedFilter === "Educación" ? "default" : "outline"}
-              onClick={() => handleFilterClick("Educación")}
-            >
-              Educación
-            </Button>
-            <Button
-              variant={selectedFilter === "Humanidades" ? "default" : "outline"}
-              onClick={() => handleFilterClick("Humanidades")}
-            >
-              Humanidades
-            </Button>
-            <Button
-              variant={
-                selectedFilter === "Agropecuaria" ? "default" : "outline"
-              }
-              onClick={() => handleFilterClick("Agropecuaria")}
-            >
-              Agropecuaria
-            </Button>
+              <CareersFilters
+                selectedFilter={selectedFilter}
+                handleFilterClick={handleFilterClick}
+              />
+            </div>
+
             <div className="hidden md:block">
               <CareersDropMenuFilter />
             </div>
